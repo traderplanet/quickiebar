@@ -28,45 +28,45 @@ Conversion bars like the ones you can make with QuickieBar are starting to appea
 
 QuickieBar features that enable you to create & convert as quickly & effortlessly as possible:
 
-*One-Minute Install: Install and launch your first bar in under 60 seconds
-*Beautiful Color Schemes: Choose from ten attractive color schemes, or create your own!
-*Mobile Friendly: Responsive from the ground up so your bars look great on your phone and browser
-*Awesome Icon Selection: Add over 500 distinctive icons to your calls to action
-*Top or Bottom Placement: Easily toggle whether users see the bar at the top or bottom of your site
-*Conversion Reports: Ongoing reporting to help you uncover customer trends and behavior
-*Conditional Triggering: Choose to show your bar everywhere or on pages, posts, or just your homepage.
-*Advanced Customization: Customize just about anything about the way your bar looks and behaves.
-*Fixed Header Compatibility: QuickieBar is even compatible with most (not all) fixed header themes: simply enable fixed header compatibility mode.
+* One-Minute Install: Install and launch your first bar in under 60 seconds
+* Beautiful Color Schemes: Choose from ten attractive color schemes, or create your own!
+* Mobile Friendly: Responsive from the ground up so your bars look great on your phone and browser
+* Awesome Icon Selection: Add over 500 distinctive icons to your calls to action
+* Top or Bottom Placement: Easily toggle whether users see the bar at the top or bottom of your site
+* Conversion Reports: Ongoing reporting to help you uncover customer trends and behavior
+* Conditional Triggering: Choose to show your bar everywhere or on pages, posts, or just your homepage.
+* Advanced Customization: Customize just about anything about the way your bar looks and behaves.
+* Fixed Header Compatibility: QuickieBar is even compatible with most (not all) fixed header themes: simply enable fixed header compatibility mode.
 
 
 = Bar Options List =
 
 Customize any of the following options for your bars:
 
-*Bar Style
-*Conversion Button Style
-*Opens in New Tab
-*Top or Bottom Placement
-*Text & Button Alignment
-*Sticks to Top of Page
-*Animation
-*Close Button Visibility
-*Bar Text
-*Button Text
-*Bar Background Color
-*Button Background Color
+* Bar Style
+* Conversion Button Style
+* Opens in New Tab
+* Top or Bottom Placement
+* Text & Button Alignment
+* Sticks to Top of Page
+* Animation
+* Close Button Visibility
+* Bar Text
+* Button Text
+* Bar Background Color
+* Button Background Color
 
 
 = Browser Compatibility List =
 
 While ideally QuickieBar would work perfectly in every browser, outdated browsers can cause bars to look unattractive or display inconsistently across different devices. As such, I have opted to not display any bar to users using older browsers, instead of showing them one of lower quality one.
 
-QuickieBar **should**display perfectly in the following browsers. Users viewing your site on browsers not on this list will simply not be shown your conversion bar (they will also not be tracked for Views or Conversions).
+QuickieBar **should** display perfectly in the following browsers. Users viewing your site on browsers not on this list will simply not be shown your conversion bar (they will also not be tracked for Views or Conversions).
 
-Google Chrome 4+
-Firefox 3.5+
-Safari 3.1+
-Internet Explorer 10+
+* Google Chrome 4+
+* Firefox 3.5+
+* Safari 3.1+
+* Internet Explorer 10+
 
 If you notice any inconsistencies in the way your bars display to visitors using these browsers, please let me know [here](http://quickiebar.com/support) and I will do what I can to fix the issue.
 
@@ -74,6 +74,7 @@ If you notice any inconsistencies in the way your bars display to visitors using
 == Installation ==
 
 This section describes how to install the plugin and create your first bar.
+
 1. Upload all files in `quickiebar.zip` to `/wp-content/plugins/quickiebar` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Click on the QuickieBar menu item on the Admin Menu (it will show up between the Comments and Appearance sections)
@@ -84,7 +85,7 @@ This section describes how to install the plugin and create your first bar.
 == Frequently Asked Questions ==
 
 ###My bar is not showing up in the correct place. What should I do?
-or
+or…
 ###QuickieBar is messing up my header. What should I do?
 
 Due to the nature of displaying a bar at a fixed position at the top of a site, some page layouts will inherently not “play nice” with a fixed bar at the top of the page. Either they themselves used fixed positioning to place components on the page (such as a sidebar or header), or they use javascript to lay out certain items vertically on the page. While I have done everything possible to make this plugin as compatible with as many themes as possible, it is impossible to work perfectly with every theme (Twenty Fourteen is a great example, since it uses a fixed positioned header).
