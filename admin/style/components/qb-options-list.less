@@ -1,0 +1,94 @@
+.qb-options-list{
+	padding-top:15px;
+	cursor:default;
+	
+	.option-element{
+		position:relative;float:left;clear:both;
+		margin:25px 0 0 0;
+	}
+	
+	h6,p{
+		margin:0 0 5px 0;
+	}
+	
+	h6{
+	}
+	p{
+		
+	}
+	input[type="text"]{
+		padding:6px 12px;
+		line-height:22px;
+	}
+	ul{
+		position:relative;
+		float:left;
+		clear:none;
+		list-style:none;
+		
+		margin:5px 0 10px 0;
+		
+		li{
+			width:120px;
+			height:30px;
+			.rounded-corners(5px);
+			line-height:30px;
+			text-align:center;
+			margin:0 5px 0 0;
+			
+			position:relative;float:left;clear:none;
+			list-style:none;
+			
+			font-family:@buttonFont;
+			font-size:12px;
+			
+			border:2px solid @dark;
+			color:@dark;
+			opacity:.44;
+			
+			.transition();
+			
+			&.selected{
+				opacity:1;
+			}
+			
+			&:hover:not(.selected){
+				cursor:pointer;
+				opacity:.67;
+			}
+			
+			small{
+				position:absolute;
+				top:15px;
+				left:0;
+				width:100%;
+				font-size:10px;
+				text-align:center;
+			}
+		}
+	}
+	.help-link{
+		display:none;//for now while no help links are added TODO add help links..
+		
+		position:relative;float:left;clear:none;
+		line-height:30px;
+		font-size:16px;
+		
+		margin:5px 10px;
+		
+		i{
+			line-height:30px;
+		}	
+		
+		color:@dark;
+		
+		opacity:.25;
+		
+		.transition();
+		
+		&:hover{
+			cursor:pointer;
+			opacity:.85;
+		}
+	}
+}

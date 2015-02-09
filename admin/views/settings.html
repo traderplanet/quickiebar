@@ -1,0 +1,100 @@
+<div id="quickiebar-settings" class="quickiebar-page">
+	<div class="wrap">
+		
+		<div class="qb-header">
+			<div class="qb-page-icon"></div>
+			<h2 class="qb-header-text">
+				<span class="actionable">Settings &nbsp;<span data-bind="with: notification()"><span class='qb-header-notification' data-bind="css: {'qb-success': status == 'success', 'qb-failure': status == 'failure'}"><i class="fa fa-check" data-bind="visible: status == 'success'"></i><i class="fa fa-exclamation-triangle" data-bind="visible: status == 'failure'"></i>&nbsp;<span data-bind="text: text"></span><i class="fa fa-times-circle" data-bind="click: $root.dismissNotification"></i></span></span></span>
+			</h2>
+		</div>
+		
+		<div class="qb-main-content">
+		
+			<div class="qb-loading-page-placeholder" data-bind="visible: syncingDataWithServer()">
+				<i class="fa fa-spin fa-spinner" style="font-size:100px;text-align:center;width:100%;padding:100px 0;color:#DDD;"></i>
+			</div>
+			
+			<div style="display:none;" class="qb-options-list" data-bind="visible: !syncingDataWithServer(), with: settings">
+				
+				<div class="option-element">
+					<h6>Email Address (Optional)</h6>
+					<p>Where should we plugin updates & news?</p>
+					<input type="text" data-bind="valueUpdate: 'keyup', value: email" />
+					
+					<button style="display:none;" data-bind="click: $root.subscribe, visible: !subscribed() && !$root.subscribing()" class="tiny barGreen">RECEIVE QUICKIEBAR UPDATES & NEWS</button>
+					
+					<span id="subscribe-success-text" style="display:none;font-size:14px;" class="barGreen-color">&nbsp;<i class="fa fa-check-circle-o"></i> &nbsp;You're in! Check your email to confirm.</span>
+					<span style="display:none;font-size:14px;" data-bind="visible: $root.subscribing()">&nbsp;<i class="fa fa-spin fa-spinner"></i> &nbsp;Subscribing...</span>
+				</div>
+				
+				<div class="option-element">
+					<h6>Attribution</h6>
+					<p>Support the plugin by allowing us to display a small attribution icon in the bar.</p>
+					<ul>
+						<li data-bind="click: function(){ attribution('hidden'); }, css: { selected: attribution() == 'hidden' }">NO ATTRIBUTION</li>
+						<li data-bind="click: function(){ attribution('visible'); }, css: { selected: attribution() == 'visible' }">ATTRIBUTION<!--<small>THANK YOU!</small>--></li>
+					</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+				
+				<div class="option-element">
+					<h6>Visibility</h6>
+					<p>Where do you want your QuickieBar bars to be displayed?</p>
+					<ul>
+						<li data-bind="click: function(){ visibility('everywhere'); }, css: { selected: visibility() == 'everywhere' }">EVERYWHERE</li>
+						<li data-bind="click: function(){ visibility('pagesonly'); }, css: { selected: visibility() == 'pagesonly' }">PAGES ONLY</li>
+						<li data-bind="click: function(){ visibility('postsonly'); }, css: { selected: visibility() == 'postsonly' }">POSTS ONLY</li>
+						<li data-bind="click: function(){ visibility('homepageonly'); }, css: { selected: visibility() == 'homepageonly' }">HOME PAGE ONLY</li>
+					</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+				
+				<div class="option-element">
+					<h6>Fixed Header Compatibility Mode</h6>
+					<p>Turn this on if your site uses a fixed-positioned header at the top of the page.</p>
+					<ul>
+						<li data-bind="click: function(){ fixed_compatibility('off'); }, css: { selected: fixed_compatibility() == 'off' }">OFF</li>
+						<li data-bind="click: function(){ fixed_compatibility('on'); }, css: { selected: fixed_compatibility() == 'on' }">ON</li>
+					</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+				
+				<div class="option-element">
+					<h6>Debug Mode</h6>
+					<p>Turn this on to hide bars on all pages except when #qbShow is specified in the url.</p>
+					<ul>
+						<li data-bind="click: function(){ debug_mode('off'); }, css: { selected: debug_mode() == 'off' }">OFF</li>
+						<li data-bind="click: function(){ debug_mode('on'); }, css: { selected: debug_mode() == 'on' }">ON</li>
+					</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+				
+			</div><!--/.qb-options-list-->
+			
+			<button style="display:none;" id="save-settings-button" class="coral extra-padding" data-bind="visible: !syncingDataWithServer(), click: saveSettings, enable: settings.dirty(), css: { disabled: !settings.dirty() || savingSettings() }">
+				<span data-bind="visible: !savingSettings()">Save Settings</span>
+				<span data-bind="visible: savingSettings()"><i class="fa fa-spin fa-spinner"></i> &nbsp;Saving...</span>
+			</button>
+			
+			<div style="float:left;margin-top:100px;position:relative;width:100%;" class="option-element" data-bind="with: $root">
+				<span style="display:none;cursor:pointer;font-size:12px;border-bottom:1px dotted #AAA;color:#AAA;" data-bind="visible: !deletingPlugin(), click: function(){ deletingPlugin(true); }">Delete all plugin settings & data</span>
+				<div style="display:none;" class="dark-color" style="font-size:16px;padding:20px;position:relative;float:left;border-radius:3px;background:#EEE;border:1px solid #DDD;" data-bind="visible: deletingPlugin()">
+					<div><p>Are you sure you want to remove all plugin data and settings.</p>
+					<p><small>QuickieBar will also be deactivated following deletion.</small></p></div>
+					<button style="position:relative;float:left;clear:both;margin-top:15px;" data-bind="click: destroyPluginData" class="coral tiny">DELETE</button>
+					<button style="position:relative;float:left;clear:none;margin-top:15px;margin-left:20px;" data-bind="visible: deletingPlugin(), click: function(){ deletingPlugin(false); }" class="grey tiny">CANCEL</button>
+					</div>
+			</div>
+			
+			
+		</div><!--/.qb-main-content-->
+		
+		<div class="qb-sidebar-content">
+			<h5>Any Questions?</h5>
+			<p>Leave us a message in the wordpress support forums, or open a ticket on <a href="http://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
+			<a href="https://wordpress.org/support/plugin/quickiebar" target="_blank"><button class="dark faded tiny extra-padding">Go to forums</button></a>
+			<a href="http://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
+		</div><!--/.qb-sidebar-content-->
+		
+	</div>
+</div>

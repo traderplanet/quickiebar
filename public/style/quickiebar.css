@@ -1,0 +1,45 @@
+.centeringWrap {
+  position: relative;
+  float: left;
+  clear: both;
+  left: 50%;
+}
+.centeringWrap .centeredWrap {
+  position: relative;
+  float: left;
+  clear: both;
+  left: -50%;
+}
+/*.drop-shadow(0px, 0px, 2px,#3A3A3A);*/
+/*.no-shadow();*/
+/*.gradient-background(#3A3A3A, #4B4B4B)*/
+.centeringWrap {
+  position: relative;
+  float: left;
+  clear: both;
+  left: 50%;
+}
+.centeringWrap .centeredWrap {
+  position: relative;
+  float: left;
+  clear: both;
+  left: -50%;
+}
+/*.drop-shadow(0px, 0px, 2px,#3A3A3A);*/
+/*.no-shadow();*/
+/*.gradient-background(#3A3A3A, #4B4B4B)*/
+.centeringWrap {
+  position: relative;
+  float: left;
+  clear: both;
+  left: 50%;
+}
+.centeringWrap .centeredWrap {
+  position: relative;
+  float: left;
+  clear: both;
+  left: -50%;
+}
+/*.drop-shadow(0px, 0px, 2px,#3A3A3A);*/
+/*.no-shadow();*/
+/*.gradient-background(#3A3A3A, #4B4B4B)*/
