@@ -59,7 +59,7 @@ Customize any of the following options for your bars:
 
 = Browser Compatibility List =
 
-While ideally QuickieBar would work perfectly in every browser, outdated browsers can cause bars to look unattractive or display inconsistently across different devices. As such, I have opted to not display any bar to users using older browsers, instead of showing them one of lower quality one.
+While ideally QuickieBar would work perfectly in every browser, outdated browsers can cause bars to look unattractive or display inconsistently across different devices. As such, I have opted to not display any bar to users using older browsers, instead of showing them one of lower quality.
 
 QuickieBar **should** display perfectly in the following browsers. Users viewing your site on browsers not on this list will simply not be shown your conversion bar (they will also not be tracked for Views or Conversions).
 
