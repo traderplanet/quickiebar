@@ -182,7 +182,7 @@
 #quickiebar.qb .bar-text {
   margin-left: 0;
   line-height: 40px;
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab', Georgia, serif;
   font-size: 17px;
   color: #FFF;
 }
