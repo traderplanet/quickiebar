@@ -133,11 +133,11 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 == Changelog ==
 
 = 1.0.1 | Feb 10, 2015 =
-Fix: Users with old versions of fontawesome installed on their site could not select icons properly
-Fix: Fixed naming issue with Roboto Slab font causing it to not load for some Users
+* Fix: Users with old versions of fontawesome installed on their site could not select icons properly
+* Fix: Fixed naming issue with Roboto Slab font causing it to not load for some Users
 
 = 1.0.0 | Feb 9, 2015 =
-Initial public release of QuickieBar
+* Initial public release of QuickieBar
 
 == Translations ==
 
