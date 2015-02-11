@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.0.0
+Version: 1.0.1
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.0.0';
+$QB_VERSION = '1.0.1';
 
 class QuickieBar{
 
@@ -290,6 +290,9 @@ class QuickieBar{
 	}
 
 	function print_styles(){
+		
+		global $QB_VERSION;
+		
 		//if admin...
 		if( is_admin() ){
 			wp_enqueue_style('quickiebar-admin', QB_PLUGIN_URL . 'admin/style/quickiebar.css', false, microtime(), 'all');
@@ -300,12 +303,12 @@ class QuickieBar{
 		}
 
 		//always...
-		wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', array() );
-		wp_enqueue_style( 'google-font-montserrat', '//fonts.googleapis.com/css?family=Montserrat:400', array() );
-		wp_enqueue_style( 'google-font-lato', '//fonts.googleapis.com/css?family=Roboto+Slab:400', array() );
+		wp_enqueue_style( 'fontawesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', false, '4.3.0', 'all' );
+		wp_enqueue_style( 'google-font-montserrat', '//fonts.googleapis.com/css?family=Montserrat:400', false );
+		wp_enqueue_style( 'google-font-roboto-slab', '//fonts.googleapis.com/css?family=Roboto+Slab:400', false );
 		
 		//quickiebar style
-		wp_enqueue_style( 'qb', QB_PLUGIN_URL . 'public/style/qb.css', false, '0.0.1', 'all');
+		wp_enqueue_style( 'qb', QB_PLUGIN_URL . 'public/style/qb.css', false, $QB_VERSION, 'all');
 		
 	}
 }/*end QuickieBar class*/

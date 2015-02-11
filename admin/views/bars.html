@@ -286,7 +286,7 @@
 		</div><!--/.qb-main-content-->
 		<div class="qb-sidebar-content">
 			<h5>Any Questions?</h5>
-			<p>Leave us a message in the wordpress support forums, or open a ticket on <a href="http://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
+			<p>Leave us a message in the WordPress support forums, or open a ticket on <a href="http://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
 			<a href="https://wordpress.org/support/plugin/quickiebar" target="_blank"><button class="dark faded tiny extra-padding">Go to forums</button></a>
 			<a href="http://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
 		</div><!--/.qb-sidebar-content-->
@@ -294,11 +294,11 @@
 	</div>
 	
 	<div style="display:none;" id="qb-icon-picker" data-bind="visible: pickingIconForField">
-		<div class="icon-search">
+		<div class="qb-icon-search">
 			<input type="text" placeholder="Search icons..." data-bind="value: faSearchText, valueUpdate: 'keyup'"/>
 			<i class="fa fa-times" data-bind="click: function(){ faSearchText(''); }"></i>
 		</div>
-		<div class="icon-container">
+		<div class="qb-icon-container">
 			<ul data-bind="foreach: filteredIcons">
 				<li data-bind="click: $root.insertIcon"><i class="fa" data-bind="attr: { 'class': 'fa fa-fw fa-' + $data }"></i><br/><span data-bind="text: $data"></span></li>
 			</ul>
