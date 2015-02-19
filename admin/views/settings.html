@@ -45,7 +45,54 @@
 						<li data-bind="click: function(){ visibility('pagesonly'); }, css: { selected: visibility() == 'pagesonly' }">PAGES ONLY</li>
 						<li data-bind="click: function(){ visibility('postsonly'); }, css: { selected: visibility() == 'postsonly' }">POSTS ONLY</li>
 						<li data-bind="click: function(){ visibility('homepageonly'); }, css: { selected: visibility() == 'homepageonly' }">HOME PAGE ONLY</li>
+						<li data-bind="click: function(){ visibility('custom'); }, css: { selected: visibility() == 'custom' }">CUSTOM...</li>
 					</ul>
+					<div class="embedded-options" data-bind="visible: visibility() == 'custom'">
+						
+						<div class="embedded-option" data-bind="if: $root.pages() && $root.posts()">
+							<h6>Bar is visible on <span data-bind="text: $root.pages.selectedCount()"></span>/<span data-bind="text: $root.pages().length"></span> pages and <span data-bind="text: $root.posts.selectedCount()"></span>/<span data-bind="text: $root.posts().length"></span> posts.</h6>
+						</div>
+						
+						<div class="embedded-option" data-bind="if: $root.pages()">
+							<div class="embedded-option-label">Pages (<span data-bind="text: $root.pages.selectedCount()"></span>/<span data-bind="text: $root.pages().length"></span>)</div>
+							<div class="embedded-option-value" data-bind="click: function(){ page_visibility('hide'); }, css: {selected: page_visibility() == 'hide' }">HIDE...</div>
+							<div class="embedded-option-value" data-bind="click: function(){ page_visibility('show'); }, css: {selected: page_visibility() == 'show' }">SHOW...</div>
+							
+							<div class="embedded-option-value-explaination" data-bind="visible: page_visibility() == 'show'">Bars will <b>show on all pages</b> except any Page Exceptions you add below</div>
+							<div class="embedded-option-value-explaination" data-bind="visible: page_visibility() == 'hide'">Bars will <b>not show on any pages</b> except any Page Exceptions you add below</div>
+							<div class="embedded-option-value-explaination actionable" data-bind="visible: !$root.managingPageExceptions(), click: function(){ $root.managingPageExceptions(true); }"><i class="fa fa-plus"></i> Add Page Exceptions</div>
+							
+							<ul class="embedded-options-select" data-bind="visible: $root.managingPageExceptions(), foreach: $root.pages, attr: { 'class': ('embedded-options-select ' + $root.settings.page_visibility()) }">
+								<li data-bind="click: $root.togglePageException, css: { selected: $root.pageIsExcepted($data) }">
+									<span data-bind="text: post_title"></span>
+									<i class="fa fa-eye"></i>
+									<i class="fa fa-eye-slash"></i>
+								</li>
+							</ul>
+							
+						</div>
+						
+						<div class="embedded-option" data-bind="if: $root.posts()">
+							<div class="embedded-option-label">Posts (<span data-bind="text: $root.posts.selectedCount()"></span>/<span data-bind="text: $root.posts().length"></span>)</div>
+							<div class="embedded-option-value" data-bind="click: function(){ post_visibility('hide'); }, css: {selected: post_visibility() == 'hide' }">HIDE...</div>
+							<div class="embedded-option-value" data-bind="click: function(){ post_visibility('show'); }, css: {selected: post_visibility() == 'show' }">SHOW...</div>
+							
+							<div class="embedded-option-value-explaination" data-bind="visible: post_visibility() == 'show'">Bars will <b>show on all posts</b> except any Post Exceptions you add below</div>
+							<div class="embedded-option-value-explaination" data-bind="visible: post_visibility() == 'hide'">Bars will <b>not show on any posts</b> except any Post Exceptions you add below</div>
+							<div class="embedded-option-value-explaination actionable" data-bind="visible: !$root.managingPostExceptions(), click: function(){ $root.managingPostExceptions(true); }"><i class="fa fa-plus"></i> Add Post Exceptions</div>
+							
+							<ul class="embedded-options-select" data-bind="visible: $root.managingPostExceptions(), foreach: $root.posts, attr: { 'class': ('embedded-options-select ' + $root.settings.post_visibility()) }">
+								<li data-bind="click: $root.togglePostException, css: { selected: $root.postIsExcepted($data) }">
+									<span data-bind="text: post_title"></span>
+									<i class="fa fa-eye"></i>
+									<i class="fa fa-eye-slash"></i>
+								</li>
+							</ul>
+							
+							<!--<input class="embedded-option-input" type="textarea" disabled data-bind="value: $root.posts.selected().length > 0 ? $root.posts.selected() : 'No posts selected'" />-->
+						</div>
+						
+					</div>
 					<div class="help-link"><i class="fa fa-question-circle"></i></div>
 				</div>
 				
@@ -91,8 +138,7 @@
 		
 		<div class="qb-sidebar-content">
 			<h5>Any Questions?</h5>
-			<p>Leave us a message in the WordPress support forums, or open a ticket on <a href="http://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
-			<a href="https://wordpress.org/support/plugin/quickiebar" target="_blank"><button class="dark faded tiny extra-padding">Go to forums</button></a>
+			<p>Open a ticket on <a href="http://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
 			<a href="http://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
 		</div><!--/.qb-sidebar-content-->
 		

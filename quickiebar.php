@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.0.1
+Version: 1.1.0
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.0.1';
+$QB_VERSION = '1.1.0';
 
 class QuickieBar{
 
@@ -122,6 +122,21 @@ class QuickieBar{
 		if(!get_option('qb_debug_mode')){
 			update_option('qb_debug_mode', 'off');
 		}
+		
+		//New options with 1.1.0
+		if(!get_option('qb_page_visibility')){
+			update_option('qb_page_visibility', 'show');
+		}
+		if(!get_option('qb_post_visibility')){
+			update_option('qb_post_visibility', 'show');
+		}
+		if(!get_option('qb_page_exceptions')){
+			update_option('qb_page_exceptions', 'false');
+		}
+		if(!get_option('qb_post_exceptions')){
+			update_option('qb_post_exceptions', 'false');
+		}
+		
 	}
 	
 	static function initializeQBDB(){
@@ -186,6 +201,10 @@ class QuickieBar{
 		delete_option('qb_version');
 		delete_option('qb_attribution');
 		delete_option('qb_visibility');
+		delete_option('qb_page_visibility');
+		delete_option('qb_page_exceptions');
+		delete_option('qb_post_visibility');
+		delete_option('qb_post_exceptions');
 		delete_option('qb_setup_complete');
 		delete_option('qb_email');
 		delete_option('qb_subscribed');
@@ -233,6 +252,9 @@ class QuickieBar{
 	}
 
 	function print_scripts(){
+		
+		global $QB_VERSION;
+		
 		if( is_admin() ){
 
 			wp_enqueue_script('knockout', QB_PLUGIN_URL . 'admin/js/inc/knockout-3.2.0.js', array('jquery'), '3.2.0', true);
@@ -244,7 +266,7 @@ class QuickieBar{
 		if($this->should_load_quickiebar_script()){
 			
 			//print quickiebar script whenever appropriate according to options
-			wp_enqueue_script('quickiebar', QB_PLUGIN_URL . 'public/js/qb.js', array( 'jquery' ), '0.0.1', false);
+			wp_enqueue_script('quickiebar', QB_PLUGIN_URL . 'public/js/qb.js', array( 'jquery' ), $QB_VERSION, false);
 			wp_localize_script('quickiebar', 'ajaxurl', admin_url('admin-ajax.php') );
 			wp_localize_script('quickiebar', 'QB_GLOBALS', array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce') ) );
 			
@@ -275,7 +297,7 @@ class QuickieBar{
 		if($visibility == 'everywhere'){
 			return true;
 		}
-		else if($visibility == 'pagesonly' && is_page()){
+		else if($visibility == 'pagesonly' && (is_page() || is_home())){//note that is_home() is required because a static blog page won't return true for is_page, but it will for is_home
 			return true;
 		}
 		else if($visibility == 'postsonly' && is_single()){
@@ -283,6 +305,63 @@ class QuickieBar{
 		}
 		else if($visibility == 'homepageonly' && is_front_page()){
 			return true;
+		}
+		else if($visibility == 'custom'){
+			//Visibility is Custom
+			//We need to check attributions of the page against rules the user has set up
+			if(is_page() || is_home()){//note that is_home() is required because a static blog page won't return true for is_page, but it will for is_home
+				
+				$page_id = get_the_ID();
+				$page_visibility = get_option('qb_page_visibility');
+				$page_exceptions = json_decode(get_option('qb_page_exceptions'));
+				
+				//if is_home() page, we need to look up the REAL page id
+				if(is_home()){
+					$page_id = get_option('page_for_posts');
+				}
+				
+				//if we decoded that there are no exceptions, convert this to an empty array so we can "search" it anyway below
+				if($page_exceptions == false){
+					$page_exceptions = [];
+				}
+				
+				//if page visibility is set to SHOW and page IS NOT on the exceptions list
+				if($page_visibility == 'show' && !in_array($page_id, $page_exceptions)){
+					return true;
+				}
+				//if page visibility is set to HIDE and page IS on the exceptions list
+				else if($page_visibility == 'hide' && in_array($page_id, $page_exceptions)){
+					return true;
+				}
+				else{
+					return false;
+				}
+				
+			}
+			else if(is_single()){
+				
+				$post_id = get_the_ID();
+				$post_visibility = get_option('qb_post_visibility');
+				$post_exceptions = json_decode(get_option('qb_post_exceptions'));
+				
+				//if we decoded that there are no exceptions, convert this to an empty array so we can "search" it anyway below
+				if($post_exceptions == false){
+					$post_exceptions = [];
+				}
+				
+				//if page visibility is set to SHOW and page IS NOT on the exceptions list
+				if($post_visibility == 'show' && !in_array($post_id, $post_exceptions)){
+					return true;
+				}
+				//if page visibility is set to HIDE and page IS on the exceptions list
+				else if($post_visibility == 'hide' && in_array($post_id, $post_exceptions)){
+					return true;
+				}
+				else{
+					return false;
+				}
+				
+			}
 		}
 		
 		//settings don't dictate that we should load quickiebar on this page
