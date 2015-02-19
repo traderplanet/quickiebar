@@ -67,6 +67,9 @@ class qb_ajax_handler{
 			case 'update_quickiebar_settings':
 				echo qb_settings::save_settings($_REQUEST['settings'], 'json');
 			break;
+			case 'get_pages_and_posts':
+				echo qb_settings::get_pages_and_posts('json');
+			break;
 			case 'destroy_plugin_data':
 				echo qb_settings::destroy_plugin_data();
 			break;

@@ -486,14 +486,14 @@
   padding: 6px 12px;
   line-height: 22px;
 }
-.qb-options-list ul {
+.qb-options-list ul:not(.embedded-options-select) {
   position: relative;
   float: left;
   clear: none;
   list-style: none;
   margin: 5px 0 10px 0;
 }
-.qb-options-list ul li {
+.qb-options-list ul:not(.embedded-options-select) li {
   width: 120px;
   height: 30px;
   -webkit-border-radius: 5px;
@@ -515,20 +515,208 @@
   -moz-transition: all linear 0.2s;
   transition: all linear 0.2s;
 }
-.qb-options-list ul li.selected {
+.qb-options-list ul:not(.embedded-options-select) li.selected {
   opacity: 1;
 }
-.qb-options-list ul li:hover:not(.selected) {
+.qb-options-list ul:not(.embedded-options-select) li:hover:not(.selected) {
   cursor: pointer;
   opacity: .67;
 }
-.qb-options-list ul li small {
+.qb-options-list ul:not(.embedded-options-select) li small {
   position: absolute;
   top: 15px;
   left: 0;
   width: 100%;
   font-size: 10px;
   text-align: center;
+}
+.qb-options-list ul.embedded-options-select {
+  width: 100%;
+  margin: 5px;
+  background: #FFF;
+  float: right;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  border: 1px solid #DDD;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 200px;
+  overflow-y: auto;
+}
+.qb-options-list ul.embedded-options-select.hide i.fa-eye-slash {
+  opacity: .25;
+}
+.qb-options-list ul.embedded-options-select.hide i.fa-eye {
+  display: none;
+}
+.qb-options-list ul.embedded-options-select.hide li.selected i.fa-eye {
+  display: block;
+}
+.qb-options-list ul.embedded-options-select.hide li.selected i.fa-eye-slash {
+  display: none;
+  opacity: 0;
+}
+.qb-options-list ul.embedded-options-select.hide li.selected {
+  color: #84c334;
+  background: rgba(132, 195, 52, 0.15);
+}
+.qb-options-list ul.embedded-options-select.hide li.selected i {
+  opacity: 1;
+  color: #84c334;
+}
+.qb-options-list ul.embedded-options-select.show i.fa-eye {
+  opacity: .25;
+}
+.qb-options-list ul.embedded-options-select.show i.fa-eye-slash {
+  display: none;
+}
+.qb-options-list ul.embedded-options-select.show li.selected i.fa-eye-slash {
+  display: block;
+}
+.qb-options-list ul.embedded-options-select.show li.selected i.fa-eye {
+  display: none;
+  opacity: 0;
+}
+.qb-options-list ul.embedded-options-select.show li.selected {
+  color: #ca4119;
+  background: rgba(202, 65, 25, 0.15);
+}
+.qb-options-list ul.embedded-options-select.show li.selected i {
+  opacity: 1;
+  color: #ca4119;
+}
+.qb-options-list ul.embedded-options-select li {
+  list-style: none;
+  width: 100%;
+  position: relative;
+  float: left;
+  clear: none;
+  color: #999;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 4px;
+  margin: 0px;
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+  cursor: pointer;
+}
+.qb-options-list ul.embedded-options-select li:hover:not(.selected) {
+  color: #777;
+}
+.qb-options-list ul.embedded-options-select li:hover:not(.selected) i {
+  opacity: .5;
+}
+.qb-options-list ul.embedded-options-select li i {
+  font-size: 14px;
+  margin-right: 5px;
+  opacity: 0;
+  float: right;
+  line-height: 20px;
+  color: #777;
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+.qb-options-list .embedded-options {
+  position: relative;
+  float: left;
+  clear: both;
+  width: 600px;
+  margin: 15px;
+  background: rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 15px;
+}
+.qb-options-list .embedded-options .embedded-option {
+  width: 100%;
+  position: relative;
+  float: left;
+  clear: both;
+  list-style: none;
+  padding: 10px 0;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-label,
+.qb-options-list .embedded-options .embedded-option .embedded-option-value,
+.qb-options-list .embedded-options .embedded-option .embedded-option-input {
+  position: relative;
+  float: left;
+  clear: none;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-label {
+  line-height: 30px;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-value {
+  position: relative;
+  float: right;
+  font-size: 12px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px solid #062332;
+  padding: 4px 10px;
+  margin: 0 5px;
+  opacity: .44;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-value.selected {
+  opacity: 1;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-value:hover:not(.selected) {
+  cursor: pointer;
+  opacity: .67;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-input,
+.qb-options-list .embedded-options .embedded-option .embedded-option-select {
+  width: 100%;
+  clear: both;
+  margin: 5px;
+  float: right;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #DDD;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 10px;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-select {
+  height: 200px;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-value-explaination {
+  position: relative;
+  float: left;
+  clear: both;
+  font-size: 12px;
+  color: #062332;
+  opacity: .65;
+  margin: 5px 0 10px 0;
+}
+.qb-options-list .embedded-options .embedded-option .embedded-option-value-explaination b {
+  font-weight: bold;
+  font-size: .8rem;
+  text-transform: uppercase;
+}
+.qb-options-list .embedded-options .embedded-option h6 {
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 25px;
+  font-size: 13px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+.qb-options-list .embedded-options .embedded-option.btn-outline {
+  padding: 5px 10px;
+  outline: 2px solid #062332;
 }
 .qb-options-list .help-link {
   display: none;
@@ -1517,12 +1705,12 @@
   /* Firefox, other Gecko */
   box-sizing: border-box;
   /* Opera/IE 8+ */
-  top: 75px;
+  top: 100px;
   right: 30px;
   padding-left: 25px;
   border-left: 1px solid #DDD;
   min-height: 80vh;
-  position: absolute;
+  position: fixed;
 }
 .quickiebar-page .qb-sidebar-content h5 {
   margin: 1rem 0;

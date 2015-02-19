@@ -37,6 +37,14 @@ class qb_settings{
 		update_option('qb_fixed_compatibility', $settings['fixed_compatibility']);
 		update_option('qb_debug_mode', $settings['debug_mode']);
 		
+		//if visibiilty is custom, update custom visibility settings
+		if($settings['visibility'] == 'custom'){
+			update_option('qb_page_visibility', $settings['page_visibility']);
+			update_option('qb_page_exceptions', $settings['page_exceptions']);
+			update_option('qb_post_visibility', $settings['post_visibility']);
+			update_option('qb_post_exceptions', $settings['post_exceptions']);
+		}
+		
 		$result = true;
 		
 		if($format == 'json'){
@@ -44,6 +52,30 @@ class qb_settings{
 		}
 		else{
 			return $result;
+		}
+		
+	}
+	
+	static function get_pages_and_posts($format = 'php'){
+		
+		$pages = get_pages(array(
+			'post_type' => 'page',
+			'post_status' => 'publish,private,draft'
+		));
+		
+		$posts = get_posts(array(
+		));
+		
+		$pages_and_posts = array(
+			'pages' => $pages,
+			'posts' => $posts
+		);
+		
+		if($format == 'json'){
+			return json_encode($pages_and_posts);
+		}
+		else{
+			return $pages_and_posts;
 		}
 		
 	}
@@ -71,6 +103,10 @@ class qb_settings{
 		wp_localize_script('qb-settings', 'qb_settings', array(
 			'attribution' => get_option('qb_attribution'),
 			'visibility' => get_option('qb_visibility'),
+			'page_visibility' => get_option('qb_page_visibility'),
+			'page_exceptions' => get_option('qb_page_exceptions'),
+			'post_visibility' => get_option('qb_post_visibility'),
+			'post_exceptions' => get_option('qb_post_exceptions'),
 			'email' => get_option('qb_email'),
 			'subscribed' => get_option('qb_subscribed'),
 			'fixed_compatibility' => get_option('qb_fixed_compatibility'),
