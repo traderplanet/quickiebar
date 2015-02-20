@@ -34,7 +34,7 @@ QuickieBar features that enable you to create & convert as quickly & effortlessl
 * Awesome Icon Selection: Add over 500 distinctive icons to your calls to action
 * Top or Bottom Placement: Easily toggle whether users see the bar at the top or bottom of your site
 * Conversion Reports: Ongoing reporting to help you uncover customer trends and behavior
-* Conditional Triggering: Choose to show your bar everywhere or specific pages, posts, or just your homepage.
+* Conditional Triggering: Choose to show your bar everywhere or specific pages, posts, or just your homepage
 * Advanced Customization: Customize just about anything about the way your bar looks and behaves.
 * Fixed Header Compatibility: QuickieBar is even compatible with most (not all) fixed header themes: simply enable fixed header compatibility mode.
 
