@@ -628,7 +628,7 @@ jQuery(document).ready(function($){
 			$previewURL = 'http://quickiebar.com/preview/#qbhide&';
 			
 			//add url to populate users blog in preview (will show on homepage)
-			$previewURL += 'url=' + encodeURIComponent(document.location.origin) + '&';
+			$previewURL += 'url=' + encodeURIComponent(document.location.origin + '#qbhide') + '&';
 			
 			_.each(self.barOptions, function(optionObservableProperty, propertyName){
 				
