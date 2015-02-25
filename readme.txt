@@ -3,8 +3,8 @@ Contributors: philbaylog
 Tags: bar, conversion, drop-down, header, opt-in, opt in, notification, top bar, hello bar, header bar, conversion bar, drop down bar
 Requires at least: 3.8
 Donate Link: http://quickiebar.com/pricing
-Tested up to: 4.1
-Stable tag: 1.1.1
+Tested up to: 4.1.1
+Stable tag: 1.1.2
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -34,7 +34,7 @@ QuickieBar features that enable you to create & convert as quickly & effortlessl
 * Awesome Icon Selection: Add over 500 distinctive icons to your calls to action
 * Top or Bottom Placement: Easily toggle whether users see the bar at the top or bottom of your site
 * Conversion Reports: Ongoing reporting to help you uncover customer trends and behavior
-* Conditional Triggering: Choose to show your bar everywhere or specific pages, posts, or just your homepage
+* Conditional Triggering: Choose to show your bar everywhere or on specific pages, posts, or just your homepage
 * Advanced Customization: Customize just about anything about the way your bar looks and behaves.
 * Fixed Header Compatibility: QuickieBar is even compatible with most (not all) fixed header themes: simply enable fixed header compatibility mode.
 
@@ -132,18 +132,26 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 
 == Changelog ==
 
-= 1.1.1 | Feb 20, 2015 =
+= 1.1.2 =
+Feb 24, 2015
+* Fix: Prevent default bar from showing up to some visitors (based on cookies & debugging settings) after all bars are paused
+
+= 1.1.1 =
+Feb 20, 2015
 * Fix: Prevent existing bars from showing when users attempted to "Live Preview" a different bar on quickiebar.com
 
-= 1.1.0 | Feb 19, 2015 =
+= 1.1.0 =
+Feb 19, 2015
 * Feature: Enhanced the capability of Conditional Triggering, allowing users to toggle individual pages or posts to be shown or hidden
 * Tweak: Made admin sidebar "sticky" and removed link to Forums for support from sidebar
 
-= 1.0.1 | Feb 10, 2015 =
+= 1.0.1 =
+Feb 10, 2015
 * Fix: Users with old versions of fontawesome installed on their site could not select icons properly
 * Fix: Fixed naming issue with Roboto Slab font causing it to not load for some Users
 
-= 1.0.0 | Feb 9, 2015 =
+= 1.0.0 =
+Feb 9, 2015
 * Initial public release of QuickieBar
 
 == Translations ==

@@ -68,6 +68,12 @@ class qb_bars{
 			"
 		);
 		
+		//if no live bars, return empty array
+		if(count($results) == 0){
+			return ($format == 'json' ? json_encode(false) : false);
+		}
+		
+		//otherwise, take first live bar
 		$the_bar = $results[0];
 		
 		//append attribution option from admin settings to each bar
