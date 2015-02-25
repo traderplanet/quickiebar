@@ -132,26 +132,21 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 
 == Changelog ==
 
-= 1.1.2 =
-Feb 24, 2015
+= 1.1.2 | Feb 24, 2015 =
 * Fix: Prevent default bar from showing up to some visitors (based on cookies & debugging settings) after all bars are paused
 
-= 1.1.1 =
-Feb 20, 2015
+= 1.1.1 | Feb 20, 2015 =
 * Fix: Prevent existing bars from showing when users attempted to "Live Preview" a different bar on quickiebar.com
 
-= 1.1.0 =
-Feb 19, 2015
+= 1.1.0 | Feb 19, 2015 =
 * Feature: Enhanced the capability of Conditional Triggering, allowing users to toggle individual pages or posts to be shown or hidden
 * Tweak: Made admin sidebar "sticky" and removed link to Forums for support from sidebar
 
-= 1.0.1 =
-Feb 10, 2015
+= 1.0.1 | Feb 10, 2015 =
 * Fix: Users with old versions of fontawesome installed on their site could not select icons properly
 * Fix: Fixed naming issue with Roboto Slab font causing it to not load for some Users
 
-= 1.0.0 =
-Feb 9, 2015
+= 1.0.0 | Feb 9, 2015 =
 * Initial public release of QuickieBar
 
 == Translations ==
