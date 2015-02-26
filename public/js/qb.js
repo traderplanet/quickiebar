@@ -172,7 +172,7 @@ function QuickieBar() {
 		});
 		
 		//Bind conversion tracking on bar click
-		$("#quickiebar.qb").click(function(){
+		$("#quickiebar.qb .link-overlay").click(function(){
 			self.trackConversion();
 			//console.log("TRACK CONVERSION");
 		});
@@ -270,13 +270,17 @@ function QuickieBar() {
 
 	self.hide = function(animationDuration, callback){
 		
-		if(typeof animationDuration == 'undefined'){
-			animationDuration = 200;
-		}
-		
 		//don't hide if previewing on admin page
 		if(self.previewingOnAdminPage){
-			//return;
+			return;
+		}
+		
+		//track the dismissal first before any other code, just in case errors are thrown
+		//we want to make sure to not show this bar to the user again
+		self.trackDismissal();
+		
+		if(typeof animationDuration == 'undefined'){
+			animationDuration = 200;
 		}
 		
 		$page = self.getPage();
@@ -384,10 +388,33 @@ function QuickieBar() {
 		
 	}
 	
+	self.getBarDismissals = function(){
+		
+		var bar_dismissals_cookie = QBGetCookie('qb_bar_dismissals');
+		var bar_dismissals;
+		
+		if(!bar_dismissals_cookie){
+			
+			//initialize empty array as bar_conversions property
+			bar_dismissals = [];
+			
+			QBSetCookie('qb_bar_dismissals', JSON.stringify(bar_dismissals), 7);
+		}
+		else{
+			
+			//load bars_viewed from cookie
+			bar_dismissals = JSON.parse(QBGetCookie('qb_bar_dismissals'));
+		}
+		
+		return bar_dismissals;
+		
+	}
+	
 	self.resetAllTracking = function(){
 		QBDeleteCookie('qb_user_uuid');
 		QBDeleteCookie('qb_bar_views');
 		QBDeleteCookie('qb_bar_conversions');
+		QBDeleteCookie('qb_bar_dismissals');
 	}
 	
 	self.trackView = function(){
@@ -442,7 +469,7 @@ function QuickieBar() {
 		
 		if(bar_conversions.indexOf(bar_uuid) < 0){
 			
-			//if user hasn't viewed bar yet, track the view to the db then update locally
+			//if user hasn't converted on the bar yet, track the conversion to the db then update locally
 			$.ajax({
 				type: "POST",
 				url: ajaxurl,
@@ -467,6 +494,25 @@ function QuickieBar() {
 		}
 		
 	}
+	
+	self.trackDismissal = function(){
+		var bar_uuid = self.options.bar_uuid;
+		var bar_dismissals = self.getBarDismissals();
+		
+		//if bar_uuid == 0, don't track the view
+		if(bar_uuid == 0){
+			return;
+		}
+		
+		//we don't persist this information to the server...
+		//instead, just updated user's cookie so they are not shown the bar again
+		
+		//push the current bar onto the list of viewed bars
+		bar_dismissals.push(bar_uuid);
+		
+		//persist viewed bars as cookie
+		QBSetCookie('qb_bar_dismissals', JSON.stringify(bar_dismissals), 7);
+	}
 
 }
 
@@ -478,11 +524,17 @@ jQuery(document).ready(function($){
 		return;
 	}
 	
+	//globally instantiate a new QuickieBar object
 	qb = new QuickieBar();
 	
 	qb.fetchBar(function(bar){
 		if(!bar || !bar.bar_uuid){//need to check bar_uuid also just in case default qb options come back (depending on php version & debuggin settings, this might happen)
 			//if no bar is live, nothing more to do
+			return;
+		}
+		
+		//if bar that is returned has already been dismissed, don't show bar - there is nothing more to do
+		if(qb.getBarDismissals().indexOf(bar.bar_uuid) > -1){
 			return;
 		}
 		
