@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.1.3
+Version: 1.2.0
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.1.3';
+$QB_VERSION = '1.2.0';
 
 class QuickieBar{
 
@@ -69,7 +69,9 @@ class QuickieBar{
 			
 			//add action for admin_menu
 			//we want to do this after including/adding actions for submenus to prevent duplicated "bars" page
-			add_action('admin_menu', array($this, 'admin_menu'));
+			if( current_user_can('manage_options') ){
+				add_action('admin_menu', array($this, 'admin_menu'));
+			}
 			
 			//Order matters. We have to include whichever submenu will replace the "main" menu first.
 			//Load either only the setup page (if user has not finished setting up conversion reports)
@@ -135,6 +137,11 @@ class QuickieBar{
 		}
 		if(!get_option('qb_post_exceptions')){
 			update_option('qb_post_exceptions', 'false');
+		}
+		
+		//New options with 1.2.0
+		if(!get_option('qb_device_visibility')){
+			update_option('qb_device_visibility', 'all');
 		}
 		
 	}
@@ -210,6 +217,7 @@ class QuickieBar{
 		delete_option('qb_subscribed');
 		delete_option('qb_fixed_compatibility');
 		delete_option('qb_debug_mode');
+		delete_option('qb_device_visibility');
 	}
 	
 	static function destroyQBDB(){
@@ -255,7 +263,7 @@ class QuickieBar{
 		
 		global $QB_VERSION;
 		
-		if( is_admin() ){
+		if( is_admin() && current_user_can('manage_options') ){
 
 			wp_enqueue_script('knockout', QB_PLUGIN_URL . 'admin/js/inc/knockout-3.2.0.js', array('jquery'), '3.2.0', true);
 			wp_enqueue_script('knockout-mapping', QB_PLUGIN_URL . 'admin/js/inc/knockout-mapping-2.4.1.js', array('jquery', 'knockout'), '2.4.1', true);
@@ -278,7 +286,18 @@ class QuickieBar{
 	}
 	
 	static function should_load_quickiebar_script(){
+		//if admin on admin page
 		if(is_admin()){
+			if(current_user_can('manage_options')){
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		
+		//Always LOAD the bar if Debug Mode is turned on (FrontEnd javascript will prevent the bar from actually showing unless #qbshow is specified in the URL)
+		if(get_option('qb_debug_mode') == 'on'){
 			return true;
 		}
 		
@@ -322,7 +341,7 @@ class QuickieBar{
 				
 				//if we decoded that there are no exceptions, convert this to an empty array so we can "search" it anyway below
 				if($page_exceptions == false){
-					$page_exceptions = [];
+					$page_exceptions = array();
 				}
 				
 				//if page visibility is set to SHOW and page IS NOT on the exceptions list
@@ -346,7 +365,7 @@ class QuickieBar{
 				
 				//if we decoded that there are no exceptions, convert this to an empty array so we can "search" it anyway below
 				if($post_exceptions == false){
-					$post_exceptions = [];
+					$post_exceptions = array();
 				}
 				
 				//if page visibility is set to SHOW and page IS NOT on the exceptions list

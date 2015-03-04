@@ -4,7 +4,7 @@ Tags: bar, conversion, drop-down, header, opt-in, opt in, notification, top bar,
 Requires at least: 3.8
 Donate Link: http://quickiebar.com/pricing
 Tested up to: 4.1.1
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -131,6 +131,14 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.2.0 | Mar 3, 2015 =
+* Feature: You can now toggle bars to only be shown to visitors on specific devices (all devices, desktops only, or mobile & tablets only)
+* Tweak: Turning Debug Mode on will now make the QuickieBar public script available on all pages (makes for easier support debugging)
+* Tweak: Adjusted script loading logic on admin pages to improve admin page performance for multi-admin sites
+* Fix: The QuickieBar preview on admin pages now closes correctly after editing is finished
+* Fix: Knockout library now binds specific to QuickieBar settings pages (reduces likelihood of compatibility issues with other WordPress plugins using knockout bindings)
+* Fix: Specific custom visibility settings will no longer cause plugin errors when installed on < php 5.4
 
 = 1.1.3 | Feb 26, 2015 =
 * Fix: Dismissing the bar now works correctly in desktop & mobile browsers

@@ -18,7 +18,7 @@
 				
 				<div class="option-element">
 					<h6>Email Address (Optional)</h6>
-					<p>Where should we plugin updates & news?</p>
+					<p>Where should we send plugin updates & news?</p>
 					<input type="text" data-bind="valueUpdate: 'keyup', value: email" />
 					
 					<button style="display:none;" data-bind="click: $root.subscribe, visible: !subscribed() && !$root.subscribing()" class="tiny barGreen">RECEIVE QUICKIEBAR UPDATES & NEWS</button>
@@ -97,6 +97,17 @@
 				</div>
 				
 				<div class="option-element">
+					<h6>Device Visibility</h6>
+					<p>Show on all devices, or just on desktop <small>(both desktop and laptop computers)</small> or mobile <small>(phones and tablets)</small>.</p>
+					<ul>
+						<li data-bind="click: function(){ device_visibility('all'); }, css: { selected: device_visibility() == 'all' }">ALL DEVICES</li>
+						<li data-bind="click: function(){ device_visibility('desktoponly'); }, css: { selected: device_visibility() == 'desktoponly' }">DESKTOP ONLY</li>
+						<li data-bind="click: function(){ device_visibility('mobileonly'); }, css: { selected: device_visibility() == 'mobileonly' }">MOBILE ONLY</li>
+						</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+				
+				<div class="option-element">
 					<h6>Fixed Header Compatibility Mode</h6>
 					<p>Turn this on if your site uses a fixed-positioned header at the top of the page.</p>
 					<ul>
@@ -108,7 +119,7 @@
 				
 				<div class="option-element">
 					<h6>Debug Mode</h6>
-					<p>Turn this on to hide bars on all pages except when #qbShow is specified in the url.</p>
+					<p>Turn this on to hide bars on all pages except when #qbshow is specified in the url.</p>
 					<ul>
 						<li data-bind="click: function(){ debug_mode('off'); }, css: { selected: debug_mode() == 'off' }">OFF</li>
 						<li data-bind="click: function(){ debug_mode('on'); }, css: { selected: debug_mode() == 'on' }">ON</li>

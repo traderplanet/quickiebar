@@ -332,7 +332,7 @@ jQuery(document).ready(function($){
 	
 	//initialize the view model
 	viewModel = new ViewModel();
-	ko.applyBindings(viewModel);
+	ko.applyBindings(viewModel, $('#quickiebar-conversions')[0]);
 	
 	viewModel.init();
 	viewModel.syncData();

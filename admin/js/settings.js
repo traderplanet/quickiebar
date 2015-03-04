@@ -24,7 +24,8 @@ jQuery(document).ready(function($){
 			email: ko.observable(),
 			subscribed: ko.observable(),
 			fixed_compatibility: ko.observable(),
-			debug_mode: ko.observable()
+			debug_mode: ko.observable(),
+			device_visibility: ko.observable()
 		}
 		self.settings.cache = {
 			attribution: ko.observable(),
@@ -36,7 +37,8 @@ jQuery(document).ready(function($){
 			custom_visibility: ko.observable(),
 			email: ko.observable(),
 			fixed_compatibility: ko.observable(),
-			debug_mode: ko.observable()
+			debug_mode: ko.observable(),
+			device_visibility: ko.observable()
 		}
 		
 		self.settings.page_visibility.subscribe(function(){
@@ -121,6 +123,7 @@ jQuery(document).ready(function($){
 			self.settings.cache.email(self.settings.email());
 			self.settings.cache.fixed_compatibility(self.settings.fixed_compatibility());
 			self.settings.cache.debug_mode(self.settings.debug_mode());
+			self.settings.cache.device_visibility(self.settings.device_visibility());
 			
 		}
 		
@@ -134,7 +137,8 @@ jQuery(document).ready(function($){
 				JSON.stringify(self.settings.post_exceptions()) != JSON.stringify(self.settings.cache.post_exceptions()) ||
 				self.settings.email() != self.settings.cache.email() ||
 				self.settings.fixed_compatibility() != self.settings.cache.fixed_compatibility() ||
-				self.settings.debug_mode() != self.settings.cache.debug_mode()
+				self.settings.debug_mode() != self.settings.cache.debug_mode() ||
+				self.settings.device_visibility() != self.settings.cache.device_visibility()
 			){
 				return true;
 			}
@@ -207,7 +211,8 @@ jQuery(document).ready(function($){
 						email: self.settings.email(),
 						subscribed: self.settings.subscribed(),
 						fixed_compatibility: self.settings.fixed_compatibility(),
-						debug_mode: self.settings.debug_mode()
+						debug_mode: self.settings.debug_mode(),
+						device_visibility: self.settings.device_visibility()
 					}
 				},
 				success: function(response){
@@ -280,6 +285,7 @@ jQuery(document).ready(function($){
 			self.settings.subscribed(qb_settings.subscribed);
 			self.settings.fixed_compatibility(qb_settings.fixed_compatibility);
 			self.settings.debug_mode(qb_settings.debug_mode);
+			self.settings.device_visibility(qb_settings.device_visibility);
 			
 			//if page exceptions or post exceptions, toggle those menus visibility accordingly
 			if(self.settings.page_exceptions().length > 0){
@@ -341,7 +347,7 @@ jQuery(document).ready(function($){
 	
 	//initialize the view model
 	viewModel = new ViewModel();
-	ko.applyBindings(viewModel);
+	ko.applyBindings(viewModel, $('#quickiebar-settings')[0]);
 	
 	viewModel.init();
 	
