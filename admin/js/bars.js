@@ -69,7 +69,7 @@ jQuery(document).ready(function($){
 			
 		}
 		self.closePreviewBar = function(){
-			if(typeof qb != 'undefined'){
+			if(typeof qb !== 'undefined'){
 				qb.hideAndDestroyBar();
 			}
 		}
@@ -843,7 +843,7 @@ jQuery(document).ready(function($){
 	
 	//initialize the view model
 	viewModel = new ViewModel();
-	ko.applyBindings(viewModel);
+	ko.applyBindings(viewModel, $('#quickiebar-bars')[0]);
 	
 	viewModel.init();
 	viewModel.syncData();

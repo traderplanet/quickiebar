@@ -83,7 +83,7 @@ jQuery(document).ready(function($){
 	
 	//initialize the view model
 	viewModel = new ViewModel();
-	ko.applyBindings(viewModel);
+	ko.applyBindings(viewModel, $('#quickiebar-setup')[0]);
 	
 	viewModel.init();
 	

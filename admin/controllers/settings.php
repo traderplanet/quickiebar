@@ -36,6 +36,7 @@ class qb_settings{
 		update_option('qb_subscribed', $settings['subscribed']);
 		update_option('qb_fixed_compatibility', $settings['fixed_compatibility']);
 		update_option('qb_debug_mode', $settings['debug_mode']);
+		update_option('qb_device_visibility', $settings['device_visibility']);
 		
 		//if visibiilty is custom, update custom visibility settings
 		if($settings['visibility'] == 'custom'){
@@ -112,7 +113,8 @@ class qb_settings{
 			'fixed_compatibility' => get_option('qb_fixed_compatibility'),
 			'debug_mode' => get_option('qb_debug_mode'),
 			'fname' => wp_get_current_user()->user_firstname,
-			'website' => get_site_url()
+			'website' => get_site_url(),
+			'device_visibility' => get_option('qb_device_visibility')
 		) );
 	}
 }
