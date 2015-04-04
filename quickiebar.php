@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.3.0
+Version: 1.3.1
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.3.0';
+$QB_VERSION = '1.3.1';
 
 class QuickieBar{
 
@@ -265,6 +265,25 @@ class QuickieBar{
 			deactivate_plugins('quickiebar-beta/quickiebar.php');
 		}
 	}
+	
+	static function load_quickiebar_script(){
+		global $QB_VERSION;
+		
+		wp_enqueue_script('quickiebar', QB_PLUGIN_URL . 'public/js/qb.js', array( 'jquery' ), $QB_VERSION, false);
+		wp_localize_script('quickiebar', 'ajaxurl', admin_url('admin-ajax.php') );
+		
+		$qb_public_globals = array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce') );
+		
+		//set global variable that tells QB to display even if hidden by admin
+		if(current_user_can('manage_options')){
+			$qb_public_globals['USER_TYPE'] = "admin";
+		}
+		else{
+			$qb_public_globals['USER_TYPE'] = "public";
+		}
+		
+		wp_localize_script('quickiebar', 'QB_PUBLIC_GLOBALS', $qb_public_globals );
+	}
 
 	function print_scripts(){
 		
@@ -281,20 +300,7 @@ class QuickieBar{
 		if($this->should_load_quickiebar_script()){
 			
 			//print quickiebar script whenever appropriate according to options
-			wp_enqueue_script('quickiebar', QB_PLUGIN_URL . 'public/js/qb.js', array( 'jquery' ), $QB_VERSION, false);
-			wp_localize_script('quickiebar', 'ajaxurl', admin_url('admin-ajax.php') );
-			
-			$qb_public_globals = array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce') );
-			
-			//set global variable that tells QB to display even if hidden by admin
-			if(current_user_can('manage_options')){
-				$qb_public_globals['USER_TYPE'] = "admin";
-			}
-			else{
-				$qb_public_globals['USER_TYPE'] = "public";
-			}
-			
-			wp_localize_script('quickiebar', 'QB_PUBLIC_GLOBALS', $qb_public_globals );
+			$this->load_quickiebar_script();
 			
 			/*TODO determine if it's in end users best interest to include all QB information at this stage - i.e. in a synchronous way*/
 			/*$bars = qb_bars::get_bars();
@@ -304,8 +310,14 @@ class QuickieBar{
 	}
 	
 	static function should_load_quickiebar_script(){
+		
+		//DON'T LOAD if admin is viewing admin page (unless it's bars page of course - which is handled by bars.php)
+		if( is_admin()){
+			return false;
+		}
+		
 		//if admin on admin page OR PUBLIC PAGES!
-		if(current_user_can('manage_options')){
+		if( current_user_can('manage_options') ){
 				return true;
 		}
 		

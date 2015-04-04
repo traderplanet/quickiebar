@@ -539,6 +539,9 @@ jQuery(document).ready(function($){
 	
 	qb.fetchBar(function(bar){
 		
+		//if on admin page
+		
+		
 		if(!bar || !bar.bar_uuid){//need to check bar_uuid also just in case default qb options come back (depending on php version & debuggin settings, this might happen)
 			//if no bar is live, nothing more to do
 			return;
