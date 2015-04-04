@@ -149,10 +149,11 @@
 					<div class="qb-options-list" data-bind="visible: showingAdditionalOptions(), with: barOptions">
 						<div class="option-element">
 							<h6>Bar Style</h6>
-							<p>Do you prefer your bar thin, tall, or just regular height?</p>
+							<p>Do you prefer your bar skinny, thin, tall, or just regular height?</p>
 							<ul>
-								<li data-bind="click: function(){ bar_height('regular'); }, css: { selected: bar_height() == 'regular' }">REGULAR</li>
+								<li data-bind="click: function(){ bar_height('skinny'); }, css: { selected: bar_height() == 'skinny' }">SKINNY</li>
 								<li data-bind="click: function(){ bar_height('thin'); }, css: { selected: bar_height() == 'thin' }">THIN</li>
+								<li data-bind="click: function(){ bar_height('regular'); }, css: { selected: bar_height() == 'regular' }">REGULAR</li>
 								<li data-bind="click: function(){ bar_height('tall'); }, css: { selected: bar_height() == 'tall' }">TALL</li>
 							</ul>
 							<div class="help-link"><i class="fa fa-question-circle"></i></div>

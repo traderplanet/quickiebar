@@ -191,6 +191,21 @@
 			margin:30px;
 		}
 	}
+	&.qb-bar_height-skinny{
+		height:40px;
+		.bar-text,.bar-button,.qb-close-button,.qb-attribution{
+			margin:0 10px;
+		}
+		.bar-text{
+			font-size:15px;//15px instead of 17px
+		}
+		.bar-button{
+			height:30px;
+			line-height:30px;
+			margin:5px 10px;
+			font-size:14px;//14px instead of 16px
+		}
+	}
 	&.qb-bar_height-thin{
 		height:60px;
 		.bar-text,.bar-button,.qb-close-button,.qb-attribution{
@@ -254,6 +269,13 @@
 			.rounded-corners(3px);
 			//.rounded-corners(20px);//pill shape
 		}
+		
+		&.qb-bar_height-skinny{
+			.bar-button{
+				border-width:1px;
+				line-height:28px;
+			}
+		}
 	}
 	
 	/*Apply centered styling to tablet sized devices*/
@@ -294,7 +316,7 @@
 		/*Fixes display in firefox - otherwise this element has no height*/
 		display:inline-block;
 		
-		&.qb-bar_height-thin,&.qb-bar_height-regular,&.qb-bar_height-tall{
+		&.qb-bar_height-skinny,&.qb-bar_height-thin,&.qb-bar_height-regular,&.qb-bar_height-tall{
 			height:auto;
 		}
 		

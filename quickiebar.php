@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.2.0
+Version: 1.3.0
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.2.0';
+$QB_VERSION = '1.3.0';
 
 class QuickieBar{
 
@@ -50,6 +50,11 @@ class QuickieBar{
 	function admin_menu(){
 		add_menu_page( 'QuickieBar', 'QuickieBar', 'manage_options', 'quickiebar', 'quickiebar', QB_PLUGIN_URL . 'admin/images/menu-icon.png', 41.4 );
 	}
+	
+	/*Utility function for determining whether WP is doing ajax call*/
+	function is_ajax_call(){
+		return defined('DOING_AJAX') && DOING_AJAX;
+	}
 
 	//called after the 'plugins_loaded action is fired
 	function include_after_plugin_loaded(){
@@ -65,7 +70,7 @@ class QuickieBar{
 		}
 
 		//admin only includes
-		if( is_admin() ){
+		if( is_admin() || $this->is_ajax_call() ){
 			
 			//add action for admin_menu
 			//we want to do this after including/adding actions for submenus to prevent duplicated "bars" page
@@ -84,7 +89,9 @@ class QuickieBar{
 				include_once( QB_PLUGIN_PATH . 'admin/controllers/conversions.php');
 				include_once( QB_PLUGIN_PATH . 'admin/controllers/settings.php');
 			}
-
+		}
+		
+		if($this->is_ajax_call()){
 			//include ajax handler for processing ajax calls made from admin pages
 			include_once( QB_PLUGIN_PATH . 'admin/ajax/qb-ajax-handler.php');
 		}
@@ -276,7 +283,18 @@ class QuickieBar{
 			//print quickiebar script whenever appropriate according to options
 			wp_enqueue_script('quickiebar', QB_PLUGIN_URL . 'public/js/qb.js', array( 'jquery' ), $QB_VERSION, false);
 			wp_localize_script('quickiebar', 'ajaxurl', admin_url('admin-ajax.php') );
-			wp_localize_script('quickiebar', 'QB_GLOBALS', array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce') ) );
+			
+			$qb_public_globals = array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce') );
+			
+			//set global variable that tells QB to display even if hidden by admin
+			if(current_user_can('manage_options')){
+				$qb_public_globals['USER_TYPE'] = "admin";
+			}
+			else{
+				$qb_public_globals['USER_TYPE'] = "public";
+			}
+			
+			wp_localize_script('quickiebar', 'QB_PUBLIC_GLOBALS', $qb_public_globals );
 			
 			/*TODO determine if it's in end users best interest to include all QB information at this stage - i.e. in a synchronous way*/
 			/*$bars = qb_bars::get_bars();
@@ -286,14 +304,9 @@ class QuickieBar{
 	}
 	
 	static function should_load_quickiebar_script(){
-		//if admin on admin page
-		if(is_admin()){
-			if(current_user_can('manage_options')){
+		//if admin on admin page OR PUBLIC PAGES!
+		if(current_user_can('manage_options')){
 				return true;
-			}
-			else{
-				return false;
-			}
 		}
 		
 		//Always LOAD the bar if Debug Mode is turned on (FrontEnd javascript will prevent the bar from actually showing unless #qbshow is specified in the URL)

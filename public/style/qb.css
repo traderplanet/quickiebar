@@ -215,6 +215,24 @@
 #quickiebar.qb.qb-bar_height-tall .qb-attribution {
   margin: 30px;
 }
+#quickiebar.qb.qb-bar_height-skinny {
+  height: 40px;
+}
+#quickiebar.qb.qb-bar_height-skinny .bar-text,
+#quickiebar.qb.qb-bar_height-skinny .bar-button,
+#quickiebar.qb.qb-bar_height-skinny .qb-close-button,
+#quickiebar.qb.qb-bar_height-skinny .qb-attribution {
+  margin: 0 10px;
+}
+#quickiebar.qb.qb-bar_height-skinny .bar-text {
+  font-size: 15px;
+}
+#quickiebar.qb.qb-bar_height-skinny .bar-button {
+  height: 30px;
+  line-height: 30px;
+  margin: 5px 10px;
+  font-size: 14px;
+}
 #quickiebar.qb.qb-bar_height-thin {
   height: 60px;
 }
@@ -272,6 +290,10 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+#quickiebar.qb.qb-button_style-outline.qb-bar_height-skinny .bar-button {
+  border-width: 1px;
+  line-height: 28px;
+}
 @media only screen and (max-width: 1024px) {
   #quickiebar.qb .wrap {
     position: relative;
@@ -316,6 +338,7 @@
     /*move link overlay 30px to the top so it isn't triggered when we click the close bar*/
     /*show mobile close button bar*/
   }
+  #quickiebar.qb.qb-bar_height-skinny,
   #quickiebar.qb.qb-bar_height-thin,
   #quickiebar.qb.qb-bar_height-regular,
   #quickiebar.qb.qb-bar_height-tall {
