@@ -218,6 +218,8 @@ class qb_bars{
 		//enqueue scripts for this view
 		$this->enqueue_scripts_for_view();
 		
+		/*If we're loading the Bars page, we need to load the public quickiebar script to render the preview bar*/
+		quickiebar()->load_quickiebar_script();
 	}
 	
 	function enqueue_scripts_for_view(){
