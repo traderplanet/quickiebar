@@ -1,10 +1,10 @@
 === QuickieBar  ===
 Contributors: philbaylog
-Tags: bar, conversion, drop-down, header, opt-in, opt in, notification, top bar, hello bar, header bar, conversion bar, drop down bar
+Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notification bar, top bar, hello bar, header bar, conversion bar, drop down bar
 Requires at least: 3.8
 Donate Link: http://quickiebar.com/pricing
 Tested up to: 4.1.1
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -131,6 +131,15 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.3.0 | Apr 3, 2015 =
+* Feature: Skinny Bar Height is now available, for those who prefer their bars even skinnier!
+* Tweak: Bars will now properly displace the default WordPress admin bar (#wpadminbar) for logged in users
+* Tweak: Admins are no longer able to permanently dismiss the bars they create
+* Tweak: Destination URLS can now be on-page links (#example)
+* Tweak: The Most Used Fontawesome icons now show up at the top of the icon list
+* Fix: Bars will now show up more consistently (and in some cases, altogether) for logged in users & admins
+* Fix: Fixed Header Compatibility Mode now supports more fixed header themes
 
 = 1.2.0 | Mar 3, 2015 =
 * Feature: You can now toggle bars to only be shown to visitors on specific devices (all devices, desktops only, or mobile & tablets only)

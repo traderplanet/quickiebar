@@ -220,6 +220,9 @@ jQuery(document).ready(function($){
 			if((textToReplace.indexOf('http://') > -1) || (textToReplace.indexOf('https://') > -1)){
 				return textToReplace;//already contains http or https prefix
 			}
+			else if(textToReplace.indexOf('#') == 0){
+				return textToReplace;//is a link to the existing page
+			}
 			else{
 				return 'http://' + textToReplace;
 			}
@@ -390,6 +393,14 @@ jQuery(document).ready(function($){
 		}
 		
 		self.faIcons = [
+		
+		/*MOST POPULAR*/
+		'envelope', 'envelope-o', 'cloud-download', 'download', 'book', 'bookmark', 'bookmark-o', 'mobile',
+		'shopping-cart', 'credit-card', 'chevron-right', 'arrow-right', 'long-arrow-right',
+		'file-text', 'file', 'file-o', 'file-text-o', 'file-archive-o', 'youtube-play', 'play',
+		'gift', 'facebook', 'twitter', 'instagram', 'pinterest', 'paper-plane', 'paper-plane-o',
+		'heart', 'bullhorn', 'check', 'check-square', 'check-circle-o', 'check-circle',
+		
 		'angle-double-down', 'angle-double-left', 'angle-double-right', 'angle-double-up', 
 		'angle-down', 'angle-left', 'angle-right', 'angle-up', 'arrow-circle-down', 
 		'arrow-circle-left', 'arrow-circle-o-down', 'arrow-circle-o-left', 'arrow-circle-o-right', 'arrow-circle-o-up', 
@@ -419,18 +430,18 @@ jQuery(document).ready(function($){
 		'arrows', 'arrows-h', 'arrows-v', 'asterisk', 'automobile', 
 		'ban', 'bank', 'bar-chart', 'bar-chart-o', 'barcode', 
 		'bars', 'beer', 'bell', 'bell-o', 'bolt', 
-		'bomb', 'book', 'bookmark', 'bookmark-o', 'briefcase', 
+		'bomb', 'briefcase', 
 		'bug', 'building', 'building-o', 'bullhorn', 'bullseye', 
 		'cab', 'calendar', 'calendar-o', 'camera', 'camera-retro', 
 		'car', 'caret-square-o-down', 'caret-square-o-left', 'caret-square-o-right', 'caret-square-o-up', 
-		'certificate', 'check', 'check-circle', 'check-circle-o', 'check-square', 
+		'certificate', 'check-circle', 'check-circle-o', 'check-square', 
 		'check-square-o', 'child', 'circle', 'circle-o', 'circle-o-notch', 
-		'circle-thin', 'clock-o', 'close', 'cloud', 'cloud-download', 
+		'circle-thin', 'clock-o', 'close', 'cloud', 
 		'cloud-upload', 'code', 'code-fork', 'coffee', 'cog', 
 		'cogs', 'comment', 'comment-o', 'comments', 'comments-o', 
 		'compass', 'credit-card', 'crop', 'crosshairs', 'cube', 
 		'cubes', 'cutlery', 'dashboard', 'database', 'desktop', 
-		'dot-circle-o', 'download', 'edit', 'ellipsis-h', 'ellipsis-v', 
+		'dot-circle-o', 'edit', 'ellipsis-h', 'ellipsis-v', 
 		'envelope', 'envelope-o', 'envelope-square', 'eraser', 'exchange', 
 		'exclamation', 'exclamation-circle', 'exclamation-triangle', 'external-link', 'external-link-square', 
 		'eye', 'eye-slash', 'fax', 'female', 'fighter-jet', 
@@ -454,7 +465,7 @@ jQuery(document).ready(function($){
 		'retweet', 'road', 'rocket', 'rss', 'rss-square', 
 		'search', 'search-minus', 'search-plus', 'send', 'send-o', 
 		'share', 'share-alt', 'share-alt-square', 'share-square', 'share-square-o', 
-		'shield', 'shopping-cart', 'sign-in', 'sign-out', 'signal', 
+		'shield', 'sign-in', 'sign-out', 'signal', 
 		'sitemap', 'sliders', 'smile-o', 'sort', 'sort-alpha-asc', 
 		'sort-alpha-desc', 'sort-amount-asc', 'sort-amount-desc', 'sort-asc', 'sort-desc', 
 		'sort-down', 'sort-numeric-asc', 'sort-numeric-desc', 'sort-up', 'space-shuttle', 

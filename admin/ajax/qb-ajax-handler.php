@@ -11,10 +11,13 @@ class qb_ajax_handler{
 	
 	function __construct(){
 		add_action('wp_ajax_qb_admin_ajax', array($this, 'process_admin_ajax') );
-		add_action('wp_ajax_nopriv_qb_public_ajax', array($this, 'process_nopriv_ajax') );
+		add_action('wp_ajax_nopriv_qb_public_ajax', array($this, 'process_ajax') );
+		
+		//Calls made by logged in users to public endpoints
+		add_action('wp_ajax_qb_public_ajax', array($this, 'process_ajax') );
 	}
 	
-	function process_nopriv_ajax(){
+	function process_ajax(){
 		
 		//security check using wp nonce param http://codex.wordpress.org/WordPress_Nonces
 		if( !check_ajax_referer('qb_public_nonce', 'qb_public_nonce', false) ){
@@ -37,6 +40,7 @@ class qb_ajax_handler{
 	}
 	
 	function process_admin_ajax(){
+		
 		//security check using wp nonce param http://codex.wordpress.org/WordPress_Nonces
 		if( !check_ajax_referer('qb_admin_nonce', 'qb_admin_nonce', false) || !current_user_can('manage_options') ){
 			die('security test failed');

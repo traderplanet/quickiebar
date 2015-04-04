@@ -13,7 +13,7 @@ function QuickieBar() {
 		
 		bar_uuid: 0,													//the bar's id
 		
-		bar_height: 'regular',								// regular || thin || tall
+		bar_height: 'regular',								// regular || thin || tall || skinny
 		new_tab: 'enabled',										// enabled || disabled
 		placement: 'top',											// top || bottom
 		devices: 'all',												// all || desktoponly || mobileonly
@@ -123,7 +123,7 @@ function QuickieBar() {
 
 			$qbHtml += '<div class="qb-close-button ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-close-button-dark' : '') + '"><i class="fa fa-times-circle-o"></i></div>';
 
-			$qbHtml += '<a href="' + self.options.destination + '" ' + (self.options.new_tab == 'enabled' ? 'target="_blank"' : '') + ' class="link-overlay"></a>'
+			$qbHtml += '<a href="' + self.options.destination + '" ' + (self.options.new_tab == 'enabled' && (self.options.destination.indexOf('#') != 0) ? 'target="_blank"' : '') + ' class="link-overlay"></a>'
 
 			$qbHtml += '<div class="qb-close-bar"><i class="fa fa-chevron-up"></i></div>';
 
@@ -189,12 +189,16 @@ function QuickieBar() {
 	
 	self.getFixedHeader = function(){
 		
-		if($('#masthead')){
-			return $('#masthead');
-		}
-		
 		if($('header')){
 			return $('header');
+		}
+		
+		if($('#header')){
+		  return $('#header');
+		}
+		
+		if($('#masthead')){
+			return $('#masthead');
 		}
 		
 		if($('.site-header')){
@@ -248,6 +252,13 @@ function QuickieBar() {
 						}
 						
 					}
+				}
+				
+				//adjust for WordPress admin top bar if required AND not previewing on Bars page (since we remove the admin bar in this situation)
+				if($('#wpadminbar') && !self.previewingOnAdminPage){
+					$page.css('padding-top', $qbHeight + $('#wpadminbar').height());
+					
+					$('#quickiebar').css('marginTop', $('#wpadminbar').height());
 				}
 
 			}
@@ -320,7 +331,7 @@ function QuickieBar() {
 			data: {
 				action: 'qb_public_ajax',
 				endpoint: 'get_bar',
-				qb_public_nonce: QB_GLOBALS.QB_PUBLIC_NONCE
+				qb_public_nonce: QB_PUBLIC_GLOBALS.QB_PUBLIC_NONCE
 			},
 			success: function(bar){
 				callback(bar);
@@ -438,7 +449,7 @@ function QuickieBar() {
 					endpoint: 'save_view',
 					user_uuid: self.getUserUuid(),
 					bar_uuid: bar_uuid,
-					qb_public_nonce: QB_GLOBALS.QB_PUBLIC_NONCE
+					qb_public_nonce: QB_PUBLIC_GLOBALS.QB_PUBLIC_NONCE
 				},
 				success: function(){
 					
@@ -477,7 +488,7 @@ function QuickieBar() {
 					endpoint: 'save_conversion',
 					user_uuid: self.getUserUuid(),
 					bar_uuid: bar_uuid,
-					qb_public_nonce: QB_GLOBALS.QB_PUBLIC_NONCE
+					qb_public_nonce: QB_PUBLIC_GLOBALS.QB_PUBLIC_NONCE
 				},
 				success: function(){
 					
@@ -534,7 +545,8 @@ jQuery(document).ready(function($){
 		}
 		
 		//if bar that is returned has already been dismissed, don't show bar - there is nothing more to do
-		if(qb.getBarDismissals().indexOf(bar.bar_uuid) > -1){
+		//exception: ignore this rule for admins
+		if(qb.getBarDismissals().indexOf(bar.bar_uuid) > -1 && (QB_PUBLIC_GLOBALS.USER_TYPE != 'admin')){
 			return;
 		}
 		
@@ -573,7 +585,7 @@ jQuery(document).ready(function($){
 Sample Init Code:
 
 qb.init({
-	bar_height: 'regular',								// regular || thin || tall
+	bar_height: 'regular',								// regular || thin || tall || skinny
 	new_tab: 'enabled',										// true || false
 	placement: 'top',											// top || bottom
 	devices: 'all',												// all || desktoponly || mobileonly
