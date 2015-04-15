@@ -4,7 +4,7 @@ Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notifica
 Requires at least: 3.8
 Donate Link: http://quickiebar.com/pricing
 Tested up to: 4.1.1
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -131,6 +131,9 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.3.2 | Apr 15, 2015 =
+* Fix: Fixed issues with page visibility settings not applying to admin page views
 
 = 1.3.1 | Apr 3, 2015 =
 * Fix: QuickieBar will now not be shown on all admin pages. You know, because you probably already know about the stuff you're promoting...
