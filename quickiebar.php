@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.3.1
+Version: 1.3.2
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.3.1';
+$QB_VERSION = '1.3.2';
 
 class QuickieBar{
 
@@ -314,11 +314,6 @@ class QuickieBar{
 		//DON'T LOAD if admin is viewing admin page (unless it's bars page of course - which is handled by bars.php)
 		if( is_admin()){
 			return false;
-		}
-		
-		//if admin on admin page OR PUBLIC PAGES!
-		if( current_user_can('manage_options') ){
-				return true;
 		}
 		
 		//Always LOAD the bar if Debug Mode is turned on (FrontEnd javascript will prevent the bar from actually showing unless #qbshow is specified in the URL)
