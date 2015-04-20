@@ -2,9 +2,9 @@
 Contributors: philbaylog
 Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notification bar, top bar, hello bar, header bar, conversion bar, drop down bar
 Requires at least: 3.8
-Donate Link: http://quickiebar.com/pricing
+Donate Link: https://quickiebar.com/pricing
 Tested up to: 4.1.1
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -131,6 +131,9 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.4.1 | Apr 20, 2015 =
+* Fix: Removed code that preventing new bars from being created/edited.
 
 = 1.4.0 | Apr 20, 2015 =
 * Feature: Introduced a "minimized" state for bars - users can now expand dismissed bars (desktop only)
