@@ -156,8 +156,6 @@ jQuery(document).ready(function($){
 		
 		self.DEFAULT_BAR_OPTIONS = {
 			
-			bar_type: 'traffic',
-			
 			bar_height: 'regular',
 			
 			bar_text: '',
@@ -180,8 +178,6 @@ jQuery(document).ready(function($){
 		}
 		
 		self.barOptions = {
-			bar_type: ko.observable(self.DEFAULT_BAR_OPTIONS.bar_type),
-			
 			bar_height: ko.observable(self.DEFAULT_BAR_OPTIONS.bar_height),
 			
 			bar_text: ko.observable(self.DEFAULT_BAR_OPTIONS.bar_text),
@@ -543,8 +539,6 @@ jQuery(document).ready(function($){
 		}
 		
 		self.mapBarPropertiesToBarOptions = function(bar){
-			
-			self.barOptions.bar_type(bar.bar_type ? bar.bar_type : self.DEFAULT_BAR_OPTIONS.bar_type);
 			
 			self.barOptions.bar_height(bar.bar_height);
 			
