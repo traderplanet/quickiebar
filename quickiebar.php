@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: http://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.3.2
+Version: 1.4.0
 Author: Phil Baylog
 Author URI: http://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.3.2';
+$QB_VERSION = '1.4.0';
 
 class QuickieBar{
 
@@ -26,6 +26,8 @@ class QuickieBar{
 
 		$this->include_before_plugin_loaded();
 		add_action('plugins_loaded', array($this, 'include_after_plugin_loaded'));
+		
+		add_action('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'add_settings_link_to_plugins_page'));
 	}
 
 	/** Singleton Instance Implementation **********/
@@ -47,6 +49,13 @@ class QuickieBar{
 		$wpdb->qb_conversions = $wpdb->prefix . 'qb_conversions';
 	}
 	
+	function add_settings_link_to_plugins_page($links){
+		$settings_link = '<a href="admin.php?page=quickiebar-settings">Settings</a>';
+	  array_unshift($links, $settings_link);
+	
+	  return $links;
+	}
+	
 	function admin_menu(){
 		add_menu_page( 'QuickieBar', 'QuickieBar', 'manage_options', 'quickiebar', 'quickiebar', QB_PLUGIN_URL . 'admin/images/menu-icon.png', 41.4 );
 	}
@@ -60,6 +69,17 @@ class QuickieBar{
 	function include_after_plugin_loaded(){
 		
 		global $QB_VERSION;
+		
+		//If user is activating the plugin for the first time
+		if(!get_option('QB_VERSION') && !quickiebar()->is_ajax_call()){
+			$html = '';
+			
+			$html .= '<div class="updated" style="border-color:#EF4651;padding:5px;">';
+			 $html .= '<p style="margin-left:10px;">Thanks for installing QuickieBar! &nbsp;&nbsp;&nbsp;<a class="coral-bg" href="admin.php?page=quickiebar" style="position:relative;background:#EF4651;color:#FFF;padding:3px 6px;cursor:pointer;border-radius:3px;letter-spacing:.05em;font-size:12px;font-weight:bold;">GET STARTED WITH QUICKIEBAR &nbsp;<i class="fa fa-long-arrow-right"></i></a></p>';
+			$html .= '</div><!--/.updated-->';
+			
+			echo $html;
+		}
 		
 		//update database or options if plugin version updated
 		if(get_option('qb_version') != $QB_VERSION){

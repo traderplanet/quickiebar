@@ -4,7 +4,7 @@ Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notifica
 Requires at least: 3.8
 Donate Link: http://quickiebar.com/pricing
 Tested up to: 4.1.1
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -131,6 +131,14 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.4.0 | Apr 20, 2015 =
+* Feature: Introduced a "minimized" state for bars - users can now expand dismissed bars (desktop only)
+* Tweak: Added "Settings" link to plugins page
+* Tweak: Added welcome message CTA when plugin is installed for the first time
+* Fix: Fixed bug preventing bar dismissals sometimes not persisting after page refresh
+* Fix: Fixed bug causing the bar deletion process to "hang" for some bars
+* Fix: Fixed UI glitch after deleting a bar
 
 = 1.3.2 | Apr 15, 2015 =
 * Fix: Fixed issues with page visibility settings not applying to admin page views
