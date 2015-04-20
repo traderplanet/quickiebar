@@ -196,7 +196,7 @@ class qb_bars{
 		return qb_bars::get_bar_by_uuid($bar_uuid, $format);
 	}
 	
-	//delets a bar by updating its status to deleted
+	//deletes a bar by updating its status to deleted
 	static function delete_bar($bar_uuid, $format = 'php'){
 		global $wpdb;
 		
@@ -207,8 +207,13 @@ class qb_bars{
 			array('bar_uuid' => $bar_uuid)
 		);
 		
-		//lastly, get the updated bar and return in specified format
-		return qb_bars::get_bar_by_uuid($bar_uuid, $format);
+		//return true after delete is successful
+		if($format == 'json'){
+			return json_encode(true);
+		}
+		else{
+			return true;
+		}
 	}
 	
 	//echo out the bars view (html file) file when loading the bars admin page

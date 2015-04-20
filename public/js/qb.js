@@ -47,6 +47,14 @@ function QuickieBar() {
 		}
 		
 	}
+	
+	self.initAndCreateBar = function(options){
+		self.init(options);
+
+		self.createBar();
+
+		self.bindEventsToBar();
+	}
 
 	self.initAndShowBar = function(options, isAdminPage){
 		
@@ -107,6 +115,8 @@ function QuickieBar() {
 		var buttonText = self.options.button_text ? self.prepareBarOrButtonText(self.options.button_text) : 'BUTTON TEXT';
 		
 		$qbHtml = '';
+		
+		$qbHtml = '<div id="quickiebar-show-button" class="show-button-sticky-' + (self.options.fixed_compatibility == 'on' ? 'enabled' : self.options.sticky) + ' show-button-placement-' + self.options.placement + '" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><div class="show-button" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></div></div>';
 
 		$qbHtml += '<div id="quickiebar" class="qb ' + self.getQuickieBarTopLevelClasses() + '" style="background:' + self.options.color_bar_background + ';">';		
 
@@ -176,6 +186,14 @@ function QuickieBar() {
 			self.trackConversion();
 			//console.log("TRACK CONVERSION");
 		});
+		
+		//Bind show function on show-button
+		$("#quickiebar-show-button").click(function(){
+			qb.show();
+			
+			//if we're showing the bar again, we should clear the dismissal tracking
+			qb.resetCurrentBarDismissalTracking();
+		});
 	}
 
 	self.getPage = function(){
@@ -208,6 +226,20 @@ function QuickieBar() {
 		//if we can't find it with selectors, the loop through every element in <body> - stopping once we find a position:fixed element and return that.
 		//TODO
 		return false;
+	}
+	
+	//Just show the toggle for the bar, not the bar itself (show bar in "minimized" display)
+	self.showBarToggle = function(){
+		
+		if(self.options.placement == 'top'){
+			$("#quickiebar-show-button").css('margin-top', -24);
+		}
+		else if(self.options.placement == 'bottom'){
+			$("#quickiebar-show-button").css('margin-bottom', -24);
+		}
+		
+		$('#quickiebar-show-button').show();
+		$("#quickiebar-show-button").stop().animate({'margin-top': 0,'margin-bottom': 0}, 250);
 	}
 	
 	self.show = function(){
@@ -271,11 +303,13 @@ function QuickieBar() {
 		if($slideIn){
 			
 			$('#quickiebar').stop().slideDown(300);
-			
 		}
 		else{
 			$('#quickiebar').stop().show();
 		}
+		
+		//Hide the show button if visible
+		$('#quickiebar-show-button').hide();
 		
 	}
 
@@ -317,6 +351,9 @@ function QuickieBar() {
 				
 			}
 		}
+		
+		//Show the show button
+		self.showBarToggle();
 		
 		if(typeof callback === 'function'){
 			callback();
@@ -425,6 +462,18 @@ function QuickieBar() {
 		QBDeleteCookie('qb_bar_views');
 		QBDeleteCookie('qb_bar_conversions');
 		QBDeleteCookie('qb_bar_dismissals');
+	}
+	
+	self.resetCurrentBarDismissalTracking = function(){
+		var bar_dismissals = self.getBarDismissals();
+		
+		for(var i = bar_dismissals.length; i >= 0; i--){
+			if(bar_dismissals[i] == qb.options.bar_uuid){
+				bar_dismissals.splice(i, 1);
+			}
+		}
+		
+		QBSetCookie('qb_bar_dismissals', JSON.stringify(bar_dismissals), 7);
 	}
 	
 	self.trackView = function(){
@@ -546,26 +595,23 @@ jQuery(document).ready(function($){
 			//if no bar is live, nothing more to do
 			return;
 		}
-		
-		//if bar that is returned has already been dismissed, don't show bar - there is nothing more to do
-		//exception: ignore this rule for admins
-		if(qb.getBarDismissals().indexOf(bar.bar_uuid) > -1 && (QB_PUBLIC_GLOBALS.USER_TYPE != 'admin')){
-			return;
-		}
-		
 		//immedialy show bar if debug_mode and hash
-		if(bar.debug_mode == 'on' && location.hash.toLowerCase().indexOf('qbshow') > -1){
+		else if(bar.debug_mode == 'on' && location.hash.toLowerCase().indexOf('qbshow') > -1){
 			qb.initAndShowBar(bar);
 			qb.trackView();
 		}
+		//if bar that is returned has already been dismissed, show toggle instead of bar
+		else if(qb.getBarDismissals().indexOf(bar.bar_uuid) > -1 && (QB_PUBLIC_GLOBALS.USER_TYPE != 'admin')){
+			qb.initAndCreateBar(bar);//create the bar but don't show it
+			qb.showBarToggle();
+		}
+		//more logic to determine whether or not to show bar
 		else{
-			//more logic to determine whether to show bar or not
-			
 			//if fixed header compatibility mode is on, don't show if on mobile devices (< 900 px)
 			if(bar.fixed_compatibility == 'on' && $('body').width() < 900){
 				return;
 			}
-			
+
 			if(bar.device_visibility != 'all'){
 				if(bar.device_visibility == 'desktoponly' && isMobileDevice()){
 					return;
@@ -574,7 +620,7 @@ jQuery(document).ready(function($){
 					return;
 				}
 			}
-			
+
 			qb.initAndShowBar(bar);
 			qb.trackView();
 		}

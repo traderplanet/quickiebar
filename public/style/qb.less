@@ -6,6 +6,94 @@
 	.transition(0) !important;
 }
 
+#quickiebar-show-button{
+	
+	display:none;/*default to hidden until JS shows this*/
+	
+	//Never display this on mobile devices
+	@media only screen and (max-width:900px){
+		display:none !important;
+	}
+	
+	overflow:visible;
+	
+	position:fixed;
+	&.show-button-sticky-disabled{
+		position:relative;
+	}
+	
+	left:0;
+	width:100%;
+	z-index:100;
+	
+	height:4px;
+	
+	opacity:.75;
+	.transition();
+	
+	
+	&:hover{
+		opacity:1;
+	}
+	
+	.show-button{
+		position:absolute;
+		//left:50%;
+		//margin-left:-10px;
+		
+		right:20px;
+		
+		width:20px;
+		height:20px;
+		
+		cursor:pointer;
+		
+		text-align:center;
+		
+		i{
+			height:20px;
+			line-height:20px;
+		}
+		
+		color:#FFF;
+		font-size:12px;
+	}
+	
+	&.show-button-placement-top{
+		top:0;
+		
+		.show-button{
+			bottom:-20px;
+			.round-bottom-left(3px);
+			.round-bottom-right(3px);
+			
+			.fa-chevron-up{
+				display:none;
+			}
+			.fa-chevron-down{
+				display:block;
+			}
+		}
+	}
+	
+	&.show-button-placement-bottom{
+		bottom:0;
+		
+		.show-button{
+			top:-20px;
+			.round-top-left(3px);
+			.round-top-right(3px);
+			
+			.fa-chevron-up{
+				display:block;
+			}
+			.fa-chevron-down{
+				display:none;
+			}
+		}
+	}
+}
+
 /*we have to use both the id and the class..because wordpress creates a div with id = quickiebar on the installed plugins admin page*/
 #quickiebar.qb{
 	
@@ -312,9 +400,6 @@
 		
 		/*Overwrite any options set for bar for tablet/mobile style browsers*/
 		position:relative !important;
-		
-		/*Fixes display in firefox - otherwise this element has no height*/
-		display:inline-block;
 		
 		&.qb-bar_height-skinny,&.qb-bar_height-thin,&.qb-bar_height-regular,&.qb-bar_height-tall{
 			height:auto;

@@ -1710,7 +1710,7 @@
   padding-left: 25px;
   border-left: 1px solid #DDD;
   min-height: 80vh;
-  position: fixed;
+  position: absolute;
 }
 .quickiebar-page .qb-sidebar-content h5 {
   margin: 1rem 0;

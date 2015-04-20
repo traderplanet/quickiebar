@@ -33,6 +33,81 @@
   -moz-transition: 0 !important;
   transition: 0 !important;
 }
+#quickiebar-show-button {
+  display: none;
+  /*default to hidden until JS shows this*/
+  overflow: visible;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  height: 4px;
+  opacity: .75;
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+@media only screen and (max-width: 900px) {
+  #quickiebar-show-button {
+    display: none !important;
+  }
+}
+#quickiebar-show-button.show-button-sticky-disabled {
+  position: relative;
+}
+#quickiebar-show-button:hover {
+  opacity: 1;
+}
+#quickiebar-show-button .show-button {
+  position: absolute;
+  right: 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  text-align: center;
+  color: #FFF;
+  font-size: 12px;
+}
+#quickiebar-show-button .show-button i {
+  height: 20px;
+  line-height: 20px;
+}
+#quickiebar-show-button.show-button-placement-top {
+  top: 0;
+}
+#quickiebar-show-button.show-button-placement-top .show-button {
+  bottom: -20px;
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#quickiebar-show-button.show-button-placement-top .show-button .fa-chevron-up {
+  display: none;
+}
+#quickiebar-show-button.show-button-placement-top .show-button .fa-chevron-down {
+  display: block;
+}
+#quickiebar-show-button.show-button-placement-bottom {
+  bottom: 0;
+}
+#quickiebar-show-button.show-button-placement-bottom .show-button {
+  top: -20px;
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+#quickiebar-show-button.show-button-placement-bottom .show-button .fa-chevron-up {
+  display: block;
+}
+#quickiebar-show-button.show-button-placement-bottom .show-button .fa-chevron-down {
+  display: none;
+}
 /*we have to use both the id and the class..because wordpress creates a div with id = quickiebar on the installed plugins admin page*/
 #quickiebar.qb {
   position: fixed;
@@ -318,8 +393,6 @@
   #quickiebar.qb {
     /*Overwrite any options set for bar for tablet/mobile style browsers*/
     position: relative !important;
-    /*Fixes display in firefox - otherwise this element has no height*/
-    display: inline-block;
     /*height will be set programatically*/
     /*Add 20px to bottom (or top) of bar for close-button-bar*/
     padding: 0 0 30px 0;
