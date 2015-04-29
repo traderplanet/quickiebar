@@ -233,6 +233,7 @@ class qb_bars{
 		wp_localize_script('qb-bars', 'QB_GLOBALS', array( 'QB_ADMIN_NONCE' => wp_create_nonce('qb_admin_nonce') ));
 
 		wp_enqueue_script('colpick', QB_PLUGIN_URL . 'admin/js/inc/colpick/js/colpick.js', array('jquery'), '2.0.2', true);
+		wp_enqueue_script('tooltipster', QB_PLUGIN_URL . 'admin/js/inc/tooltipster/jquery.tooltipster.min.js', array('jquery'), '0.0.0', true);
 		
 	}
 }

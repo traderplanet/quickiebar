@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.4.1
+Version: 1.4.2
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.4.1';
+$QB_VERSION = '1.4.2';
 
 class QuickieBar{
 
@@ -57,7 +57,7 @@ class QuickieBar{
 	}
 	
 	function admin_menu(){
-		add_menu_page( 'QuickieBar', 'QuickieBar', 'manage_options', 'quickiebar', 'quickiebar', QB_PLUGIN_URL . 'admin/images/menu-icon.png', 41.4 );
+		add_menu_page( 'QuickieBar', 'QuickieBar', 'manage_options', 'quickiebar', 'quickiebar', QB_PLUGIN_URL . 'admin/images/menu-icon.png', '41.4' );
 	}
 	
 	/*Utility function for determining whether WP is doing ajax call*/
@@ -438,6 +438,7 @@ class QuickieBar{
 
 		if(is_admin() && get_admin_page_title() == 'Bars'){
 			wp_enqueue_style('colpick', QB_PLUGIN_URL . 'admin/js/inc/colpick/css/colpick.css', false, '2.0.2', 'all');
+			wp_enqueue_style('tooltipster', QB_PLUGIN_URL . 'admin/js/inc/tooltipster/tooltipster.css', false, '0.0.0', 'all');
 		}
 
 		//always...

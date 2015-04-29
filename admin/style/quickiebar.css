@@ -1563,6 +1563,21 @@
   -moz-border-radius: 3px;
   border-radius: 3px;
 }
+#quickiebar-bars .edit-bar-form .qb-settings-fields .qb-settings-field i.warning-icon {
+  position: absolute;
+  left: -30px;
+  top: 15px;
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #f15a29;
+  opacity: .65;
+}
+#quickiebar-bars .edit-bar-form .qb-settings-fields .qb-settings-field i.warning-icon:hover {
+  opacity: 1;
+}
 #quickiebar-bars .edit-bar-form .qb-settings-fields .qb-settings-field input {
   z-index: 0;
   background: transparent;
@@ -1719,4 +1734,17 @@
 }
 .quickiebar-page .qb-sidebar-content button {
   margin: 10px 0 0 0;
+}
+/*Tooltipster styles*/
+.tooltipster-qb {
+  border-radius: 3px;
+  border: 1px solid #062332;
+  background: #062332;
+  color: #FFF;
+}
+.tooltipster-qb .tooltipster-content {
+  font-family: 'Aleo';
+  font-size: 13px;
+  line-height: 16px;
+  padding: 3px 5px;
 }

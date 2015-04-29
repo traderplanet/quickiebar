@@ -13,7 +13,7 @@ function QuickieBar() {
 		
 		bar_uuid: 0,													//the bar's id
 		
-		bar_height: 'regular',								// regular || thin || tall || skinny
+		bar_height: 'thin',								// regular || thin || tall || skinny
 		new_tab: 'enabled',										// enabled || disabled
 		placement: 'top',											// top || bottom
 		devices: 'all',												// all || desktoponly || mobileonly
@@ -40,12 +40,22 @@ function QuickieBar() {
 	self.init = function(options){
 		
 		if(options){
+			
 			//for each option, update self.options
 			$.each(options, function(index, option){
+				
+				//unescape strings that might contain special characters
+				if(index == 'bar_text' ||
+					index == 'button_text' ||
+					index == 'subscribe_text' ||
+					index == 'bar_html'
+				){
+					option = unescape(option);
+				}
 				self.options[index] = option;
 			});
+			
 		}
-		
 	}
 	
 	self.initAndCreateBar = function(options){
@@ -111,8 +121,8 @@ function QuickieBar() {
 	//create html block to be placed before #page div that contains all the html for the quickiebar
 	self.craftHtml = function(){
 		
-		var barText = self.options.bar_text ? self.prepareBarOrButtonText(self.options.bar_text, true) : self.prepareBarOrButtonText('Bar Text goes here {{long-arrow-right}}', true);
-		var buttonText = self.options.button_text ? self.prepareBarOrButtonText(self.options.button_text) : 'BUTTON TEXT';
+		var barText = self.options.bar_text ? self.prepareBarOrButtonText(self.options.bar_text, true) : self.prepareBarOrButtonText('Bar Text goes here', true);
+		var buttonText = self.options.button_text ? self.prepareBarOrButtonText(self.options.button_text) : '';
 		
 		$qbHtml = '';
 		
@@ -127,13 +137,13 @@ function QuickieBar() {
 			$qbHtml += '<div class="wrap">';
 				$qbHtml += '<div class="qb-wrap">';
 					$qbHtml += '<span class="bar-text" style="color:' + self.options.color_bar_text + ';">' + barText + '</span>';
-					$qbHtml += '<span class="bar-button" style="color:' + self.options.color_button_text + ';background:' + self.options.color_button_background + ';border-color:' + self.options.color_button_text + ';">' + buttonText + '</span>';
+					$qbHtml += '<span class="bar-button" style="' + (buttonText == '' ? 'display:none;' : '') + 'color:' + self.options.color_button_text + ';background:' + self.options.color_button_background + ';border-color:' + self.options.color_button_text + ';">' + buttonText + '</span>';
 				$qbHtml += '</div>';//end .qb-wrap
 			$qbHtml += '</div>';//end .wrap
 
 			$qbHtml += '<div class="qb-close-button ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-close-button-dark' : '') + '"><i class="fa fa-times-circle-o"></i></div>';
 
-			$qbHtml += '<a href="' + self.options.destination + '" ' + (self.options.new_tab == 'enabled' && (self.options.destination.indexOf('#') != 0) ? 'target="_blank"' : '') + ' class="link-overlay"></a>'
+			$qbHtml += '<a href="' + self.options.destination + '" ' + (self.options.new_tab == 'enabled' && (self.options.destination.indexOf('#') != 0) ? 'target="_blank"' : '') + ' class="link-overlay" style="' + (self.options.destination == '' ? 'display:none;' : '') + '"></a>'
 
 			$qbHtml += '<div class="qb-close-bar"><i class="fa fa-chevron-up"></i></div>';
 
@@ -634,7 +644,7 @@ jQuery(document).ready(function($){
 Sample Init Code:
 
 qb.init({
-	bar_height: 'regular',								// regular || thin || tall || skinny
+	bar_height: 'thin',								// regular || thin || tall || skinny
 	new_tab: 'enabled',										// true || false
 	placement: 'top',											// top || bottom
 	devices: 'all',												// all || desktoponly || mobileonly
