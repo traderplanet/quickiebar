@@ -55,6 +55,32 @@
 			
 			<div style="display:none;" class="edit-bar-form" data-bind="visible: editingBar()">
 				
+				
+				<div class="section">
+					<div class="section-title">BASIC SETTINGS</div>
+					<div class="qb-settings-fields">
+						<div class="qb-settings-field">
+							<input type="text" placeholder="Bar Text" data-bind="value: barOptions.bar_text, valueUpdate: 'keyup'"/>
+							<button tabindex="-1" class="grey tiny" data-bind="click: function(){ $root.pickingIconForField('bar'); }"><i class="fa fa-paper-plane-o"></i> &nbsp;INSERT ICON</button>
+						</div>
+						<div class="qb-settings-field">
+							<i class="warning-icon fa fa-exclamation-triangle qb-tooltip" data-bind="visible: barOptions.button_text() == ''" title="Specify Button Text to add a button to your bar"></i>
+							<input type="text" placeholder="Button Text" data-bind="value: barOptions.button_text, valueUpdate: 'keyup'"/>
+							<button tabindex="-1" class="grey tiny" data-bind="click: function(){ $root.pickingIconForField('button'); }"><i class="fa fa-paper-plane-o"></i> &nbsp;INSERT ICON</button>
+						</div>
+						<div class="qb-settings-field">
+							<i class="warning-icon fa fa-exclamation-triangle qb-tooltip" data-bind="visible: barOptions.destination() == ''" title="Specify a Destination URL to send visitors somewhere when they click your bar"></i>
+							<input type="text" placeholder="Button Destination URL" data-bind="value: barOptions.destination, valueUpdate: 'keyup'"/>
+							<a href="" target="_blank" data-bind="attr: { href: destinationAsLink() }"><button data-bind="enable: barOptions.destination().length > 3, css: { disabled: barOptions.destination().length <= 3 }" class="grey tiny"><i class="fa fa-unlink"></i> &nbsp;TEST LINK</button></a>
+						</div>
+						
+						<!--
+						<div class="qb-warning-field"><i class="fa fa-exclamation-triangle"></i> &nbsp;Specify Button Text to </div>
+						<div class="qb-warning-field"><i class="fa fa-exclamation-triangle"></i> &nbsp;Specify Button Text to </div>
+						-->
+					</div>
+				</div>
+				
 				<!--<div class="section">
 					<div class="section-title">PREVIEW</div>
 					<div id="qb-bar-preview" data-bind="style: { backgroundColor: barColors().barBackground }">
@@ -76,12 +102,12 @@
 							<input class="option-value" data-bind="value: barOptions.color_bar_text" />
 							<div class="option-name">Text</div>
 						</div>
-						<div class="qb-color-option" data-bind="visible: !previewColor()">
+						<div class="qb-color-option" data-bind="visible: !previewColor(), css: { 'faded2x': barOptions.button_text() == ''}">
 							<div class="sample" data-bind="style: {backgroundColor: barOptions.color_button_background()}"></div>
 							<input class="option-value" data-bind="value: barOptions.color_button_background" />
 							<div class="option-name">Button Background</div>
 						</div>
-						<div class="qb-color-option" data-bind="visible: !previewColor()">
+						<div class="qb-color-option" data-bind="visible: !previewColor(), css: { 'faded2x': barOptions.button_text() == ''}">
 							<div class="sample" data-bind="style: {backgroundColor: barOptions.color_button_text()}"></div>
 							<input class="option-value" data-bind="value: barOptions.color_button_text" />
 							<div class="option-name">Button Text</div>
@@ -98,12 +124,12 @@
 							<input id="cp-bar-text" class="option-value" data-bind="value: barOptions.color_bar_text" />
 							<div class="option-name">Text</div>
 						</div>
-						<div class="qb-color-option" data-bind="visible: previewColor()">
+						<div class="qb-color-option" data-bind="visible: previewColor(), css: { 'faded2x': barOptions.button_text() == ''}">
 							<div class="sample" data-bind="style: {backgroundColor: barOptions.color_button_background()}"></div>
 							<input id="cp-button-background" class="option-value" data-bind="value: barOptions.color_button_background" />
 							<div class="option-name">Button Background</div>
 						</div>
-						<div class="qb-color-option" data-bind="visible: previewColor()">
+						<div class="qb-color-option" data-bind="visible: previewColor(), css: { 'faded2x': barOptions.button_text() == ''}">
 							<div class="sample" data-bind="style: {backgroundColor: barOptions.color_button_text()}"></div>
 							<input id="cp-button-text" class="option-value" data-bind="value: barOptions.color_button_text" />
 							<div class="option-name">Button Text</div>
@@ -137,24 +163,6 @@
 					</div>
 				</div>-->
 				
-				<div class="divider"></div>
-				<div class="section">
-					<div class="section-title">BASIC SETTINGS</div>
-					<div class="qb-settings-fields">
-						<div class="qb-settings-field">
-							<input type="text" placeholder="Bar Text" data-bind="value: barOptions.bar_text, valueUpdate: 'keyup'"/>
-							<button class="grey tiny" data-bind="click: function(){ $root.pickingIconForField('bar'); }"><i class="fa fa-paper-plane-o"></i> &nbsp;INSERT ICON</button>
-						</div>
-						<div class="qb-settings-field">
-							<input type="text" placeholder="Button Text" data-bind="value: barOptions.button_text, valueUpdate: 'keyup'"/>
-							<button class="grey tiny" data-bind="click: function(){ $root.pickingIconForField('button'); }"><i class="fa fa-paper-plane-o"></i> &nbsp;INSERT ICON</button>
-						</div>
-						<div class="qb-settings-field">
-							<input type="text" placeholder="Button Destination URL" data-bind="value: barOptions.destination, valueUpdate: 'keyup'"/>
-							<a href="" target="_blank" data-bind="attr: { href: destinationAsLink() }"><button data-bind="enable: barOptions.destination().length > 3, css: { disabled: barOptions.destination().length <= 3 }" class="grey tiny"><i class="fa fa-unlink"></i> &nbsp;TEST LINK</button></a>
-						</div>
-					</div>
-				</div>
 				<div class="divider"></div>
 				<div class="section">
 					<div class="section-title">

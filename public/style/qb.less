@@ -105,6 +105,9 @@
 	/*prevents width > 100% overflow issues*/
 	overflow:hidden;
 	
+	//default cursor style - if link, then link-overlay will show cursor as pointer when hovered
+	cursor:default;
+	
 	height:80px;
 	
 	//default to display:none; until we show it with javascript
@@ -129,6 +132,8 @@
 		.transition(.2s);
 		
 		opacity:0;
+		
+		display:block;//default unless hidden by code if no link
 	}
 	
 	.link-overlay{
@@ -140,14 +145,15 @@
 		height:100%;
 		background:transparent;
 		
+		cursor:pointer;
+		display:block;//default unless hidden by code if no link
+		
 		&:focus{
 			.no-shadow();
 		}
 	}
 	
 	&:hover{
-		
-		cursor:pointer;
 		
 		.hover-background-overlay{
 			opacity:1;

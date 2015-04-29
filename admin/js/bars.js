@@ -1,4 +1,11 @@
 jQuery(document).ready(function($){
+	
+	$('.qb-tooltip').tooltipster({
+		position: 'right',//top-right or top-left
+		theme: 'tooltipster-qb',
+		delay: 0,
+		speed: 300
+	});
 		
 	function ViewModel() {
 		var self = this;
@@ -113,12 +120,27 @@ jQuery(document).ready(function($){
 				return;
 			}
 			else if(optionName == 'button_text'){
-				$('#quickiebar .bar-button').html(self.getBarOrButtonTextAsHtml(optionValue));
+				
+				if(optionValue && optionValue !== ''){
+					$('#quickiebar .bar-button').css('display', 'inline-block');
+					$('#quickiebar .bar-button').html(self.getBarOrButtonTextAsHtml(optionValue));
+				}
+				else{
+					//hide if no text
+					$('#quickiebar .bar-button').css('display', 'none');
+				}
+				
 				return;
 			}
 			
 			//if option is destination...don't do anything
 			if(optionName == 'destination'){
+				if(optionValue && optionValue !== ''){
+					$("#quickiebar .link-overlay").css('display', 'block');
+				}
+				else{
+					$("#quickiebar .link-overlay").css('display', 'none');
+				}
 				return;
 			}
 
@@ -156,7 +178,7 @@ jQuery(document).ready(function($){
 		
 		self.DEFAULT_BAR_OPTIONS = {
 			
-			bar_height: 'regular',
+			bar_height: 'thin',
 			
 			bar_text: '',
 			button_text: '',
@@ -217,6 +239,11 @@ jQuery(document).ready(function($){
 		
 		self.destinationAsLink = ko.computed(function(){
 			var textToReplace = self.barOptions.destination();
+			
+			//if no link specified, don't try to add http:// at beginning
+			if(!textToReplace || textToReplace == ''){
+				return '';
+			}
 			
 			if((textToReplace.indexOf('http://') > -1) || (textToReplace.indexOf('https://') > -1)){
 				return textToReplace;//already contains http or https prefix
@@ -347,9 +374,9 @@ jQuery(document).ready(function($){
 			/*if(!options.button_text() || options.button_text() == ''){
 				return false;
 			}*/
-			if(!options.destination() || options.destination() == '' || options.destination().length < 4){
+			/*if(!options.destination() || options.destination() == '' || options.destination().length < 4){
 				return false;
-			}
+			}*/
 			
 			//all validation passed
 			return true;
@@ -542,8 +569,8 @@ jQuery(document).ready(function($){
 			
 			self.barOptions.bar_height(bar.bar_height);
 			
-			self.barOptions.bar_text(bar.bar_text);
-			self.barOptions.button_text(bar.button_text);
+			self.barOptions.bar_text(unescape(bar.bar_text));
+			self.barOptions.button_text(unescape(bar.button_text));
 			self.barOptions.destination(bar.destination);
 			
 			self.barOptions.color_bar_background(bar.color_bar_background);
@@ -581,6 +608,23 @@ jQuery(document).ready(function($){
 			return matchedBar ? matchedBar : false;
 		}
 		
+		self.mapBarToJS = function(bar){
+			var mappedBar = bar;
+			
+			mappedBar.bar_text = unescape(mappedBar.bar_text);
+			mappedBar.button_text = unescape(mappedBar.button_text);
+			
+			return mappedBar;
+		}
+		
+		self.escapeBarTextFields = function(barJS){
+			
+			barJS.bar_text = escape(barJS.bar_text);
+			barJS.button_text = escape(barJS.button_text);
+			
+			return barJS;
+		}
+		
 		self.createNewBarAndPublish = function(){
 			self.publishingBar(true);
 			
@@ -597,6 +641,9 @@ jQuery(document).ready(function($){
 			self.barOptions.destination(self.destinationAsLink());
 			
 			var barJS = ko.toJS(self.barOptions);
+			
+			//escape bar text fields
+			barJS = self.escapeBarTextFields(barJS);
 			
 			if(self.publishingBar()){
 				barJS.status = 'live';
@@ -681,7 +728,8 @@ jQuery(document).ready(function($){
 			delete barJS.attribution;
 			delete barJS.fixed_compatibility;
 			
-			//convert bar observable properties to regular JS object
+			//escape bar text fields
+			barJS = self.escapeBarTextFields(barJS);
 			
 			self.syncingDataWithServer(true);
 
@@ -810,7 +858,7 @@ jQuery(document).ready(function($){
 					self.bars.removeAll();
 					
 					//add all bars from server
-					self.bars(bars);
+					self.bars(_.map(bars, self.mapBarToJS));
 					
 					self.syncingDataWithServer(false);
 				},

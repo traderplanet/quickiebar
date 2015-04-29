@@ -19,7 +19,7 @@
 			<div style="display:none;" class="qb-chart" data-bind="visible: !syncingDataWithServer() && bars().length > 0">
 				
 				<!--ko if: selectedBar-->
-				<select class="bar-selection" data-bind="options: bars(), optionsText: function(bar){ return bar.bar_text.substring(0,60); }, value: selectedBar">
+				<select class="bar-selection" data-bind="options: bars(), optionsText: function(bar){ return unescape(bar.bar_text).substring(0,60); }, value: selectedBar">
 				</select>
 				<!--/ko-->
 				
