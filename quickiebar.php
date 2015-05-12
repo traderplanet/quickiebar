@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.4.2
+Version: 1.5.0
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.4.2';
+$QB_VERSION = '1.5.0';
 
 class QuickieBar{
 
@@ -171,6 +171,14 @@ class QuickieBar{
 			update_option('qb_device_visibility', 'all');
 		}
 		
+		//New options with 1.5.0
+		if(!get_option('qb_category_visibility')){
+			update_option('qb_category_visibility', 'show');
+		}
+		if(!get_option('qb_category_exceptions')){
+			update_option('qb_category_exceptions', 'false');
+		}
+		
 	}
 	
 	static function initializeQBDB(){
@@ -239,6 +247,8 @@ class QuickieBar{
 		delete_option('qb_page_exceptions');
 		delete_option('qb_post_visibility');
 		delete_option('qb_post_exceptions');
+		delete_option('qb_category_visibility');
+		delete_option('qb_category_exceptions');
 		delete_option('qb_setup_complete');
 		delete_option('qb_email');
 		delete_option('qb_subscribed');
@@ -400,24 +410,66 @@ class QuickieBar{
 			else if(is_single()){
 				
 				$post_id = get_the_ID();
+				$post_categories = get_the_category($post_id);
 				$post_visibility = get_option('qb_post_visibility');
 				$post_exceptions = json_decode(get_option('qb_post_exceptions'));
+				$category_visibility = get_option('qb_category_visibility');
+				$category_exceptions = json_decode(get_option('qb_category_exceptions'));
 				
 				//if we decoded that there are no exceptions, convert this to an empty array so we can "search" it anyway below
 				if($post_exceptions == false){
 					$post_exceptions = array();
 				}
-				
-				//if page visibility is set to SHOW and page IS NOT on the exceptions list
-				if($post_visibility == 'show' && !in_array($post_id, $post_exceptions)){
-					return true;
+				if($category_exceptions == false){
+					$category_exceptions = array();
 				}
-				//if page visibility is set to HIDE and page IS on the exceptions list
-				else if($post_visibility == 'hide' && in_array($post_id, $post_exceptions)){
-					return true;
+				
+				$post_has_category_on_exception_list = false;
+				
+				if($post_categories && count($post_categories) > 0){
+					
+					//loop through all category exceptions, and for each exception look up in array of posts' categories
+					foreach($category_exceptions as $category_exception){
+						foreach($post_categories as $post_category){
+							if($category_exception == $post_category->cat_ID){
+								$post_has_category_on_exception_list = true;
+							}
+						}
+					}
+				}
+				
+				//determine visibility by post settings
+				if($post_visibility == 'hide' || count($post_exceptions) > 0){
+					
+					//if page visibility is set to SHOW and page IS NOT on the exceptions list
+					if($post_visibility == 'show' && !in_array($post_id, $post_exceptions)){
+						return true;
+					}
+					//if page visibility is set to HIDE and page IS on the exceptions list
+					else if($post_visibility == 'hide' && in_array($post_id, $post_exceptions)){
+						return true;
+					}
+					else{
+						return false;
+					}
+					
+				}
+				else if($category_visibility == 'hide' || count($category_exceptions) > 0){
+					//if page visibility is set to SHOW and page IS NOT on the exceptions list
+					if($category_visibility == 'show' && !$post_has_category_on_exception_list){
+						return true;
+					}
+					//if page visibility is set to HIDE and page IS on the exceptions list
+					else if($category_visibility == 'hide' && $post_has_category_on_exception_list){
+						return true;
+					}
+					else{
+						return false;
+					}
 				}
 				else{
-					return false;
+					//no post or category visibility settings set
+					return true;
 				}
 				
 			}
