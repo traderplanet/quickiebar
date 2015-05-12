@@ -42,8 +42,12 @@ class qb_settings{
 		if($settings['visibility'] == 'custom'){
 			update_option('qb_page_visibility', $settings['page_visibility']);
 			update_option('qb_page_exceptions', $settings['page_exceptions']);
+			
 			update_option('qb_post_visibility', $settings['post_visibility']);
 			update_option('qb_post_exceptions', $settings['post_exceptions']);
+			
+			update_option('qb_category_visibility', $settings['category_visibility']);
+			update_option('qb_category_exceptions', $settings['category_exceptions']);
 		}
 		
 		$result = true;
@@ -57,7 +61,7 @@ class qb_settings{
 		
 	}
 	
-	static function get_pages_and_posts($format = 'php'){
+	static function get_pages_and_posts_and_categories($format = 'php'){
 		
 		$pages = get_pages(array(
 			'post_type' => 'page',
@@ -67,16 +71,20 @@ class qb_settings{
 		$posts = get_posts(array(
 		));
 		
-		$pages_and_posts = array(
+		$categories = get_categories(array(
+		));
+		
+		$pages_and_posts_and_categories = array(
 			'pages' => $pages,
-			'posts' => $posts
+			'posts' => $posts,
+			'categories' => $categories
 		);
 		
 		if($format == 'json'){
-			return json_encode($pages_and_posts);
+			return json_encode($pages_and_posts_and_categories);
 		}
 		else{
-			return $pages_and_posts;
+			return $pages_and_posts_and_categories;
 		}
 		
 	}
@@ -108,6 +116,8 @@ class qb_settings{
 			'page_exceptions' => get_option('qb_page_exceptions'),
 			'post_visibility' => get_option('qb_post_visibility'),
 			'post_exceptions' => get_option('qb_post_exceptions'),
+			'category_visibility' => get_option('qb_category_visibility'),
+			'category_exceptions' => get_option('qb_category_exceptions'),
 			'email' => get_option('qb_email'),
 			'subscribed' => get_option('qb_subscribed'),
 			'fixed_compatibility' => get_option('qb_fixed_compatibility'),

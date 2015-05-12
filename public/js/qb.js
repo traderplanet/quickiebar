@@ -32,7 +32,7 @@ function QuickieBar() {
 		bar_text: 'Get the most powerful conversion dropdown for Wordpress {{arrow-right}}',
 		button_text: 'FREE DOWNLOAD {{download}}',
 		
-		destination: 'http://quickiebar.com',
+		destination: 'https://quickiebar.com',
 		
 		fixed_compatibility: 'off'
 	};
@@ -132,7 +132,7 @@ function QuickieBar() {
 
 			$qbHtml += '<div class="hover-background-overlay"></div>';
 
-			$qbHtml += '<a href="http://quickiebar.com/" target="_blank"><div class="qb-attribution ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-attribution-dark' : '') + '"></div></a>';
+			$qbHtml += '<a href="https://quickiebar.com/" target="_blank"><div class="qb-attribution ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-attribution-dark' : '') + '"></div></a>';
 
 			$qbHtml += '<div class="wrap">';
 				$qbHtml += '<div class="qb-wrap">';
@@ -589,7 +589,7 @@ jQuery(document).ready(function($){
 	
 	//if qbhide is toggled in URL, don't create & show the quickiebar
 	//this is used on quickiebar.com for previewing the bar on third-party sites
-	if(location.hash.indexOf('qbhide') > -1 || location.href.indexOf('wp-admin/admin.php') > -1){
+	if(location.hash.indexOf('qbhide') > -1 || location.href.indexOf('wp-admin/admin.php') > -1 || location.href.indexOf('wp-login.php') > -1){
 		return;
 	}
 	

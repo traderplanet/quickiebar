@@ -19,6 +19,16 @@ jQuery(document).ready(function($){
 			});
 		});
 		
+		self.upgradeModalIsVisible = ko.observable(false);
+		self.replacedBarText = ko.observable('');
+		self.currentlyRunningBar = ko.computed(function(){
+			var currentlyRunningBar = _.find(self.bars(), function(bar){
+				return bar.status == 'live';
+			});
+			
+			return currentlyRunningBar ? currentlyRunningBar : false;
+		});
+		
 		self.editingBar = ko.observable(false);
 		self.editingBarUuid = ko.observable(0);
 		self.currentlyEditingBarIsLive = function(){
@@ -683,8 +693,8 @@ jQuery(document).ready(function($){
 		
 		self.previewBarOptions = function(){
 			//for each option, add as url parameter
-			//$previewURL = 'http://quickiebar.com/preview/#qbhide&';
-			$previewURL = 'http://quickiebar.com/preview/#qbhide&';
+			//$previewURL = 'https://quickiebar.com/preview/#qbhide&';
+			$previewURL = 'https://quickiebar.com/preview/#qbhide&';
 			
 			//add url to populate users blog in preview (will show on homepage)
 			$previewURL += 'url=' + encodeURIComponent(document.location.origin + '#qbhide') + '&';
@@ -777,6 +787,13 @@ jQuery(document).ready(function($){
 					bar_uuid: bar.bar_uuid
 				},
 				success: function(response){
+					
+					//if we're replacing a currently running bar...
+					//and we're not editing a single bar - so we're doing this from the "all bars" view
+					if(!self.editingBar() && self.currentlyRunningBar()){
+						self.upgradeModalIsVisible(true);
+						self.replacedBarText(self.currentlyRunningBar().bar_text.substring(0, 30) + '...');
+					}
 					
 					//update statuses by resyncing all bar data
 					self.syncData();

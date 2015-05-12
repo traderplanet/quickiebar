@@ -468,6 +468,214 @@
 .quickiebar-page input[type="submit"].yellow:active {
   border: 3px solid #eed65f;
 }
+#qb-modal {
+  z-index: 1001;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans';
+  /*.qb-modal-overlay*/
+  /*.qb-modal-content*/
+  /*.qb-modal-title*/
+  /*.qb-modal-close*/
+  /*.qb-modal-body*/
+  /*.qb-modal-actions*/
+  /*/.qb-modal-icon-selector*/
+  /*.qb-modal-styles-selector-dropdown*/
+}
+#qb-modal div,
+#qb-modal p,
+#qb-modal input,
+#qb-modal ul.li {
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
+}
+#qb-modal .qb-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(125, 115, 110, 0.8);
+}
+#qb-modal .centeringWrap {
+  top: 25%;
+}
+#qb-modal .qb-modal-content {
+  min-width: 360px;
+  background: #FFF;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  -webkit-box-shadow: 5px 5px 25px 0px rgba(50, 4, 7, 0.25);
+  -moz-box-shadow: 5px 5px 25px 0px rgba(50, 4, 7, 0.25);
+  box-shadow: 5px 5px 25px 0px rgba(50, 4, 7, 0.25);
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='" rgba(50, 4, 7, 0.25) "')";
+}
+#qb-modal .qb-modal-title,
+#qb-modal .qb-modal-body,
+#qb-modal .qb-modal-actions {
+  position: relative;
+  float: left;
+  clear: both;
+  width: 100%;
+}
+#qb-modal .qb-modal-title {
+  height: 50px;
+  background: #F4F4F4;
+}
+#qb-modal .qb-modal-title .qb-icon {
+  background-image: url('../images/page-icon.png');
+  background-size: 100%;
+  opacity: .89;
+  height: 30px;
+  width: 30px;
+  margin: 10px;
+}
+#qb-modal .qb-modal-close {
+  cursor: pointer;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  right: 0;
+  top: 0;
+  background: rgba(239, 70, 81, 0.15);
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+#qb-modal .qb-modal-close:hover {
+  background: rgba(239, 70, 81, 0.5);
+}
+#qb-modal .qb-modal-close i {
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+  text-align: center;
+  font-size: 14px;
+  color: #FFF;
+}
+#qb-modal .qb-modal-body {
+  width: 360px;
+  padding: 15px;
+}
+#qb-modal .qb-modal-actions {
+  border-top: 1px solid #EEE;
+  background: #F4F4F4;
+  padding: 10px;
+}
+#qb-modal .qb-modal-actions button {
+  float: right;
+  margin-left: 15px;
+}
+#qb-modal .qb-modal-actions .cancel-action,
+#qb-modal .qb-modal-actions .info-text {
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  color: #062332;
+  opacity: .35;
+  margin-right: 15px;
+  cursor: pointer;
+}
+#qb-modal .qb-modal-actions .cancel-action:hover:not(.info-text),
+#qb-modal .qb-modal-actions .info-text:hover:not(.info-text) {
+  opacity: .75;
+}
+#qb-modal .qb-modal-actions .cancel-action.info-text,
+#qb-modal .qb-modal-actions .info-text.info-text {
+  margin-right: 0;
+  float: right;
+}
+#qb-modal .qb-modal-icon-selector {
+  width: 100%;
+  padding: 15px;
+  height: 240px;
+  overflow: auto;
+}
+#qb-modal .qb-modal-icon-selector ul li {
+  position: relative;
+  float: left;
+  clear: none;
+  font-size: 24px;
+  margin: 0 2px 5px 2px;
+  padding: 2px;
+  line-height: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+#qb-modal .qb-modal-icon-selector ul li:hover {
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+#qb-modal .qb-modal-styles-selector {
+  width: 100%;
+  padding: 15px;
+  height: 140px;
+  background: #FFF;
+  overflow: auto;
+}
+#qb-modal .qb-modal-styles-selector ul,
+#qb-modal .qb-modal-styles-selector li {
+  margin: 0;
+  position: relative;
+  float: left;
+  clear: none;
+  list-stle: none;
+}
+#qb-modal .qb-modal-styles-selector li {
+  width: 80px;
+  height: 32px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+#qb-modal .qb-modal-styles-selector li .qb-button {
+  pointer-events: none;
+  margin-left: 0px;
+  width: 80px;
+  padding: .75em 0;
+  margin-bottom: 0;
+  text-align: center;
+}
+#qb-modal .qb-modal-styles-selector li:hover {
+  background: rgba(6, 35, 50, 0.03);
+  border: 1px solid rgba(6, 35, 50, 0.06);
+}
+/*Tooltipster styles*/
+.tooltipster-mb {
+  border-radius: 3px;
+  border: 1px solid #062332;
+  background: #062332;
+  color: #FFF;
+}
+.tooltipster-mb .tooltipster-content {
+  font-family: 'Open Sans';
+  font-size: 12px;
+  line-height: 14px;
+  padding: 3px 5px;
+}
+/*Color Pickers styles*/
+.colpick {
+  z-index: 100102;
+  /*because .qb-modal is 100100*/
+}
 .qb-options-list {
   padding-top: 15px;
   cursor: default;
@@ -1725,7 +1933,7 @@
   padding-left: 25px;
   border-left: 1px solid #DDD;
   min-height: 80vh;
-  position: absolute;
+  position: fixed;
 }
 .quickiebar-page .qb-sidebar-content h5 {
   margin: 1rem 0;
@@ -1734,6 +1942,31 @@
 }
 .quickiebar-page .qb-sidebar-content button {
   margin: 10px 0 0 0;
+}
+.quickiebar-page .qb-sidebar-ad {
+  position: relative;
+  float: left;
+  clear: both;
+  margin-top: 100px;
+  width: 175px;
+  height: 225px;
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  transition: all linear 0.2s;
+}
+.quickiebar-page .qb-sidebar-ad:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 1px 3px 7px 3px rgba(6, 35, 50, 0.25);
+  -moz-box-shadow: 1px 3px 7px 3px rgba(6, 35, 50, 0.25);
+  box-shadow: 1px 3px 7px 3px rgba(6, 35, 50, 0.25);
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='" rgba(6, 35, 50, 0.25) "')";
+}
+.quickiebar-page .qb-sidebar-ad.ad1 {
+  background-image: url('../images/ads/sidebar-ad.png');
+}
+.quickiebar-page .qb-sidebar-ad.ad2 {
+  background-image: url('../images/ads/sidebar-ad-2.png');
 }
 /*Tooltipster styles*/
 .tooltipster-qb {
