@@ -130,7 +130,15 @@
 							</div>
 							
 							<!--<input class="embedded-option-input" type="textarea" disabled data-bind="value: $root.posts.selected().length > 0 ? $root.posts.selected() : 'No posts selected'" />-->
-						</div>
+						</div><!--/.embedded-option-->
+						
+						<div class="embedded-option">
+							<div class="embedded-option-label">Show Bar on Archive Pages?</div>
+							<div>
+								<div class="embedded-option-value" data-bind="click: function(){ archive_page_visibility('hide'); }, css: {selected: archive_page_visibility() == 'hide' }">HIDE</div>
+								<div class="embedded-option-value" data-bind="click: function(){ archive_page_visibility('show'); }, css: {selected: archive_page_visibility() == 'show' }">SHOW</div>
+							</div>
+						</div><!--/.embedded-option-->
 						
 					</div>
 					<div class="help-link"><i class="fa fa-question-circle"></i></div>
@@ -153,6 +161,19 @@
 					<ul>
 						<li data-bind="click: function(){ fixed_compatibility('off'); }, css: { selected: fixed_compatibility() == 'off' }">OFF</li>
 						<li data-bind="click: function(){ fixed_compatibility('on'); }, css: { selected: fixed_compatibility() == 'on' }">ON</li>
+					</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+				
+				<div class="option-element">
+					<h6>Bar Z-Index</h6>
+					<p>Increase this if your bars appear behind the content on your site. <small>TIP: Only increase this as high as necessary</small></p>
+					<ul>
+						<li data-bind="click: function(){ bar_zindex('100'); }, css: { selected: bar_zindex() == '100' }">100</li>
+						<li data-bind="click: function(){ bar_zindex('1000'); }, css: { selected: bar_zindex() == '1000' }">1000</li>
+						<li data-bind="click: function(){ bar_zindex('10000'); }, css: { selected: bar_zindex() == '10000' }">10000</li>
+						<li data-bind="click: function(){ bar_zindex('100000'); }, css: { selected: bar_zindex() == '100000' }">100000</li>
+						<li data-bind="click: function(){ bar_zindex('1000000'); }, css: { selected: bar_zindex() == '1000000' }">1000000</li>
 					</ul>
 					<div class="help-link"><i class="fa fa-question-circle"></i></div>
 				</div>

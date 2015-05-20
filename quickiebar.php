@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.5.0
+Version: 1.6.0
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.5.0';
+$QB_VERSION = '1.6.0';
 
 class QuickieBar{
 
@@ -108,6 +108,7 @@ class QuickieBar{
 				include_once( QB_PLUGIN_PATH . 'admin/controllers/bars.php');
 				include_once( QB_PLUGIN_PATH . 'admin/controllers/conversions.php');
 				include_once( QB_PLUGIN_PATH . 'admin/controllers/settings.php');
+				include_once( QB_PLUGIN_PATH . 'admin/controllers/help.php');
 			}
 		}
 		
@@ -177,6 +178,14 @@ class QuickieBar{
 		}
 		if(!get_option('qb_category_exceptions')){
 			update_option('qb_category_exceptions', 'false');
+		}
+		
+		//New options with 1.6.0
+		if(!get_option('qb_archive_page_visibility')){
+			update_option('qb_archive_page_visibility', 'hide');
+		}
+		if(!get_option('qb_bar_zindex')){
+			update_option('qb_bar_zindex', '100');
 		}
 		
 	}
@@ -255,6 +264,8 @@ class QuickieBar{
 		delete_option('qb_fixed_compatibility');
 		delete_option('qb_debug_mode');
 		delete_option('qb_device_visibility');
+		delete_option('qb_archive_page_visibility');
+		delete_option('qb_bar_zindex');
 	}
 	
 	static function destroyQBDB(){
@@ -472,6 +483,20 @@ class QuickieBar{
 					return true;
 				}
 				
+			}
+			else if(is_archive()){
+				$archive_page_visibility = get_option('qb_archive_page_visibility');
+				
+				if($archive_page_visibility == 'show'){
+					return true;
+				}
+				else{
+					return false;
+				}
+				
+			}
+			else{
+				//no idea what kind of page/post/archive/category this is...
 			}
 		}
 		

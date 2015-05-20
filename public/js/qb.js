@@ -34,7 +34,8 @@ function QuickieBar() {
 		
 		destination: 'https://quickiebar.com',
 		
-		fixed_compatibility: 'off'
+		fixed_compatibility: 'off',
+		bar_zindex: '100'
 	};
 
 	self.init = function(options){
@@ -126,9 +127,9 @@ function QuickieBar() {
 		
 		$qbHtml = '';
 		
-		$qbHtml = '<div id="quickiebar-show-button" class="show-button-sticky-' + (self.options.fixed_compatibility == 'on' ? 'enabled' : self.options.sticky) + ' show-button-placement-' + self.options.placement + '" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><div class="show-button" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></div></div>';
+		$qbHtml = '<div id="quickiebar-show-button" class="show-button-sticky-' + (self.options.fixed_compatibility == 'on' ? 'enabled' : self.options.sticky) + ' show-button-placement-' + self.options.placement + '" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';z-index:' + self.options.bar_zindex + ';"><div class="show-button" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></div></div>';
 
-		$qbHtml += '<div id="quickiebar" class="qb ' + self.getQuickieBarTopLevelClasses() + '" style="background:' + self.options.color_bar_background + ';">';		
+		$qbHtml += '<div id="quickiebar" class="qb ' + self.getQuickieBarTopLevelClasses() + '" style="background:' + self.options.color_bar_background + ';z-index:' + self.options.bar_zindex + ';">';		
 
 			$qbHtml += '<div class="hover-background-overlay"></div>';
 

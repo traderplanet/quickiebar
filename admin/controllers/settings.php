@@ -37,6 +37,7 @@ class qb_settings{
 		update_option('qb_fixed_compatibility', $settings['fixed_compatibility']);
 		update_option('qb_debug_mode', $settings['debug_mode']);
 		update_option('qb_device_visibility', $settings['device_visibility']);
+		update_option('qb_bar_zindex', $settings['bar_zindex']);
 		
 		//if visibiilty is custom, update custom visibility settings
 		if($settings['visibility'] == 'custom'){
@@ -48,6 +49,8 @@ class qb_settings{
 			
 			update_option('qb_category_visibility', $settings['category_visibility']);
 			update_option('qb_category_exceptions', $settings['category_exceptions']);
+			
+			update_option('qb_archive_page_visibility', $settings['archive_page_visibility']);
 		}
 		
 		$result = true;
@@ -124,7 +127,9 @@ class qb_settings{
 			'debug_mode' => get_option('qb_debug_mode'),
 			'fname' => wp_get_current_user()->user_firstname,
 			'website' => get_site_url(),
-			'device_visibility' => get_option('qb_device_visibility')
+			'device_visibility' => get_option('qb_device_visibility'),
+			'archive_page_visibility' => get_option('qb_archive_page_visibility'),
+			'bar_zindex' => get_option('qb_bar_zindex')
 		) );
 	}
 }
