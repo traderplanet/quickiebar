@@ -693,8 +693,7 @@ jQuery(document).ready(function($){
 		
 		self.previewBarOptions = function(){
 			//for each option, add as url parameter
-			//$previewURL = 'https://quickiebar.com/preview/#qbhide&';
-			$previewURL = 'https://quickiebar.com/preview/#qbhide&';
+			$previewURL = 'http://quickiebar.com/preview/#qbhide&';
 			
 			//add url to populate users blog in preview (will show on homepage)
 			$previewURL += 'url=' + encodeURIComponent(document.location.origin + '#qbhide') + '&';
