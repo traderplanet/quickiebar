@@ -3,6 +3,7 @@
 @import 'typography.less';
 
 @import 'components/buttons.less';
+@import 'components/qb-modal.less';
 @import 'components/qb-options-list.less';
 @import 'components/qb-bars-list.less';
 @import 'components/qb-chart.less';
@@ -13,6 +14,7 @@
 @import 'pages/bars.less';
 @import 'pages/settings.less';
 @import 'pages/setup.less';
+@import 'pages/help.less';
 
 .quickiebar-page{
 	
@@ -132,7 +134,7 @@
 
 		min-height:80vh;
 		
-		position:absolute;
+		position:fixed;
 
 		h5{
 			margin:1rem 0;
@@ -146,6 +148,28 @@
 			margin:10px 0 0 0;
 		}
 	}
+	
+	.qb-sidebar-ad{
+		position:relative;float:left;clear:both;margin-top:100px;
+		
+		width:175px;
+		height:225px;
+		
+		.transition();
+		
+		&:hover{
+			cursor:pointer;
+			.drop-shadow(1px, 3px, 7px, 3px, fade(@dark, 25%));
+		}
+		
+		&.ad1{
+			background-image:url('../images/ads/sidebar-ad.png');
+		}
+		&.ad2{
+			background-image:url('../images/ads/sidebar-ad-2.png');
+		}
+	}
+	
 }
 
 

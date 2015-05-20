@@ -3,8 +3,8 @@ Contributors: philbaylog
 Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notification bar, top bar, hello bar, header bar, conversion bar, drop down bar
 Requires at least: 3.8
 Donate Link: https://quickiebar.com/pricing
-Tested up to: 4.2.1
-Stable tag: 1.4.2
+Tested up to: 4.2.2
+Stable tag: 1.6.0
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -23,6 +23,7 @@ Advanced conversion reporting allows you to dive into metrics on your bars, and 
 
 Conversion bars like the ones you can make with QuickieBar are starting to appear all over the web to help site owners drive traffic to conversion pages. QuickieBar enables you to outfit your site with a similar (and in many cases, more sophisticated and attractive) bar in seconds.
 
+https://www.youtube.com/watch?v=lzIV6IYWaaQ
 
 = Full Feature List =
 
@@ -68,7 +69,7 @@ QuickieBar **should** display perfectly in the following browsers. Users viewing
 * Safari 3.1+
 * Internet Explorer 10+
 
-If you notice any inconsistencies in the way your bars display to visitors using these browsers, please let me know [here](http://quickiebar.com/support) and I will do what I can to fix the issue.
+If you notice any inconsistencies in the way your bars display to visitors using these browsers, please let me know [here](https://quickiebar.com/support) and I will do what I can to fix the issue.
 
 
 == Installation ==
@@ -94,12 +95,12 @@ The first thing you’ll want to try is enabling “Fixed Header Compatibility M
 
 You can try using the “Bottom” placement for your bar or disabling the “Sticky” option, as bars that are configured to stick to the top of the page are usually the ones causing the layout issues.
 
-If none of these options fix the layout problems, you should open a ticket [here](http://quickiebar.com/support) and make sure to describe the issue as well as include the name of the theme that your site uses.
+If none of these options fix the layout problems, you should open a ticket [here](https://quickiebar.com/support) and make sure to describe the issue as well as include the name of the theme that your site uses.
 
 
 ###X Feature is not working. What should I do?
 
-Open a ticket [here](http://quickiebar.com/support). Describe what isn’t working, what should be happening, and provide the name of the theme you are using.
+Open a ticket [here](https://quickiebar.com/support). Describe what isn’t working, what should be happening, and provide the name of the theme you are using.
 
 
 ###How do the cookies work behind the scenes?
@@ -131,6 +132,16 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.6.0 | May 19, 2015 =
+* Feature: Bars can now be toggled to show on archive pages using custom visibility settings
+* Feature: Getting Started Videos are now accessible from the plugin's new Help page
+* Feature: Z-Index can now be set from the settings page to improve theme compatibility
+
+= 1.5.0 | May 11, 2015 =
+* Feature: Added support for editing visibility by categories
+* Tweak: Added 10% OFF Discount for newsletter subscription
+* Tweak: Added "Upgrade to PRO" content to sidebar & when users try to publish two bars at once
 
 = 1.4.2 | Apr 29, 2015 =
 * Tweak: Bars can now be created without a link or button text, allowing for them to act as notification messages or CTAs w/o buttons
@@ -200,4 +211,4 @@ Please contact me if you wish to help with translation!
 
 == Feedback ==
 
-I always appreciate any feedback or ideas you might have for the plugin. Please open a ticket [here](http://quickiebar.com/support) and let me know what’s on your mind!
+I always appreciate any feedback or ideas you might have for the plugin. Please open a ticket [here](https://quickiebar.com/support) and let me know what’s on your mind!

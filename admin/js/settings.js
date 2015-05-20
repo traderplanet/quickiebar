@@ -10,9 +10,11 @@ jQuery(document).ready(function($){
 		
 		self.pages = ko.observable();
 		self.posts = ko.observable();
+		self.categories = ko.observable();
 		
 		self.managingPageExceptions = ko.observable(false);
 		self.managingPostExceptions = ko.observable(false);
+		self.managingCategoryExceptions = ko.observable(false);
 		
 		self.settings = {
 			attribution: ko.observable(),
@@ -21,11 +23,15 @@ jQuery(document).ready(function($){
 			page_exceptions: ko.observableArray(),
 			post_visibility: ko.observable(),
 			post_exceptions: ko.observableArray(),
+			category_visibility: ko.observable(),
+			category_exceptions: ko.observableArray(),
 			email: ko.observable(),
 			subscribed: ko.observable(),
 			fixed_compatibility: ko.observable(),
 			debug_mode: ko.observable(),
-			device_visibility: ko.observable()
+			device_visibility: ko.observable(),
+			archive_page_visibility: ko.observable(),
+			bar_zindex: ko.observable()
 		}
 		self.settings.cache = {
 			attribution: ko.observable(),
@@ -34,11 +40,15 @@ jQuery(document).ready(function($){
 			page_exceptions: ko.observableArray(),
 			post_visibility: ko.observable(),
 			post_exceptions: ko.observableArray(),
+			category_visibility: ko.observable(),
+			category_exceptions: ko.observableArray(),
 			custom_visibility: ko.observable(),
 			email: ko.observable(),
 			fixed_compatibility: ko.observable(),
 			debug_mode: ko.observable(),
-			device_visibility: ko.observable()
+			device_visibility: ko.observable(),
+			archive_page_visibility: ko.observable(),
+			bar_zindex: ko.observable()
 		}
 		
 		self.settings.page_visibility.subscribe(function(){
@@ -52,6 +62,12 @@ jQuery(document).ready(function($){
 			//self.posts.selected.removeAll();
 			self.settings.post_exceptions.removeAll();
 			self.managingPostExceptions(false);
+		});
+		self.settings.category_visibility.subscribe(function(){
+			//when value changes, remove exceptions list since user probably has no use for carrying over settings from "inclusions" to "exceptions"
+			//self.categories.selected.removeAll();
+			self.settings.category_exceptions.removeAll();
+			self.managingCategoryExceptions(false);
 		});
 		
 		self.pageIsExcepted = function(page){
@@ -68,6 +84,13 @@ jQuery(document).ready(function($){
 			
 			return self.settings.post_exceptions().indexOf(post.ID) > -1;
 		}
+		self.categoryIsExcepted = function(category){
+			if(!self.settings.category_exceptions() || self.settings.category_exceptions().length == 0){
+				return false;
+			}
+			
+			return self.settings.category_exceptions().indexOf(category.ID) > -1;
+		}
 		
 		self.togglePageException = function(page){
 			if(self.pageIsExcepted(page)){
@@ -83,6 +106,14 @@ jQuery(document).ready(function($){
 			}
 			else{
 				self.settings.post_exceptions.push(post.ID);
+			}
+		}
+		self.toggleCategoryException = function(category){
+			if(self.categoryIsExcepted(category)){
+				self.settings.category_exceptions.remove(category.ID);
+			}
+			else{
+				self.settings.category_exceptions.push(category.ID);
 			}
 		}
 		
@@ -112,6 +143,26 @@ jQuery(document).ready(function($){
 			}
 		});
 		
+		self.categories.selectedCount = ko.computed(function(){
+			if(!self.categories()){
+				return 0;
+			}
+			
+			if(self.settings.category_visibility() == 'show'){
+				return self.categories().length - self.settings.category_exceptions().length;
+			}
+			else{
+				return self.settings.category_exceptions().length;
+			}
+		});
+		
+		self.categoryFilteringEnabled = ko.computed(function(){
+			return self.settings.post_visibility() == 'show' && self.settings.post_exceptions().length == 0;
+		});
+		self.postsFilteringEnabled = ko.computed(function(){
+			return self.settings.category_visibility() == 'show' && self.settings.category_exceptions().length == 0;
+		});
+		
 		self.settings.cacheCurrentSettings = function(){
 			
 			self.settings.cache.attribution(self.settings.attribution());
@@ -120,10 +171,14 @@ jQuery(document).ready(function($){
 			self.settings.cache.page_exceptions(self.settings.page_exceptions().slice());//slice to create deep copy
 			self.settings.cache.post_visibility(self.settings.post_visibility());
 			self.settings.cache.post_exceptions(self.settings.post_exceptions().slice());//slice to create deep copy
+			self.settings.cache.category_visibility(self.settings.category_visibility() ? self.settings.category_visibility() : 'show');
+			self.settings.cache.category_exceptions(self.settings.category_exceptions().slice());//slice to create deep copy
 			self.settings.cache.email(self.settings.email());
 			self.settings.cache.fixed_compatibility(self.settings.fixed_compatibility());
 			self.settings.cache.debug_mode(self.settings.debug_mode());
 			self.settings.cache.device_visibility(self.settings.device_visibility());
+			self.settings.cache.archive_page_visibility(self.settings.archive_page_visibility());
+			self.settings.cache.bar_zindex(self.settings.bar_zindex());
 			
 		}
 		
@@ -135,10 +190,14 @@ jQuery(document).ready(function($){
 				JSON.stringify(self.settings.page_exceptions()) != JSON.stringify(self.settings.cache.page_exceptions()) ||
 				self.settings.post_visibility() != self.settings.cache.post_visibility() ||
 				JSON.stringify(self.settings.post_exceptions()) != JSON.stringify(self.settings.cache.post_exceptions()) ||
+				self.settings.category_visibility() != self.settings.cache.category_visibility() ||
+				JSON.stringify(self.settings.category_exceptions()) != JSON.stringify(self.settings.cache.category_exceptions()) ||
 				self.settings.email() != self.settings.cache.email() ||
 				self.settings.fixed_compatibility() != self.settings.cache.fixed_compatibility() ||
 				self.settings.debug_mode() != self.settings.cache.debug_mode() ||
-				self.settings.device_visibility() != self.settings.cache.device_visibility()
+				self.settings.device_visibility() != self.settings.cache.device_visibility() ||
+				self.settings.archive_page_visibility() != self.settings.cache.archive_page_visibility() ||
+				self.settings.bar_zindex() != self.settings.cache.bar_zindex()
 			){
 				return true;
 			}
@@ -208,11 +267,15 @@ jQuery(document).ready(function($){
 						page_exceptions: self.settings.page_exceptions().length > 0 ? JSON.stringify(self.settings.page_exceptions()) : false,
 						post_visibility: self.settings.post_visibility(),
 						post_exceptions: self.settings.post_exceptions().length > 0 ? JSON.stringify(self.settings.post_exceptions()) : false,
+						category_visibility: self.settings.category_visibility(),
+						category_exceptions: self.settings.category_exceptions().length > 0 ? JSON.stringify(self.settings.category_exceptions()) : false,
 						email: self.settings.email(),
 						subscribed: self.settings.subscribed(),
 						fixed_compatibility: self.settings.fixed_compatibility(),
 						debug_mode: self.settings.debug_mode(),
-						device_visibility: self.settings.device_visibility()
+						device_visibility: self.settings.device_visibility(),
+						archive_page_visibility: self.settings.archive_page_visibility(),
+						bar_zindex: self.settings.bar_zindex()
 					}
 				},
 				success: function(response){
@@ -281,11 +344,18 @@ jQuery(document).ready(function($){
 			self.settings.page_exceptions((qb_settings.page_exceptions && qb_settings.page_exceptions != 'false') ? JSON.parse(qb_settings.page_exceptions) : []);
 			self.settings.post_visibility(qb_settings.post_visibility ? qb_settings.post_visibility : 'show');
 			self.settings.post_exceptions((qb_settings.post_exceptions && qb_settings.post_exceptions != 'false') ? JSON.parse(qb_settings.post_exceptions) : []);
+			
+			self.settings.category_visibility(qb_settings.category_visibility ? qb_settings.category_visibility : 'show');
+			self.settings.category_exceptions((qb_settings.category_exceptions && qb_settings.category_exceptions != 'false') ? JSON.parse(qb_settings.category_exceptions) : []);
+			
 			self.settings.email(qb_settings.email);
 			self.settings.subscribed(qb_settings.subscribed);
 			self.settings.fixed_compatibility(qb_settings.fixed_compatibility);
 			self.settings.debug_mode(qb_settings.debug_mode);
 			self.settings.device_visibility(qb_settings.device_visibility);
+			
+			self.settings.archive_page_visibility(qb_settings.archive_page_visibility);
+			self.settings.bar_zindex(qb_settings.bar_zindex);
 			
 			//if page exceptions or post exceptions, toggle those menus visibility accordingly
 			if(self.settings.page_exceptions().length > 0){
@@ -294,6 +364,9 @@ jQuery(document).ready(function($){
 			if(self.settings.post_exceptions().length > 0){
 				self.managingPostExceptions(true);
 			}
+			if(self.settings.category_exceptions().length > 0){
+				self.managingCategoryExceptions(true);
+			}
 			
 			//fetch all pages & posts for custom visibility setting
 			$.ajax({
@@ -301,13 +374,19 @@ jQuery(document).ready(function($){
 				url: ajaxurl,
 				data: {
 					action: 'qb_admin_ajax',
-					endpoint: 'get_pages_and_posts',
+					endpoint: 'get_pages_and_posts_and_categories',
 					qb_admin_nonce: QB_GLOBALS.QB_ADMIN_NONCE
 				},
-				success: function(allPagesAndPosts){
+				success: function(allPagesAndPostsAndCategories){
 					
-					self.pages(allPagesAndPosts.pages);
-					self.posts(allPagesAndPosts.posts);
+					self.pages(allPagesAndPostsAndCategories.pages);
+					self.posts(allPagesAndPostsAndCategories.posts);
+					self.categories(_.map(allPagesAndPostsAndCategories.categories, function(category){
+						return {
+							ID: parseInt(category.cat_ID),
+							name: category.name
+						}
+					}));
 					
 					//if page or post exceptions contain post ids that have been deleted, remove these values
 					//don't worry about removing from server. this will update automatically the next time the user modifies the exceptions, and it's not doing any harm
@@ -327,6 +406,15 @@ jQuery(document).ready(function($){
 						
 						if(!matchedPost){
 							self.settings.post_exceptions.remove(postID);
+						}
+					});
+					$.each(self.settings.category_exceptions(), function(index, categoryID){
+						var matchedCategory = _.find(self.categories(), function(category){
+							return parseInt(category.ID) == categoryID;
+						});
+						
+						if(!matchedCategory){
+							self.settings.category_exceptions.remove(categoryID);
 						}
 					});
 					

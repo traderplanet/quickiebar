@@ -37,13 +37,20 @@ class qb_settings{
 		update_option('qb_fixed_compatibility', $settings['fixed_compatibility']);
 		update_option('qb_debug_mode', $settings['debug_mode']);
 		update_option('qb_device_visibility', $settings['device_visibility']);
+		update_option('qb_bar_zindex', $settings['bar_zindex']);
 		
 		//if visibiilty is custom, update custom visibility settings
 		if($settings['visibility'] == 'custom'){
 			update_option('qb_page_visibility', $settings['page_visibility']);
 			update_option('qb_page_exceptions', $settings['page_exceptions']);
+			
 			update_option('qb_post_visibility', $settings['post_visibility']);
 			update_option('qb_post_exceptions', $settings['post_exceptions']);
+			
+			update_option('qb_category_visibility', $settings['category_visibility']);
+			update_option('qb_category_exceptions', $settings['category_exceptions']);
+			
+			update_option('qb_archive_page_visibility', $settings['archive_page_visibility']);
 		}
 		
 		$result = true;
@@ -57,7 +64,7 @@ class qb_settings{
 		
 	}
 	
-	static function get_pages_and_posts($format = 'php'){
+	static function get_pages_and_posts_and_categories($format = 'php'){
 		
 		$pages = get_pages(array(
 			'post_type' => 'page',
@@ -67,16 +74,20 @@ class qb_settings{
 		$posts = get_posts(array(
 		));
 		
-		$pages_and_posts = array(
+		$categories = get_categories(array(
+		));
+		
+		$pages_and_posts_and_categories = array(
 			'pages' => $pages,
-			'posts' => $posts
+			'posts' => $posts,
+			'categories' => $categories
 		);
 		
 		if($format == 'json'){
-			return json_encode($pages_and_posts);
+			return json_encode($pages_and_posts_and_categories);
 		}
 		else{
-			return $pages_and_posts;
+			return $pages_and_posts_and_categories;
 		}
 		
 	}
@@ -108,13 +119,17 @@ class qb_settings{
 			'page_exceptions' => get_option('qb_page_exceptions'),
 			'post_visibility' => get_option('qb_post_visibility'),
 			'post_exceptions' => get_option('qb_post_exceptions'),
+			'category_visibility' => get_option('qb_category_visibility'),
+			'category_exceptions' => get_option('qb_category_exceptions'),
 			'email' => get_option('qb_email'),
 			'subscribed' => get_option('qb_subscribed'),
 			'fixed_compatibility' => get_option('qb_fixed_compatibility'),
 			'debug_mode' => get_option('qb_debug_mode'),
 			'fname' => wp_get_current_user()->user_firstname,
 			'website' => get_site_url(),
-			'device_visibility' => get_option('qb_device_visibility')
+			'device_visibility' => get_option('qb_device_visibility'),
+			'archive_page_visibility' => get_option('qb_archive_page_visibility'),
+			'bar_zindex' => get_option('qb_bar_zindex')
 		) );
 	}
 }

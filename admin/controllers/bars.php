@@ -82,11 +82,13 @@ class qb_bars{
 		$qb_fixed_compatibility = get_option('qb_fixed_compatibility');
 		$qb_debug_mode = get_option('qb_debug_mode');
 		$qb_device_visibility = get_option('qb_device_visibility');
+		$qb_bar_zindex = get_option('qb_bar_zindex');
 		
 		$the_bar->attribution = $qb_attribution;
 		$the_bar->fixed_compatibility = $qb_fixed_compatibility;
 		$the_bar->debug_mode = $qb_debug_mode;
 		$the_bar->device_visibility = $qb_device_visibility;
+		$the_bar->bar_zindex = $qb_bar_zindex;
 		
 		if($format == 'json'){
 			return json_encode($the_bar);
@@ -114,6 +116,7 @@ class qb_bars{
 		$bar->fixed_compatibility = get_option('qb_fixed_compatibility');
 		$bar->debug_mode = get_option('qb_debug_mode');
 		$bar->device_visibility = get_option('qb_device_visibility');
+		$bar->bar_zindex = get_option('qb_bar_zindex');
 		
 		//count views and save in "views" property
 		$query = "SELECT COUNT(*) FROM $wpdb->qb_views WHERE bar_uuid = %s";

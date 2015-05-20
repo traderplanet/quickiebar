@@ -313,13 +313,15 @@
 		
 		<div class="qb-sidebar-content">
 			<h5>Any Questions?</h5>
-			<p>Open a ticket on <a href="http://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
-			<a href="http://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
+			<p>Open a ticket on <a href="https://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
+			<a href="https://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
+			
+			<a href="https://quickiebar.com/pricing" target="_blank"><div class="qb-sidebar-ad ad2"></div></a>
 		</div><!--/.qb-sidebar-content-->
 		
 	</div>
 	
-	<div style="display:none;" id="qb-icon-picker" data-bind="visible: pickingIconForField">
+	<div id="qb-icon-picker" style="display:none;" data-bind="visible: pickingIconForField">
 		<div class="qb-icon-search">
 			<input type="text" placeholder="Search icons..." data-bind="value: faSearchText, valueUpdate: 'keyup'"/>
 			<i class="fa fa-times" data-bind="click: function(){ faSearchText(''); }"></i>
@@ -333,4 +335,34 @@
 		</div>
 		<button data-bind="click: function(){ pickingIconForField(false); }" class="outline jumbo extra-padding">CANCEL</button>
 	</div>
+	
+	
+	<div id="qb-modal" style="display:none;" data-bind="fadeVisible: upgradeModalIsVisible()">
+
+		<div class="qb-modal-overlay" data-bind="click: function(){ upgradeModalIsVisible(false); }"></div>
+
+		<div class="centeringWrap verticalCentering" data-bind="click: function(){ upgradeModalIsVisible(false); }">
+			<div class="qb-modal-content centeredWrap" data-bind="click: function(data, e){ e.stopImmediatePropagation(); }">
+
+				<div class="qb-modal-title">
+					<div class="qb-icon"></div>
+					<div class="qb-modal-close" data-bind="click: function(){ upgradeModalIsVisible(false); }"><i class="fa fa-times"></i></div>
+				</div><!--/.mb-modal-title-->
+				
+				<div class="qb-modal-body">
+					<p><span style="background:rgb(235,235,235);padding:2px 6px;border-radius:3px;" data-bind="text: replacedBarText"></span> has been paused to make room for the bar you just published.</p>
+					<p>You can upgrade to PRO to run multiple bars at once.</p>
+				</div>
+				
+				<div class="qb-modal-actions">
+					<button class="coral small" data-bind=" click: function(){ upgradeModalIsVisible(false); }">GOT IT</button>
+					<button class="outline small" data-bind="click: function(){ window.open('https://quickiebar.com/pricing', '_blank'); }"><i class="fa fa-bolt"></i> &nbsp;UPGRADE TO PRO</button>
+					<!--For free-->
+					<!--<div class="cancel-action" style="float:right;margin-right:0;font-size:13px;"><i class="fa fa-gift"></i> &nbsp;Upgrade to PRO</div>-->
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
 </div>

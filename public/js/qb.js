@@ -32,9 +32,10 @@ function QuickieBar() {
 		bar_text: 'Get the most powerful conversion dropdown for Wordpress {{arrow-right}}',
 		button_text: 'FREE DOWNLOAD {{download}}',
 		
-		destination: 'http://quickiebar.com',
+		destination: 'https://quickiebar.com',
 		
-		fixed_compatibility: 'off'
+		fixed_compatibility: 'off',
+		bar_zindex: '100'
 	};
 
 	self.init = function(options){
@@ -126,13 +127,13 @@ function QuickieBar() {
 		
 		$qbHtml = '';
 		
-		$qbHtml = '<div id="quickiebar-show-button" class="show-button-sticky-' + (self.options.fixed_compatibility == 'on' ? 'enabled' : self.options.sticky) + ' show-button-placement-' + self.options.placement + '" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><div class="show-button" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></div></div>';
+		$qbHtml = '<div id="quickiebar-show-button" class="show-button-sticky-' + (self.options.fixed_compatibility == 'on' ? 'enabled' : self.options.sticky) + ' show-button-placement-' + self.options.placement + '" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';z-index:' + self.options.bar_zindex + ';"><div class="show-button" style="color:' + self.options.color_bar_text + ';background:' + self.options.color_bar_background + ';"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></div></div>';
 
-		$qbHtml += '<div id="quickiebar" class="qb ' + self.getQuickieBarTopLevelClasses() + '" style="background:' + self.options.color_bar_background + ';">';		
+		$qbHtml += '<div id="quickiebar" class="qb ' + self.getQuickieBarTopLevelClasses() + '" style="background:' + self.options.color_bar_background + ';z-index:' + self.options.bar_zindex + ';">';		
 
 			$qbHtml += '<div class="hover-background-overlay"></div>';
 
-			$qbHtml += '<a href="http://quickiebar.com/" target="_blank"><div class="qb-attribution ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-attribution-dark' : '') + '"></div></a>';
+			$qbHtml += '<a href="https://quickiebar.com/" target="_blank"><div class="qb-attribution ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-attribution-dark' : '') + '"></div></a>';
 
 			$qbHtml += '<div class="wrap">';
 				$qbHtml += '<div class="qb-wrap">';
@@ -589,7 +590,7 @@ jQuery(document).ready(function($){
 	
 	//if qbhide is toggled in URL, don't create & show the quickiebar
 	//this is used on quickiebar.com for previewing the bar on third-party sites
-	if(location.hash.indexOf('qbhide') > -1 || location.href.indexOf('wp-admin/admin.php') > -1){
+	if(location.hash.indexOf('qbhide') > -1 || location.href.indexOf('wp-admin/admin.php') > -1 || location.href.indexOf('wp-login.php') > -1){
 		return;
 	}
 	
