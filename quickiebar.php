@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.6.1
+Version: 1.6.2
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.6.1';
+$QB_VERSION = '1.6.2';
 
 class QuickieBar{
 
@@ -50,7 +50,10 @@ class QuickieBar{
 	}
 	
 	function add_settings_link_to_plugins_page($links){
-		$settings_link = '<a href="admin.php?page=quickiebar-settings">Settings</a>';
+		
+		$settings_url = admin_url('admin.php?page=quickiebar-settings');
+		$settings_link = '<a href="' . $settings_url . '">Settings</a>';
+		
 	  array_unshift($links, $settings_link);
 	
 	  return $links;
@@ -72,10 +75,13 @@ class QuickieBar{
 		
 		//If user is activating the plugin for the first time
 		if(!get_option('QB_VERSION') && !quickiebar()->is_ajax_call()){
+			
+			$settings_url = admin_url('admin.php?page=quickiebar');
+			
 			$html = '';
 			
 			$html .= '<div class="updated" style="border-color:#EF4651;padding:5px;">';
-			 $html .= '<p style="margin-left:10px;">Thanks for installing QuickieBar! &nbsp;&nbsp;&nbsp;<a class="coral-bg" href="admin.php?page=quickiebar" style="position:relative;background:#EF4651;color:#FFF;padding:3px 6px;cursor:pointer;border-radius:3px;letter-spacing:.05em;font-size:12px;font-weight:bold;">GET STARTED WITH QUICKIEBAR &nbsp;<i class="fa fa-long-arrow-right"></i></a></p>';
+			 $html .= '<p style="margin-left:10px;">Thanks for installing QuickieBar! &nbsp;&nbsp;&nbsp;<a class="coral-bg" href="' . $settings_url . '" style="position:relative;background:#EF4651;color:#FFF;padding:3px 6px;cursor:pointer;border-radius:3px;letter-spacing:.05em;font-size:12px;font-weight:bold;">GET STARTED WITH QUICKIEBAR &nbsp;<i class="fa fa-long-arrow-right"></i></a></p>';
 			$html .= '</div><!--/.updated-->';
 			
 			echo $html;

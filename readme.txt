@@ -4,12 +4,14 @@ Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notifica
 Requires at least: 3.8
 Donate Link: https://quickiebar.com/pricing
 Tested up to: 4.2.2
-Stable tag: 1.6.1
+Stable tag: 1.6.2
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
 
 == Description ==
+
+https://www.youtube.com/watch?v=lzIV6IYWaaQ
 
 Quickly add a powerful drop down conversion bar to your site and start converting visitors. Grab your visitor’s attention with an attractive opt-in bar displayed either at the top or bottom of your site, and direct them to product page, signup page, or newsletter subscribe page.
 
@@ -22,8 +24,6 @@ Instant previewing of your bar while you create it means that you can see your c
 Advanced conversion reporting allows you to dive into metrics on your bars, and see how successful they are over time. Each bar you create is tracked separately, so you can test different messages and bar colors to optimize conversion.
 
 Conversion bars like the ones you can make with QuickieBar are starting to appear all over the web to help site owners drive traffic to conversion pages. QuickieBar enables you to outfit your site with a similar (and in many cases, more sophisticated and attractive) bar in seconds.
-
-https://www.youtube.com/watch?v=lzIV6IYWaaQ
 
 = Full Feature List =
 
@@ -132,6 +132,9 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.6.2 | May 29, 2015 =
+* Fix: Updated links for "Get Started With.." and "Settings" plugin links to detect location of settings page
 
 = 1.6.1 | May 20, 2015 =
 * Fix: Live Preview will now correctly preview bars
