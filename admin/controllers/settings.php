@@ -66,12 +66,14 @@ class qb_settings{
 	
 	static function get_pages_and_posts_and_categories($format = 'php'){
 		
-		$pages = get_pages(array(
+		$pages = get_posts(array(
 			'post_type' => 'page',
+			'posts_per_page' => -1,
 			'post_status' => 'publish,private,draft'
 		));
 		
 		$posts = get_posts(array(
+			'posts_per_page' => -1
 		));
 		
 		$categories = get_categories(array(
