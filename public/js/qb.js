@@ -132,8 +132,10 @@ function QuickieBar() {
 		$qbHtml += '<div id="quickiebar" class="qb ' + self.getQuickieBarTopLevelClasses() + '" style="background:' + self.options.color_bar_background + ';z-index:' + self.options.bar_zindex + ';">';		
 
 			$qbHtml += '<div class="hover-background-overlay"></div>';
-
-			$qbHtml += '<a href="https://quickiebar.com/" target="_blank"><div class="qb-attribution ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-attribution-dark' : '') + '"></div></a>';
+			
+			if(self.options.attribution == 'visible'){
+				$qbHtml += '<a href="https://quickiebar.com/" target="_blank"><div class="qb-attribution ' + (GetLuminance(self.options.color_bar_background) > 200 ? 'qb-attribution-dark' : '') + '"></div></a>';
+			}
 
 			$qbHtml += '<div class="wrap">';
 				$qbHtml += '<div class="qb-wrap">';
