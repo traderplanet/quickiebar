@@ -255,14 +255,24 @@ jQuery(document).ready(function($){
 				return '';
 			}
 			
-			if((textToReplace.indexOf('http://') > -1) || (textToReplace.indexOf('https://') > -1)){
-				return textToReplace;//already contains http or https prefix
-			}
-			else if(textToReplace.indexOf('#') == 0){
-				return textToReplace;//is a link to the existing page
+			if(	textToReplace.indexOf('mailto:') == 0 ||
+					textToReplace.indexOf('tel:')  == 0 ||
+					textToReplace.indexOf('#') == 0 ||
+					textToReplace.indexOf('//') == 0 ||
+					textToReplace.indexOf('/') == 0
+			){
+				//do nothing - leave the link the way the user created it
+				return textToReplace;
 			}
 			else{
-				return 'http://' + textToReplace;
+				//make sure the link is an absolute link...
+				//if the link is an absolute link, check for http:// or https:// - if we don't have either...add http:// at beginning of link
+				if((textToReplace.indexOf('http://') > -1 || textToReplace.indexOf('https://') > -1 )){
+					return textToReplace;
+				}
+				else{
+					return 'http://' + textToReplace;
+				}
 			}
 		});
 		
