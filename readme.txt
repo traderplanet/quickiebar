@@ -4,7 +4,7 @@ Tags: bar, conversion, drop-down, notification, opt-in bar, opt in bar, notifica
 Requires at least: 3.8
 Donate Link: https://quickiebar.com/pricing
 Tested up to: 4.2.2
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv2
 
 QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
@@ -132,6 +132,9 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 9. Custom icon chooser to select or search through 500+ icons (provided by FontAwesome)
 
 == Changelog ==
+
+= 1.6.6 | July 15, 2015 =
+* Tweak: Added support for a fixed header class (.qb-fixed-header) which allows users to specify which page element should be adjusted in fixed header compatibility mode
 
 = 1.6.5 | June 30, 2015 =
 * Tweak: Added support for mailto, tel, on page, and relative links for bar destination
