@@ -220,19 +220,27 @@ function QuickieBar() {
 	
 	self.getFixedHeader = function(){
 		
-		if($('header')){
+		if($('.qb-fixed-header') && $('.qb-fixed-header').length > 0){
+			return $('.qb-fixed-header');
+		}
+		
+		if($('.qbp-fixed-header') && $('.qbp-fixed-header').length > 0){
+			return $('.qbp-fixed-header');
+		}
+		
+		if($('header') && $('header').length > 0){
 			return $('header');
 		}
 		
-		if($('#header')){
+		if($('#header') && $('#header').length > 0){
 		  return $('#header');
 		}
 		
-		if($('#masthead')){
+		if($('#masthead') && $('#masthead').length > 0){
 			return $('#masthead');
 		}
 		
-		if($('.site-header')){
+		if($('.site-header') && $('.site-header').length > 0){
 			return $('.site-header').first();
 		}
 		
