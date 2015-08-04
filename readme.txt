@@ -133,6 +133,9 @@ By default, no information is sent to quickiebar.com. You can opt in to receive 
 
 == Changelog ==
 
+= 1.7.1 | Aug 3, 2015 =
+* Fix: Increased character limits of bar text, button text, and destination fields to improve support for html in bars and non-english characters
+
 = 1.7.0 | July 16, 2015 =
 * Feature: Bars can now be configured to open click actions in the current tab, in addition to the default action (opening in new tab)
 
