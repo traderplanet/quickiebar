@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.7.0
+Version: 1.7.1
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.7.0';
+$QB_VERSION = '1.7.1';
 
 class QuickieBar{
 
@@ -213,9 +213,9 @@ class QuickieBar{
 			color_bar_text char(7) DEFAULT '' NOT NULL,
 			color_button_text char(7) DEFAULT '' NOT NULL,
 			bar_height varchar(55) DEFAULT 'regular' NOT NULL,
-			bar_text varchar(255) DEFAULT '' NOT NULL,
-			button_text varchar(255) DEFAULT '' NOT NULL,
-			destination varchar(255) DEFAULT '' NOT NULL,
+			bar_text varchar(4095) DEFAULT '' NOT NULL,
+			button_text varchar(1019) DEFAULT '' NOT NULL,
+			destination varchar(1019) DEFAULT '' NOT NULL,
 			new_tab varchar(55) DEFAULT 'enabled' NOT NULL,
 			placement varchar(55) DEFAULT 'top' NOT NULL,
 			devices varchar(55) DEFAULT 'all' NOT NULL,
@@ -251,7 +251,10 @@ class QuickieBar{
 
 			dbDelta($sql);
 
-			add_option('qb_db_version', '1.0.0');
+			//1.0.0 initial version
+			//1.7.1 updated lengths of varchar column types for bar_text, button_text, and destination
+			//to increase support for html + foreign characters
+			add_option('qb_db_version', '1.7.1');
 	}
 
 	static function destroyQBOptions(){
