@@ -108,6 +108,11 @@
 	//default cursor style - if link, then link-overlay will show cursor as pointer when hovered
 	cursor:default;
 	
+	//Fix wrap having background color in some themes (specifically some Genesis built themes)
+	.wrap{
+		background: transparent;
+	}
+	
 	height:80px;
 	
 	//default to display:none; until we show it with javascript

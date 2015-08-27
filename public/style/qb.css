@@ -127,6 +127,9 @@
   /*Apply centered styling to tablet sized devices*/
   /*Styling specific for admin previewing*/
 }
+#quickiebar.qb .wrap {
+  background: transparent;
+}
 #quickiebar.qb .hover-background-overlay {
   position: absolute;
   left: 0;
