@@ -139,6 +139,14 @@
 								<div class="embedded-option-value" data-bind="click: function(){ archive_page_visibility('show'); }, css: {selected: archive_page_visibility() == 'show' }">SHOW</div>
 							</div>
 						</div><!--/.embedded-option-->
+						
+						<div class="embedded-option">
+							<div class="embedded-option-label">Show Bar on Custom Post Types?</div>
+							<div>
+								<div class="embedded-option-value" data-bind="click: function(){ custom_post_type_visibility('hide'); }, css: {selected: custom_post_type_visibility() == 'hide' }">HIDE</div>
+								<div class="embedded-option-value" data-bind="click: function(){ custom_post_type_visibility('show'); }, css: {selected: custom_post_type_visibility() == 'show' }">SHOW</div>
+							</div>
+						</div><!--/.embedded-option-->
 
 					</div>
 					<div class="help-link"><i class="fa fa-question-circle"></i></div>
