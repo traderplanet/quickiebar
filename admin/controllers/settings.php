@@ -51,6 +51,8 @@ class qb_settings{
 			update_option('qb_category_exceptions', $settings['category_exceptions']);
 			
 			update_option('qb_archive_page_visibility', $settings['archive_page_visibility']);
+			
+			update_option('qb_custom_post_type_visibility', $settings['custom_post_type_visibility']);
 		}
 		
 		$result = true;
@@ -131,7 +133,8 @@ class qb_settings{
 			'website' => get_site_url(),
 			'device_visibility' => get_option('qb_device_visibility'),
 			'archive_page_visibility' => get_option('qb_archive_page_visibility'),
-			'bar_zindex' => get_option('qb_bar_zindex')
+			'bar_zindex' => get_option('qb_bar_zindex'),
+			'custom_post_type_visibility' => get_option('qb_custom_post_type_visibility')
 		) );
 	}
 }

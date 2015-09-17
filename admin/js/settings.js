@@ -31,7 +31,8 @@ jQuery(document).ready(function($){
 			debug_mode: ko.observable(),
 			device_visibility: ko.observable(),
 			archive_page_visibility: ko.observable(),
-			bar_zindex: ko.observable()
+			bar_zindex: ko.observable(),
+			custom_post_type_visibility: ko.observable()
 		}
 		self.settings.cache = {
 			attribution: ko.observable(),
@@ -48,7 +49,8 @@ jQuery(document).ready(function($){
 			debug_mode: ko.observable(),
 			device_visibility: ko.observable(),
 			archive_page_visibility: ko.observable(),
-			bar_zindex: ko.observable()
+			bar_zindex: ko.observable(),
+			custom_post_type_visibility: ko.observable()
 		}
 		
 		self.settings.page_visibility.subscribe(function(){
@@ -179,6 +181,7 @@ jQuery(document).ready(function($){
 			self.settings.cache.device_visibility(self.settings.device_visibility());
 			self.settings.cache.archive_page_visibility(self.settings.archive_page_visibility());
 			self.settings.cache.bar_zindex(self.settings.bar_zindex());
+			self.settings.cache.custom_post_type_visibility(self.settings.custom_post_type_visibility());
 			
 		}
 		
@@ -197,7 +200,8 @@ jQuery(document).ready(function($){
 				self.settings.debug_mode() != self.settings.cache.debug_mode() ||
 				self.settings.device_visibility() != self.settings.cache.device_visibility() ||
 				self.settings.archive_page_visibility() != self.settings.cache.archive_page_visibility() ||
-				self.settings.bar_zindex() != self.settings.cache.bar_zindex()
+				self.settings.bar_zindex() != self.settings.cache.bar_zindex() ||
+				self.settings.custom_post_type_visibility() != self.settings.cache.custom_post_type_visibility()
 			){
 				return true;
 			}
@@ -275,7 +279,8 @@ jQuery(document).ready(function($){
 						debug_mode: self.settings.debug_mode(),
 						device_visibility: self.settings.device_visibility(),
 						archive_page_visibility: self.settings.archive_page_visibility(),
-						bar_zindex: self.settings.bar_zindex()
+						bar_zindex: self.settings.bar_zindex(),
+						custom_post_type_visibility: self.settings.custom_post_type_visibility()
 					}
 				},
 				success: function(response){
@@ -356,6 +361,8 @@ jQuery(document).ready(function($){
 			
 			self.settings.archive_page_visibility(qb_settings.archive_page_visibility);
 			self.settings.bar_zindex(qb_settings.bar_zindex);
+			
+			self.settings.custom_post_type_visibility(qb_settings.custom_post_type_visibility);
 			
 			//if page exceptions or post exceptions, toggle those menus visibility accordingly
 			if(self.settings.page_exceptions().length > 0){

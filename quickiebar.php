@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.7.2
+Version: 1.8.0
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.7.2';
+$QB_VERSION = '1.8.0';
 
 class QuickieBar{
 
@@ -74,7 +74,7 @@ class QuickieBar{
 		global $QB_VERSION;
 
 		//If user is activating the plugin for the first time
-		if(!get_option('QB_VERSION') && !quickiebar()->is_ajax_call()){
+		if(!get_option('QB_VERSION') && !quickiebar()->is_ajax_call() && is_admin()){
 
 			$settings_url = admin_url('admin.php?page=quickiebar');
 
@@ -192,6 +192,11 @@ class QuickieBar{
 		}
 		if(!get_option('qb_bar_zindex')){
 			update_option('qb_bar_zindex', '100');
+		}
+		
+		//New options with 1.8.0
+		if(!get_option('qb_custom_post_type_visibility')){
+			update_option('qb_custom_post_type_visibility', 'hide');
 		}
 
 	}
@@ -389,7 +394,7 @@ class QuickieBar{
 		else if($visibility == 'pagesonly' && (is_page() || is_home())){//note that is_home() is required because a static blog page won't return true for is_page, but it will for is_home
 			return true;
 		}
-		else if($visibility == 'postsonly' && is_single()){
+		else if($visibility == 'postsonly' && is_singular('post')){
 			return true;
 		}
 		else if($visibility == 'homepageonly' && is_front_page()){
@@ -427,7 +432,7 @@ class QuickieBar{
 				}
 
 			}
-			else if(is_single()){
+			else if(is_singular('post')){
 
 				$post_id = get_the_ID();
 				$post_categories = get_the_category($post_id);
@@ -503,6 +508,18 @@ class QuickieBar{
 					return false;
 				}
 
+			}
+			else if(is_singular() && !is_singular('post') && !is_page() && !is_attachment()){
+				//custom post type
+				
+				$custom_post_type_visibility = get_option('qb_custom_post_type_visibility');
+				
+				if($custom_post_type_visibility == 'show'){
+					return true;
+				}
+				else{
+					return false;
+				}
 			}
 			else{
 				//no idea what kind of page/post/archive/category this is...
