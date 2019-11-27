@@ -143,6 +143,9 @@ class QuickieBar{
 		if(!get_option('qb_visibility')){
 			update_option('qb_visibility', 'everywhere');
 		}
+		if(!get_option('qb_visibility_authenticated_only')){
+			update_option('qb_visibility_authenticated_only', false);
+		}
 		if(!get_option('qb_setup_complete')){
 			update_option('qb_setup_complete', false);
 		}
@@ -193,7 +196,7 @@ class QuickieBar{
 		if(!get_option('qb_bar_zindex')){
 			update_option('qb_bar_zindex', '100');
 		}
-		
+
 		//New options with 1.8.0
 		if(!get_option('qb_custom_post_type_visibility')){
 			update_option('qb_custom_post_type_visibility', 'hide');
@@ -226,6 +229,7 @@ class QuickieBar{
 			devices varchar(55) DEFAULT 'all' NOT NULL,
 			alignment varchar(55) DEFAULT 'leftright' NOT NULL,
 			sticky varchar(55) DEFAULT 'enabled' NOT NULL,
+			visibility_authenticated_only varchar(55) DEFAULT 'disabled' NOT NULL,
 			animation varchar(55) DEFAULT 'slidein' NOT NULL,
 			button_style varchar(55) DEFAULT 'rounded' NOT NULL,
 			close_button_visibility varchar(55) DEFAULT 'onhover' NOT NULL,
@@ -266,6 +270,7 @@ class QuickieBar{
 		delete_option('qb_version');
 		delete_option('qb_attribution');
 		delete_option('qb_visibility');
+		delete_option('qb_visibility_authenticated_only');
 		delete_option('qb_page_visibility');
 		delete_option('qb_page_exceptions');
 		delete_option('qb_post_visibility');
@@ -327,7 +332,7 @@ class QuickieBar{
 		wp_enqueue_script('quickiebar', QB_PLUGIN_URL . 'public/js/qb.js', array( 'jquery' ), $QB_VERSION, false);
 		wp_localize_script('quickiebar', 'ajaxurl', admin_url('admin-ajax.php') );
 
-		$qb_public_globals = array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce') );
+		$qb_public_globals = array( 'QB_PUBLIC_NONCE' => wp_create_nonce('qb_public_nonce'), 'user_logged_in' => (is_user_logged_in()?1:0));
 
 		//set global variable that tells QB to display even if hidden by admin
 		if(current_user_can('manage_options')){
@@ -511,9 +516,9 @@ class QuickieBar{
 			}
 			else if(is_singular() && !is_singular('post') && !is_page() && !is_attachment()){
 				//custom post type
-				
+
 				$custom_post_type_visibility = get_option('qb_custom_post_type_visibility');
-				
+
 				if($custom_post_type_visibility == 'show'){
 					return true;
 				}

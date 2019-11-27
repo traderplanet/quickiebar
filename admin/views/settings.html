@@ -17,17 +17,6 @@
 			<div style="display:none;" class="qb-options-list" data-bind="visible: !syncingDataWithServer(), with: settings">
 
 				<div class="option-element">
-					<h6>Email Address (Optional)</h6>
-					<p>Where should we send plugin updates & news?</p>
-					<input type="text" data-bind="valueUpdate: 'keyup', value: email" />
-
-					<button style="display:none;" data-bind="click: $root.subscribe, visible: !subscribed() && !$root.subscribing()" class="tiny barGreen">SUBSCRIBE & SAVE 10% ON PRO</button>
-
-					<span id="subscribe-success-text" style="display:none;font-size:14px;" class="barGreen-color">&nbsp;<i class="fa fa-check-circle-o"></i> &nbsp;You're in! Check your email to confirm.</span>
-					<span style="display:none;font-size:14px;" data-bind="visible: $root.subscribing()">&nbsp;<i class="fa fa-spin fa-spinner"></i> &nbsp;Subscribing...</span>
-				</div>
-
-				<div class="option-element">
 					<h6>Attribution</h6>
 					<p>Support the plugin by allowing us to display a small attribution icon in the bar.</p>
 					<ul>
@@ -139,7 +128,7 @@
 								<div class="embedded-option-value" data-bind="click: function(){ archive_page_visibility('show'); }, css: {selected: archive_page_visibility() == 'show' }">SHOW</div>
 							</div>
 						</div><!--/.embedded-option-->
-						
+
 						<div class="embedded-option">
 							<div class="embedded-option-label">Show Bar on Custom Post Types?</div>
 							<div>
@@ -217,11 +206,12 @@
 		</div><!--/.qb-main-content-->
 
 		<div class="qb-sidebar-content">
+			<!--
 			<h5>Any Questions?</h5>
 			<p>Open a ticket on <a href="https://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
 			<a href="https://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
-
 			<a href="https://quickiebar.com/pricing" target="_blank"><div class="qb-sidebar-ad ad1"></div></a>
+			-->
 		</div><!--/.qb-sidebar-content-->
 
 	</div>

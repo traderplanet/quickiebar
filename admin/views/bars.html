@@ -192,13 +192,23 @@
 								<li data-bind="click: function(){ new_tab('disabled'); }, css: { selected: new_tab() == 'disabled' }">CURRENT TAB</li></ul>
 							<div class="help-link"><i class="fa fa-question-circle"></i></div>
 						</div>
-						
+
 						<div class="option-element">
 							<h6>Placement</h6>
 							<p>Do you want your bar to show on the top or bottom of the page (only applies to desktop).</p>
 							<ul>
 								<li data-bind="click: function(){ placement('top'); }, css: { selected: placement() == 'top' }">TOP</li>
 								<li data-bind="click: function(){ placement('bottom'); }, css: { selected: placement() == 'bottom' }">BOTTOM</li>
+							</ul>
+							<div class="help-link"><i class="fa fa-question-circle"></i></div>
+						</div>
+
+						<div class="option-element">
+							<h6>Authenticated Users</h6>
+							<p>Do you want your bar to show for only users who are logged in.</p>
+							<ul>
+								<li data-bind="click: function(){ visibility_authenticated_only('enabled'); }, css: { selected: visibility_authenticated_only() == 'enabled' }">YES - Authenticated Only</li>
+								<li data-bind="click: function(){ visibility_authenticated_only('disabled'); }, css: { selected: visibility_authenticated_only() == 'disabled' }">NO - Everyone</li>
 							</ul>
 							<div class="help-link"><i class="fa fa-question-circle"></i></div>
 						</div>
@@ -312,13 +322,16 @@
 
 		</div><!--/.qb-main-content-->
 
+		<!--
 		<div class="qb-sidebar-content">
 			<h5>Any Questions?</h5>
 			<p>Open a ticket on <a href="https://quickiebar.com/support" target="_blank">quickiebar.com</a>. We’re always happy to help you get set up and answer any questions you might have.</p>
 			<a href="https://quickiebar.com/support" target="_blank"><button class="barTeal tiny extra-padding">Open a ticket</button></a>
 
 			<a href="https://quickiebar.com/pricing" target="_blank"><div class="qb-sidebar-ad ad2"></div></a>
-		</div><!--/.qb-sidebar-content-->
+		</div>
+		-->
+		<!--/.qb-sidebar-content-->
 
 	</div>
 

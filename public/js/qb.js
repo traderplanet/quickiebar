@@ -31,7 +31,6 @@ function QuickieBar() {
 
 		bar_text: 'Get the most powerful conversion dropdown for Wordpress {{arrow-right}}',
 		button_text: 'FREE DOWNLOAD {{download}}',
-
 		destination: 'https://quickiebar.com',
 
 		fixed_compatibility: 'off',
@@ -638,6 +637,15 @@ jQuery(document).ready(function($){
 					return;
 				}
 				else if(bar.device_visibility == 'mobileonly' && !isMobileDevice()){
+					return;
+				}
+			}
+
+			// is bar restricted to logged in users
+			if(bar.visibility_authenticated_only == 'enabled') {
+				// is a user logged in
+				if (QB_PUBLIC_GLOBALS.user_logged_in != 1) {
+					// no, dont show the bar
 					return;
 				}
 			}

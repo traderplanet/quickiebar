@@ -1,25 +1,26 @@
 jQuery(document).ready(function($){
-		
+
 	function ViewModel() {
 		var self = this;
-		
+
 		self.syncingDataWithServer = ko.observable(true);
 		self.savingSettings = ko.observable(false);
 		self.subscribing = ko.observable(false);
 		self.deletingPlugin = ko.observable(false);
-		
+
 		self.pages = ko.observable();
 		self.posts = ko.observable();
 		self.categories = ko.observable();
-		
+
 		self.managingPageExceptions = ko.observable(false);
 		self.managingPostExceptions = ko.observable(false);
 		self.managingCategoryExceptions = ko.observable(false);
-		
+
 		self.settings = {
 			attribution: ko.observable(),
 			visibility: ko.observable(),
 			page_visibility: ko.observable(),
+			visibility_authenticated_only: ko.observable(),
 			page_exceptions: ko.observableArray(),
 			post_visibility: ko.observable(),
 			post_exceptions: ko.observableArray(),
@@ -38,6 +39,7 @@ jQuery(document).ready(function($){
 			attribution: ko.observable(),
 			visibility: ko.observable(),
 			page_visibility: ko.observable(),
+			visibility_authenticated_only: ko.observable(),
 			page_exceptions: ko.observableArray(),
 			post_visibility: ko.observable(),
 			post_exceptions: ko.observableArray(),
@@ -52,7 +54,7 @@ jQuery(document).ready(function($){
 			bar_zindex: ko.observable(),
 			custom_post_type_visibility: ko.observable()
 		}
-		
+
 		self.settings.page_visibility.subscribe(function(){
 			//when value changes, remove exceptions list since user probably has no use for carrying over settings from "inclusions" to "exceptions"
 			//self.pages.selected.removeAll();
@@ -71,29 +73,29 @@ jQuery(document).ready(function($){
 			self.settings.category_exceptions.removeAll();
 			self.managingCategoryExceptions(false);
 		});
-		
+
 		self.pageIsExcepted = function(page){
 			if(!self.settings.page_exceptions() || self.settings.page_exceptions().length == 0){
 				return false;
 			}
-			
+
 			return self.settings.page_exceptions().indexOf(page.ID) > -1;
 		}
 		self.postIsExcepted = function(post){
 			if(!self.settings.post_exceptions() || self.settings.post_exceptions().length == 0){
 				return false;
 			}
-			
+
 			return self.settings.post_exceptions().indexOf(post.ID) > -1;
 		}
 		self.categoryIsExcepted = function(category){
 			if(!self.settings.category_exceptions() || self.settings.category_exceptions().length == 0){
 				return false;
 			}
-			
+
 			return self.settings.category_exceptions().indexOf(category.ID) > -1;
 		}
-		
+
 		self.togglePageException = function(page){
 			if(self.pageIsExcepted(page)){
 				self.settings.page_exceptions.remove(page.ID);
@@ -118,13 +120,13 @@ jQuery(document).ready(function($){
 				self.settings.category_exceptions.push(category.ID);
 			}
 		}
-		
+
 		//count funtions for page & post selections
 		self.pages.selectedCount = ko.computed(function(){
 			if(!self.pages()){
 				return 0;
 			}
-			
+
 			if(self.settings.page_visibility() == 'show'){
 				return self.pages().length - self.settings.page_exceptions().length;
 			}
@@ -136,7 +138,7 @@ jQuery(document).ready(function($){
 			if(!self.posts()){
 				return 0;
 			}
-			
+
 			if(self.settings.post_visibility() == 'show'){
 				return self.posts().length - self.settings.post_exceptions().length;
 			}
@@ -144,12 +146,12 @@ jQuery(document).ready(function($){
 				return self.settings.post_exceptions().length;
 			}
 		});
-		
+
 		self.categories.selectedCount = ko.computed(function(){
 			if(!self.categories()){
 				return 0;
 			}
-			
+
 			if(self.settings.category_visibility() == 'show'){
 				return self.categories().length - self.settings.category_exceptions().length;
 			}
@@ -157,18 +159,19 @@ jQuery(document).ready(function($){
 				return self.settings.category_exceptions().length;
 			}
 		});
-		
+
 		self.categoryFilteringEnabled = ko.computed(function(){
 			return self.settings.post_visibility() == 'show' && self.settings.post_exceptions().length == 0;
 		});
 		self.postsFilteringEnabled = ko.computed(function(){
 			return self.settings.category_visibility() == 'show' && self.settings.category_exceptions().length == 0;
 		});
-		
+
 		self.settings.cacheCurrentSettings = function(){
-			
+
 			self.settings.cache.attribution(self.settings.attribution());
 			self.settings.cache.visibility(self.settings.visibility());
+			self.settings.cache.visibility_authenticated_only(self.settings.visibility_authenticated_only());
 			self.settings.cache.page_visibility(self.settings.page_visibility());
 			self.settings.cache.page_exceptions(self.settings.page_exceptions().slice());//slice to create deep copy
 			self.settings.cache.post_visibility(self.settings.post_visibility());
@@ -182,13 +185,14 @@ jQuery(document).ready(function($){
 			self.settings.cache.archive_page_visibility(self.settings.archive_page_visibility());
 			self.settings.cache.bar_zindex(self.settings.bar_zindex());
 			self.settings.cache.custom_post_type_visibility(self.settings.custom_post_type_visibility());
-			
+
 		}
-		
+
 		self.settings.dirty = ko.computed(function(){
-			
+
 			if(self.settings.attribution() != self.settings.cache.attribution() ||
 				self.settings.visibility() != self.settings.cache.visibility() ||
+				self.settings.visibility_authenticated_only() != self.settings.cache.visibility_authenticated_only() ||
 				self.settings.page_visibility() != self.settings.cache.page_visibility() ||
 				JSON.stringify(self.settings.page_exceptions()) != JSON.stringify(self.settings.cache.page_exceptions()) ||
 				self.settings.post_visibility() != self.settings.cache.post_visibility() ||
@@ -208,16 +212,16 @@ jQuery(document).ready(function($){
 			else{
 				return false;
 			}
-			
+
 		});
-		
+
 		self.settings.dirty.subscribe(function(newValue){
 			if(newValue){
 				self.dismissNotification();
 			}
 		});
-		
-		
+
+
 		self.notification = ko.observable(false);
 		self.pushNotification = function(text, type){
 			self.notification({
@@ -228,9 +232,9 @@ jQuery(document).ready(function($){
 		self.dismissNotification = function(){
 			self.notification(false);
 		}
-		
+
 		self.destroyPluginData = function(){
-			
+
 			$.ajax({
 				type: "POST",
 				url: ajaxurl,
@@ -240,23 +244,23 @@ jQuery(document).ready(function($){
 					qb_admin_nonce: QB_GLOBALS.QB_ADMIN_NONCE
 				},
 				success: function(response){
-					
+
 					//navigate up a directory - not sure exactly how well this works but we have to do something...
 					document.location.href="../";
-					
+
 				},
 				dataType: 'json'
 			});
-			
+
 		}
-		
+
 		self.saveSettings = function(callback){
 			if(self.savingSettings()){
 				return;
 			}
-			
+
 			self.savingSettings(true);
-			
+
 			$.ajax({
 				type: "POST",
 				url: ajaxurl,
@@ -267,6 +271,7 @@ jQuery(document).ready(function($){
 					settings: {
 						attribution: self.settings.attribution(),
 						visibility: self.settings.visibility(),
+						visibility_authenticated_only: self.settings.visibility_authenticated_only(),
 						page_visibility: self.settings.page_visibility(),
 						page_exceptions: self.settings.page_exceptions().length > 0 ? JSON.stringify(self.settings.page_exceptions()) : false,
 						post_visibility: self.settings.post_visibility(),
@@ -284,12 +289,12 @@ jQuery(document).ready(function($){
 					}
 				},
 				success: function(response){
-					
+
 					self.pushNotification('Settings updated', 'success');
 					self.settings.cacheCurrentSettings();
-					
+
 					self.savingSettings(false);
-					
+
 					if(typeof callback == 'function'){
 						callback();
 					}
@@ -297,17 +302,20 @@ jQuery(document).ready(function($){
 				dataType: 'json'
 			});
 		}
-		
+
 		self.subscribe = function(){
 			//Get value current saved in email field
 			$email_address = self.settings.email();
-			
+
 			if(self.subscribing()){
 				return;
 			}
-			
+
 			self.subscribing(true);
-			
+
+			self.settings.subscribed(true);
+
+			/*
 			//POST subscirbe form to mailchimp servers and handle response by updating page
 			$.ajax({
 				type: "POST",
@@ -318,52 +326,54 @@ jQuery(document).ready(function($){
 					WEBSITE: qb_settings.website
 				},
 				success: function(response){
-					
+
 					if(response.result == 'success'){
-						
+
 						//save subscribed status & current email address (if changed) to quickiebar
 						self.settings.subscribed(true);
-						
+
 						self.saveSettings(function(){
 							$('#subscribe-success-text').show();
 							self.subscribing(false);
 						});
-						
+
 					}
 					else{
 						self.pushNotification('Couldn\'t subscribe at this time', 'failure');
 					}
-					
+
 				},
 				dataType: 'json'
 			});
+			*/
 		}
-		
+
 		self.syncData = function(){
 			self.syncingDataWithServer(true);
-			
+
 			//get settings straight from php localization
 			self.settings.attribution(qb_settings.attribution);
+			self.settings.visibility_authenticated_only(qb_settings.qb_visibility_authenticated_only);
 			self.settings.visibility(qb_settings.visibility);
 			self.settings.page_visibility(qb_settings.page_visibility ? qb_settings.page_visibility : 'show');
 			self.settings.page_exceptions((qb_settings.page_exceptions && qb_settings.page_exceptions != 'false') ? JSON.parse(qb_settings.page_exceptions) : []);
 			self.settings.post_visibility(qb_settings.post_visibility ? qb_settings.post_visibility : 'show');
 			self.settings.post_exceptions((qb_settings.post_exceptions && qb_settings.post_exceptions != 'false') ? JSON.parse(qb_settings.post_exceptions) : []);
-			
+
 			self.settings.category_visibility(qb_settings.category_visibility ? qb_settings.category_visibility : 'show');
 			self.settings.category_exceptions((qb_settings.category_exceptions && qb_settings.category_exceptions != 'false') ? JSON.parse(qb_settings.category_exceptions) : []);
-			
+
 			self.settings.email(qb_settings.email);
 			self.settings.subscribed(qb_settings.subscribed);
 			self.settings.fixed_compatibility(qb_settings.fixed_compatibility);
 			self.settings.debug_mode(qb_settings.debug_mode);
 			self.settings.device_visibility(qb_settings.device_visibility);
-			
+
 			self.settings.archive_page_visibility(qb_settings.archive_page_visibility);
 			self.settings.bar_zindex(qb_settings.bar_zindex);
-			
+
 			self.settings.custom_post_type_visibility(qb_settings.custom_post_type_visibility);
-			
+
 			//if page exceptions or post exceptions, toggle those menus visibility accordingly
 			if(self.settings.page_exceptions().length > 0){
 				self.managingPageExceptions(true);
@@ -374,7 +384,7 @@ jQuery(document).ready(function($){
 			if(self.settings.category_exceptions().length > 0){
 				self.managingCategoryExceptions(true);
 			}
-			
+
 			//fetch all pages & posts for custom visibility setting
 			$.ajax({
 				type: "POST",
@@ -385,7 +395,7 @@ jQuery(document).ready(function($){
 					qb_admin_nonce: QB_GLOBALS.QB_ADMIN_NONCE
 				},
 				success: function(allPagesAndPostsAndCategories){
-					
+
 					self.pages(allPagesAndPostsAndCategories.pages);
 					self.posts(allPagesAndPostsAndCategories.posts);
 					self.categories(_.map(allPagesAndPostsAndCategories.categories, function(category){
@@ -394,14 +404,14 @@ jQuery(document).ready(function($){
 							name: category.name
 						}
 					}));
-					
+
 					//if page or post exceptions contain post ids that have been deleted, remove these values
 					//don't worry about removing from server. this will update automatically the next time the user modifies the exceptions, and it's not doing any harm
 					$.each(self.settings.page_exceptions(), function(index, pageID){
 						var matchedPage = _.find(self.pages(), function(pages){
 							return pages.ID == pageID;
 						});
-						
+
 						if(!matchedPage){
 							self.settings.page_exceptions.remove(pageID);
 						}
@@ -410,7 +420,7 @@ jQuery(document).ready(function($){
 						var matchedPost = _.find(self.posts(), function(posts){
 							return posts.ID == postID;
 						});
-						
+
 						if(!matchedPost){
 							self.settings.post_exceptions.remove(postID);
 						}
@@ -419,33 +429,33 @@ jQuery(document).ready(function($){
 						var matchedCategory = _.find(self.categories(), function(category){
 							return parseInt(category.ID) == categoryID;
 						});
-						
+
 						if(!matchedCategory){
 							self.settings.category_exceptions.remove(categoryID);
 						}
 					});
-					
+
 					self.settings.cacheCurrentSettings();
-					
+
 					self.syncingDataWithServer(false);
 				},
 				dataType: 'json'
 			});
-			
+
 		}
-		
+
 		self.init = function(){
-			
+
 		}
-		
+
 	}
-	
+
 	//initialize the view model
 	viewModel = new ViewModel();
 	ko.applyBindings(viewModel, $('#quickiebar-settings')[0]);
-	
+
 	viewModel.init();
-	
+
 	viewModel.syncData();
-	
+
 });

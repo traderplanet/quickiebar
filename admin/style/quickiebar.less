@@ -17,13 +17,21 @@
 @import 'pages/help.less';
 
 .quickiebar-page{
-	
+
 	position:relative;float:left;
 	width:100%;
 
 	.qb-header{
 		position:relative;float:left;
 		padding-top:15px;
+
+		.updated {
+			clear: both;
+		}
+
+		h2 {
+			margin-bottom: 10px !important;
+		}
 
 		.qb-header-text,.qb-page-icon{
 			position:relative;
@@ -48,32 +56,32 @@
 
 			background-image:url("../images/page-icon.png");
 		}
-		
+
 		.qb-header-notification{
 			position:relative;
 			display:inline-block;
-			
+
 			padding:3px 30px 3px 10px;
-			
+
 			top:-5px;
-			
+
 			line-height:20px;
 			font-size:13px;
 			color:#FFF;
 			font-weight:bold;
-			
+
 			.rounded-corners(2px);
-			
+
 			&.qb-success{
 				background:#84C334;
 			}
 			&.qb-failure{
 				background:#CA4119;
 			}
-			
+
 			i{
 				color:#FFF;
-				
+
 				&.fa-times-circle{
 					position:absolute;
 					right:0;
@@ -82,9 +90,9 @@
 					line-height:22px;
 					width:22px;
 					text-align:center;
-					
+
 					opacity:.5;
-					
+
 					&:hover{
 						cursor:pointer;
 						opacity:1;
@@ -118,7 +126,7 @@
 		.paddingSubtractsFromWidth();
 
 		max-width:1280px;
-		
+
 		&.no-sidebar{
 			padding-right:0;
 		}
@@ -126,14 +134,14 @@
 	.qb-sidebar-content{
 		width:200px;
 		.paddingSubtractsFromWidth();
-		
+
 		top:100px;
 		right:30px;
 		padding-left:25px;
 		border-left:1px solid #DDD;
 
 		min-height:80vh;
-		
+
 		position:fixed;
 
 		h5{
@@ -148,20 +156,20 @@
 			margin:10px 0 0 0;
 		}
 	}
-	
+
 	.qb-sidebar-ad{
 		position:relative;float:left;clear:both;margin-top:100px;
-		
+
 		width:175px;
 		height:225px;
-		
+
 		.transition();
-		
+
 		&:hover{
 			cursor:pointer;
 			.drop-shadow(1px, 3px, 7px, 3px, fade(@dark, 25%));
 		}
-		
+
 		&.ad1{
 			background-image:url('../images/ads/sidebar-ad.png');
 		}
@@ -169,13 +177,13 @@
 			background-image:url('../images/ads/sidebar-ad-2.png');
 		}
 	}
-	
+
 }
 
 
 /*Tooltipster styles*/
 .tooltipster-qb {
-	border-radius: 3px; 
+	border-radius: 3px;
 	border: 1px solid @dark;
 	background: @dark;
 	color: #FFF;
