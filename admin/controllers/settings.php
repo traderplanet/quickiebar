@@ -104,7 +104,7 @@ class qb_settings{
 	
 	//echo out the settings view (html file) file when loading the bars admin page
 	function html(){
-		readfile(QB_PLUGIN_PATH . 'admin/views/settings.html');
+		echo file_get_contents(QB_PLUGIN_PATH . 'admin/views/settings.html');
 		
 		//enqueue scripts for this view
 		$this->enqueue_scripts_for_view();

@@ -257,6 +257,9 @@ jQuery(document).ready(function($){
 			
 			if(	textToReplace.indexOf('mailto:') == 0 ||
 					textToReplace.indexOf('tel:')  == 0 ||
+					textToReplace.indexOf('call:') == 0 ||
+					textToReplace.indexOf('skype:') == 0 ||
+					textToReplace.indexOf('sms:') == 0 ||
 					textToReplace.indexOf('#') == 0 ||
 					textToReplace.indexOf('//') == 0 ||
 					textToReplace.indexOf('/') == 0

@@ -3,7 +3,7 @@
 Plugin Name: QuickieBar
 Plugin URI: https://quickiebar.com
 Description: QuickieBar makes it easy for you to convert visitors by adding an attractive and easily customizable conversion bar to the top or bottom of your site.
-Version: 1.8.0
+Version: 1.8.4
 Author: Phil Baylog
 Author URI: https://quickiebar.com
 License: GPLv2
@@ -16,7 +16,7 @@ define( 'QB_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'QB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 global $QB_VERSION;
-$QB_VERSION = '1.8.0';
+$QB_VERSION = '1.8.4';
 
 class QuickieBar{
 
@@ -229,9 +229,9 @@ class QuickieBar{
 			animation varchar(55) DEFAULT 'slidein' NOT NULL,
 			button_style varchar(55) DEFAULT 'rounded' NOT NULL,
 			close_button_visibility varchar(55) DEFAULT 'onhover' NOT NULL,
-			bar_uuid varchar(13) NOT NULL UNIQUE,
+			bar_uuid varchar(13) NOT NULL,
 			PRIMARY KEY  (id),
-			UNIQUE KEY (bar_uuid)
+			UNIQUE KEY bar_uuid_index (bar_uuid)
 			) " . $charset_collate . " AUTO_INCREMENT=1;";
 
 		$sql .= " CREATE TABLE " . $wpdb->qb_views . " (
@@ -240,7 +240,8 @@ class QuickieBar{
 			user_uuid varchar(13) NOT NULL,
 			bar_uuid varchar(13) NOT NULL,
 			PRIMARY KEY  (id),
-			KEY (user_uuid, bar_uuid)
+			KEY user_uuid_index (user_uuid),
+			KEY bar_uuid_index (bar_uuid)
 			) " . $charset_collate . " AUTO_INCREMENT=1;";
 
 		$sql .= " CREATE TABLE " . $wpdb->qb_conversions . " (
@@ -249,7 +250,8 @@ class QuickieBar{
 			user_uuid varchar(13) NOT NULL,
 			bar_uuid varchar(13) NOT NULL,
 			PRIMARY KEY  (id),
-			KEY (user_uuid, bar_uuid)
+			KEY user_uuid_index (user_uuid),
+			KEY bar_uuid_index (bar_uuid)
 			) " . $charset_collate . " AUTO_INCREMENT=1;";
 
 			require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -259,7 +261,9 @@ class QuickieBar{
 			//1.0.0 initial version
 			//1.7.1 updated lengths of varchar column types for bar_text, button_text, and destination
 			//to increase support for html + foreign characters
-			add_option('qb_db_version', '1.7.1');
+			//1.8.2 added names for primary, unique, and key columns to fix bug w/ duplicated entries being created on dbDelta db updating
+			//1.8.3 fixed sql error w/ prior version
+			add_option('qb_db_version', '1.8.2');
 	}
 
 	static function destroyQBOptions(){
@@ -352,7 +356,7 @@ class QuickieBar{
 		}
 
 		//if we're loading an admin page, or options dictate that we should load quickiebar
-		if($this->should_load_quickiebar_script()){
+		if($this->should_load_quickiebar_script() && is_user_logged_in()){
 
 			//print quickiebar script whenever appropriate according to options
 			$this->load_quickiebar_script();

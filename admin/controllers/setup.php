@@ -38,7 +38,7 @@ class qb_setup{
 	
 	//echo out the settings view (html file) file when loading the bars admin page
 	function html(){
-		readfile(QB_PLUGIN_PATH . 'admin/views/setup.html');
+		echo file_get_contents(QB_PLUGIN_PATH . 'admin/views/setup.html');
 		
 		//enqueue scripts for this view
 		$this->enqueue_scripts_for_view();
@@ -47,8 +47,7 @@ class qb_setup{
 	function enqueue_scripts_for_view(){
 		
 		//get the current user's email address for populating the setup form
-		global $current_user;
-		get_currentuserinfo();
+		$current_user = wp_get_current_user();
 		$user_email = $current_user->user_email;
 		
 		wp_enqueue_script('qb-setup', QB_PLUGIN_URL . 'admin/js/setup.js', array('jquery', 'knockout', 'underscore'), microtime(), true);
