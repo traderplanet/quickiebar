@@ -139,7 +139,7 @@
 								<div class="embedded-option-value" data-bind="click: function(){ archive_page_visibility('show'); }, css: {selected: archive_page_visibility() == 'show' }">SHOW</div>
 							</div>
 						</div><!--/.embedded-option-->
-						
+
 						<div class="embedded-option">
 							<div class="embedded-option-label">Show Bar on Custom Post Types?</div>
 							<div>
@@ -192,6 +192,16 @@
 					<ul>
 						<li data-bind="click: function(){ debug_mode('off'); }, css: { selected: debug_mode() == 'off' }">OFF</li>
 						<li data-bind="click: function(){ debug_mode('on'); }, css: { selected: debug_mode() == 'on' }">ON</li>
+					</ul>
+					<div class="help-link"><i class="fa fa-question-circle"></i></div>
+				</div>
+
+				<div class="option-element">
+					<h6>Show only to logged on users</h6>
+					<p>Turn this on to hide bars on all pages to non-logged in users.</p>
+					<ul>
+						<li data-bind="click: function(){ showtologoned('off'); }, css: { selected: showtologoned() == 'off' }">OFF</li>
+						<li data-bind="click: function(){ showtologoned('on'); }, css: { selected: showtologoned() == 'on' }">ON</li>
 					</ul>
 					<div class="help-link"><i class="fa fa-question-circle"></i></div>
 				</div>

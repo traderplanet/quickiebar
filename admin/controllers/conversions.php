@@ -258,7 +258,7 @@ class qb_conversions{
 
 	//echo out the conversions view (html file) file when loading the bars admin page
 	function html(){
-		readfile(QB_PLUGIN_PATH . 'admin/views/conversions.html');
+		echo file_get_contents(QB_PLUGIN_PATH . 'admin/views/conversions.html');
 		
 		//enqueue scripts for this view
 		$this->enqueue_scripts_for_view();
